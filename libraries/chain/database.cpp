@@ -74,7 +74,7 @@ using boost::container::flat_set;
 struct reward_fund_context
 {
    uint128_t   recent_claims = 0;
-   asset       reward_balance = asset( 0, BMT_SYMBOL );
+   asset       reward_balance = asset( 0, BWC_SYMBOL );
    share_type  bmt_awarded = 0;
 };
 
@@ -1029,7 +1029,7 @@ asset create_vesting2( database& db, const account_object& to_account, asset liq
 //      }
 //#endif
 
-      FC_ASSERT( liquid.symbol == BMT_SYMBOL );
+      FC_ASSERT( liquid.symbol == BWC_SYMBOL );
       // ^ A novelty, needed but risky in case someone managed to slip SBD/TESTS here in blockchain history.
       // Get share price.
       const auto& cprops = db.get_dynamic_global_properties();
@@ -1267,7 +1267,7 @@ void database::clear_witness_votes( const account_object& a )
 void database::clear_null_account_balance()
 {
    const auto& null_account = get_account( BMCHAIN_NULL_ACCOUNT );
-   asset total_bmt( 0, BMT_SYMBOL );
+   asset total_bmt( 0, BWC_SYMBOL );
 
    if( null_account.balance.amount > 0 )
    {
@@ -1408,7 +1408,7 @@ share_type database::pay_curators( const comment_object& c, share_type& max_rewa
             {
                unclaimed_rewards -= claim;
                const auto& voter = get(itr->voter);
-               auto reward = create_vesting( voter, asset( claim, BMT_SYMBOL ), true );
+               auto reward = create_vesting( voter, asset( claim, BWC_SYMBOL ), true );
 
                push_virtual_operation( curation_reward_operation( voter.name, reward, c.author, to_string( c.permlink ) ) );
 
@@ -1471,17 +1471,17 @@ share_type database::cashout_comment_helper( util::comment_reward_context& ctx, 
             author_tokens -= total_beneficiary;
 
             auto _bmt = (author_tokens * comment.percent_bmt_dollars) / (2 * BMCHAIN_100_PERCENT);
-            auto bmt = asset( _bmt, BMT_SYMBOL);
+            auto bmt = asset( _bmt, BWC_SYMBOL);
             auto vesting_bmt = author_tokens - _bmt;
 
             const auto &author = get_account(comment.author);
             auto vest_created = create_vesting(author, vesting_bmt);
             adjust_balance( author, bmt );
 
-            adjust_total_payout( comment, bmt + asset( vesting_bmt, BMT_SYMBOL ), asset( curation_tokens, BMT_SYMBOL ), asset( total_beneficiary, BMT_SYMBOL ) );
+            adjust_total_payout( comment, bmt + asset( vesting_bmt, BWC_SYMBOL ), asset( curation_tokens, BWC_SYMBOL ), asset( total_beneficiary, BWC_SYMBOL ) );
 
-            push_virtual_operation( author_reward_operation( comment.author, to_string( comment.permlink ), asset( 0, BMT_SYMBOL ), bmt, vest_created ) );
-            push_virtual_operation( comment_reward_operation( comment.author, to_string( comment.permlink ), asset( claimed_reward, BMT_SYMBOL ) ) );
+            push_virtual_operation( author_reward_operation( comment.author, to_string( comment.permlink ), asset( 0, BWC_SYMBOL ), bmt, vest_created ) );
+            push_virtual_operation( comment_reward_operation( comment.author, to_string( comment.permlink ), asset( claimed_reward, BWC_SYMBOL ) ) );
 
 #ifndef IS_LOW_MEM
             modify( comment, [&]( comment_object& c )
@@ -1687,14 +1687,14 @@ void database::process_funds()
       new_steem = content_reward + vesting_reward + witness_reward;
 
       modify(props, [&](dynamic_global_property_object &p) {
-         p.total_vesting_fund_bmt += asset(vesting_reward, BMT_SYMBOL);
+         p.total_vesting_fund_bmt += asset(vesting_reward, BWC_SYMBOL);
          if ( false )
-            p.total_reward_fund_bmt += asset(content_reward, BMT_SYMBOL);
-         p.current_supply += asset(new_steem, BMT_SYMBOL);
-         p.virtual_supply += asset(new_steem, BMT_SYMBOL);
+            p.total_reward_fund_bmt += asset(content_reward, BWC_SYMBOL);
+         p.current_supply += asset(new_steem, BWC_SYMBOL);
+         p.virtual_supply += asset(new_steem, BWC_SYMBOL);
       });
 
-      const auto &producer_reward = create_vesting(get_account(cwit.owner), asset(witness_reward, BMT_SYMBOL));
+      const auto &producer_reward = create_vesting(get_account(cwit.owner), asset(witness_reward, BWC_SYMBOL));
       push_virtual_operation(producer_reward_operation(cwit.owner, producer_reward));
 
    } else {
@@ -1770,7 +1770,7 @@ asset database::get_liquidity_reward()const
    const auto &props = get_dynamic_global_properties();
    static_assert(BMCHAIN_LIQUIDITY_REWARD_PERIOD_SEC == 60 * 60, "this code assumes a 1 hour time interval");
    asset percent(protocol::calc_percent_reward_per_hour<BMCHAIN_LIQUIDITY_APR_PERCENT>(props.virtual_supply.amount),
-                 BMT_SYMBOL);
+                 BWC_SYMBOL);
    return std::max(percent, BMCHAIN_MIN_LIQUIDITY_REWARD );
 }
 
@@ -1778,7 +1778,7 @@ asset database::get_content_reward()const
 {
    const auto& props = get_dynamic_global_properties();
    static_assert( BMCHAIN_BLOCK_INTERVAL == 3, "this code assumes a 3-second time interval" );
-   asset percent( protocol::calc_percent_reward_per_block< BMCHAIN_CONTENT_APR_PERCENT >( props.virtual_supply.amount ), BMT_SYMBOL );
+   asset percent( protocol::calc_percent_reward_per_block< BMCHAIN_CONTENT_APR_PERCENT >( props.virtual_supply.amount ), BWC_SYMBOL );
    return std::max( percent, BMCHAIN_MIN_CONTENT_REWARD );
 }
 
@@ -1786,7 +1786,7 @@ asset database::get_curation_reward()const
 {
    const auto& props = get_dynamic_global_properties();
    static_assert( BMCHAIN_BLOCK_INTERVAL == 3, "this code assumes a 3-second time interval" );
-   asset percent( protocol::calc_percent_reward_per_block< BMCHAIN_CURATE_APR_PERCENT >( props.virtual_supply.amount ), BMT_SYMBOL);
+   asset percent( protocol::calc_percent_reward_per_block< BMCHAIN_CURATE_APR_PERCENT >( props.virtual_supply.amount ), BWC_SYMBOL);
    return std::max( percent, BMCHAIN_MIN_CURATE_REWARD );
 }
 
@@ -1794,7 +1794,7 @@ asset database::get_producer_reward()
 {
    const auto& props = get_dynamic_global_properties();
    static_assert( BMCHAIN_BLOCK_INTERVAL == 3, "this code assumes a 3-second time interval" );
-   asset percent( protocol::calc_percent_reward_per_block< BMCHAIN_PRODUCER_APR_PERCENT >( props.virtual_supply.amount ), BMT_SYMBOL);
+   asset percent( protocol::calc_percent_reward_per_block< BMCHAIN_PRODUCER_APR_PERCENT >( props.virtual_supply.amount ), BWC_SYMBOL);
    auto pay = std::max( percent, BMCHAIN_MIN_PRODUCER_REWARD );
    const auto& witness_account = get_account( props.current_witness );
 
@@ -1822,12 +1822,12 @@ asset database::get_pow_reward()const
 #ifndef IS_TEST_NET
    /// 0 block rewards until at least BMCHAIN_MAX_WITNESSES have produced a POW
    if( props.num_pow_witnesses < BMCHAIN_MAX_WITNESSES )
-      return asset( 0, BMT_SYMBOL );
+      return asset( 0, BWC_SYMBOL );
 #endif
 
    static_assert( BMCHAIN_BLOCK_INTERVAL == 3, "this code assumes a 3-second time interval" );
    static_assert( BMCHAIN_MAX_WITNESSES == 21, "this code assumes 21 per round" );
-   asset percent( calc_percent_reward_per_round< BMCHAIN_POW_APR_PERCENT >( props.virtual_supply.amount ), BMT_SYMBOL);
+   asset percent( calc_percent_reward_per_round< BMCHAIN_POW_APR_PERCENT >( props.virtual_supply.amount ), BWC_SYMBOL);
    return std::max( percent, BMCHAIN_MIN_POW_REWARD );
 }
 uint16_t database::get_curation_rewards_percent( const comment_object& c ) const
@@ -1847,7 +1847,7 @@ share_type database::pay_reward_funds( share_type reward )
 
       modify( *itr, [&]( reward_fund_object& rfo )
       {
-         rfo.reward_balance += asset( r, BMT_SYMBOL );
+         rfo.reward_balance += asset( r, BWC_SYMBOL );
       });
 
       used_rewards += r;
@@ -2202,7 +2202,7 @@ void database::init_genesis( uint64_t init_supply )
          {
             a.name = BMCHAIN_INIT_MINER_NAME + ( i ? fc::to_string( i ) : std::string() );
             a.memo_key = init_public_key;
-            a.balance  = asset( i ? 0 : init_supply * 0.9, BMT_SYMBOL );
+            a.balance  = asset( i ? 0 : init_supply * 0.9, BWC_SYMBOL );
             a.vesting_shares  = asset( i ? 0 : init_rep, VESTS_SYMBOL );
          } );
 
@@ -2229,7 +2229,7 @@ void database::init_genesis( uint64_t init_supply )
       {
           a.name = "devs";
           a.memo_key = public_key_type(dev_public_key);
-          a.balance = asset(init_supply * 0.1, BMT_SYMBOL);
+          a.balance = asset(init_supply * 0.1, BWC_SYMBOL);
           a.vesting_shares  = asset( 100000000, VESTS_SYMBOL );
       } );
 
@@ -2250,10 +2250,10 @@ void database::init_genesis( uint64_t init_supply )
          p.time = BMCHAIN_GENESIS_TIME;
          p.recent_slots_filled = fc::uint128::max_value();
          p.participation_count = 128;
-         p.current_supply = asset( init_supply + init_rep / 1000, BMT_SYMBOL );
+         p.current_supply = asset( init_supply + init_rep / 1000, BWC_SYMBOL );
          p.virtual_supply = p.current_supply;
          p.total_vesting_shares = asset( init_rep, VESTS_SYMBOL);
-         p.total_vesting_fund_bmt = asset( init_rep / 1000, BMT_SYMBOL);
+         p.total_vesting_fund_bmt = asset( init_rep / 1000, BWC_SYMBOL);
          p.maximum_block_size = BMCHAIN_MAX_BLOCK_SIZE;
       } );
 
@@ -3017,7 +3017,7 @@ void database::adjust_balance( const account_object& a, const asset& delta )
    {
       switch( delta.symbol )
       {
-         case BMT_SYMBOL:
+         case BWC_SYMBOL:
             acnt.balance += delta;
             break;
          default:
@@ -3033,7 +3033,7 @@ void database::adjust_savings_balance( const account_object& a, const asset& del
    {
       switch( delta.symbol )
       {
-         case BMT_SYMBOL:
+         case BWC_SYMBOL:
             acnt.savings_balance += delta;
             break;
          default:
@@ -3049,7 +3049,7 @@ void database::adjust_reward_balance( const account_object& a, const asset& delt
    {
       switch( delta.symbol )
       {
-         case BMT_SYMBOL:
+         case BWC_SYMBOL:
             acnt.reward_bmt_balance += delta;
             break;
          default:
@@ -3070,9 +3070,9 @@ void database::adjust_supply( const asset& delta, bool adjust_vesting )
    {
       switch( delta.symbol )
       {
-         case BMT_SYMBOL:
+         case BWC_SYMBOL:
          {
-            asset new_vesting( (adjust_vesting && delta.amount > 0) ? delta.amount * 9 : 0, BMT_SYMBOL );
+            asset new_vesting( (adjust_vesting && delta.amount > 0) ? delta.amount * 9 : 0, BWC_SYMBOL );
             props.current_supply += delta + new_vesting;
             props.virtual_supply += delta + new_vesting;
             props.total_vesting_fund_bmt += new_vesting;
@@ -3090,7 +3090,7 @@ asset database::get_balance( const account_object& a, asset_symbol_type symbol )
 {
    switch( symbol )
    {
-      case BMT_SYMBOL:
+      case BWC_SYMBOL:
          return a.balance;
       default:
          FC_ASSERT( false, "invalid symbol" );
@@ -3101,7 +3101,7 @@ asset database::get_savings_balance( const account_object& a, asset_symbol_type 
 {
    switch( symbol )
    {
-      case BMT_SYMBOL:
+      case BWC_SYMBOL:
          return a.savings_balance;
       default:
          FC_ASSERT( !"invalid symbol" );
@@ -3141,9 +3141,9 @@ void database::process_hardforks()
          });
 
          modify( gpo, [&]( dynamic_global_property_object& gpo ) {
-            gpo.current_supply -= asset(BMCHAIN_INIT_SUPPLY_REP / 1000, BMT_SYMBOL);
+            gpo.current_supply -= asset(BMCHAIN_INIT_SUPPLY_REP / 1000, BWC_SYMBOL);
             gpo.total_vesting_shares -= asset(BMCHAIN_INIT_SUPPLY_REP, VESTS_SYMBOL);
-            gpo.total_vesting_fund_bmt -= asset(BMCHAIN_INIT_SUPPLY_REP / 1000, BMT_SYMBOL);
+            gpo.total_vesting_fund_bmt -= asset(BMCHAIN_INIT_SUPPLY_REP / 1000, BWC_SYMBOL);
          });
       }
    }
@@ -3199,9 +3199,9 @@ void database::validate_invariants()const
    try
    {
       const auto& account_idx = get_index<account_index>().indices().get<by_name>();
-      asset total_supply = asset( 0, BMT_SYMBOL );
+      asset total_supply = asset( 0, BWC_SYMBOL );
       asset total_vesting = asset( 0, VESTS_SYMBOL );
-      asset pending_vesting_bmt = asset( 0, BMT_SYMBOL );
+      asset pending_vesting_bmt = asset( 0, BWC_SYMBOL );
       share_type total_vsf_votes = share_type( 0 );
 
       auto gpo = get_dynamic_global_properties();
@@ -3230,7 +3230,7 @@ void database::validate_invariants()const
 
       for( auto itr = convert_request_idx.begin(); itr != convert_request_idx.end(); ++itr )
       {
-         if( itr->amount.symbol == BMT_SYMBOL )
+         if( itr->amount.symbol == BWC_SYMBOL )
             total_supply += itr->amount;
          else
             FC_ASSERT( false, "Encountered illegal symbol in convert_request_object" );
@@ -3240,9 +3240,9 @@ void database::validate_invariants()const
 
       for( auto itr = limit_order_idx.begin(); itr != limit_order_idx.end(); ++itr )
       {
-         if( itr->sell_price.base.symbol == BMT_SYMBOL )
+         if( itr->sell_price.base.symbol == BWC_SYMBOL )
          {
-            total_supply += asset( itr->for_sale, BMT_SYMBOL );
+            total_supply += asset( itr->for_sale, BWC_SYMBOL );
          }
       }
 
@@ -3252,7 +3252,7 @@ void database::validate_invariants()const
       {
          total_supply += itr->bmt_balance;
 
-         if( itr->pending_fee.symbol == BMT_SYMBOL )
+         if( itr->pending_fee.symbol == BWC_SYMBOL )
             total_supply += itr->pending_fee;
          else
             FC_ASSERT( false, "found escrow pending fee that is not BMT" );
@@ -3262,7 +3262,7 @@ void database::validate_invariants()const
 
       for( auto itr = savings_withdraw_idx.begin(); itr != savings_withdraw_idx.end(); ++itr )
       {
-         if( itr->amount.symbol == BMT_SYMBOL )
+         if( itr->amount.symbol == BWC_SYMBOL )
             total_supply += itr->amount;
          else
             FC_ASSERT( false, "found savings withdraw that is not BMT" );
@@ -3288,7 +3288,7 @@ void database::validate_invariants()const
       }
 
       const auto& content_order_idx = get_index< content_order_index, by_id >();
-      asset order_supply = asset( 0, BMT_SYMBOL );
+      asset order_supply = asset( 0, BWC_SYMBOL );
 
       for( auto itr = content_order_idx.begin(); itr != content_order_idx.end(); ++itr )
       {
@@ -3485,21 +3485,21 @@ void database::process_funds_bmchain(int64_t new_bmt)
     
     const auto& cwit = get_witness( props.current_witness );
     modify( get_account( cwit.owner ), [&]( account_object& acnt ){
-        acnt.balance += asset( witness_reward, BMT_SYMBOL );
+        acnt.balance += asset( witness_reward, BWC_SYMBOL );
     });
-    push_virtual_operation( producer_reward_operation( cwit.owner, asset( witness_reward, BMT_SYMBOL ) ) );
+    push_virtual_operation( producer_reward_operation( cwit.owner, asset( witness_reward, BWC_SYMBOL ) ) );
 
     /// global properties
     modify( props, [&]( dynamic_global_property_object& p )
     {
         if ( p.head_block_number % (20 * 60 * 24) == 0 ) {
-            p.daily_emission = asset( 0, BMT_SYMBOL );
+            p.daily_emission = asset( 0, BWC_SYMBOL );
         }
 
-        p.total_vesting_fund_bmt += asset(vesting_reward, BMT_SYMBOL);
-        p.current_supply += asset(content_reward + witness_reward + vesting_reward, BMT_SYMBOL);
-        p.virtual_supply += asset(content_reward + witness_reward + vesting_reward, BMT_SYMBOL);
-        p.daily_emission += asset(content_reward + witness_reward + vesting_reward, BMT_SYMBOL);
+        p.total_vesting_fund_bmt += asset(vesting_reward, BWC_SYMBOL);
+        p.current_supply += asset(content_reward + witness_reward + vesting_reward, BWC_SYMBOL);
+        p.virtual_supply += asset(content_reward + witness_reward + vesting_reward, BWC_SYMBOL);
+        p.daily_emission += asset(content_reward + witness_reward + vesting_reward, BWC_SYMBOL);
     });
 }
 

@@ -77,7 +77,7 @@ void witness_update_evaluator::do_apply( const witness_update_operation& o )
    _db.get_account( o.owner ); // verify owner exists
 
    FC_ASSERT( o.url.size() <= BMCHAIN_MAX_WITNESS_URL_LENGTH, "URL is too long" );
-   FC_ASSERT( o.props.account_creation_fee.symbol == BMT_SYMBOL );
+   FC_ASSERT( o.props.account_creation_fee.symbol == BWC_SYMBOL );
 
    const auto& by_witness_name_idx = _db.get_index< witness_index >().indices().get< by_name >();
    auto wit_itr = by_witness_name_idx.find( o.owner );
@@ -110,8 +110,8 @@ void account_create_evaluator::do_apply( const account_create_operation& o )
    FC_ASSERT( creator.balance >= o.fee, "Insufficient balance to create account.", ( "creator.balance", creator.balance )( "required", o.fee ) );
 
    const witness_schedule_object& wso = _db.get_witness_schedule_object();
-   FC_ASSERT( o.fee >= asset( wso.median_props.account_creation_fee.amount * BMCHAIN_CREATE_ACCOUNT_WITH_BMT_MODIFIER, BMT_SYMBOL ), "Insufficient Fee: ${f} required, ${p} provided.",
-              ("f", wso.median_props.account_creation_fee * asset( BMCHAIN_CREATE_ACCOUNT_WITH_BMT_MODIFIER, BMT_SYMBOL ) )
+   FC_ASSERT( o.fee >= asset( wso.median_props.account_creation_fee.amount * BMCHAIN_CREATE_ACCOUNT_WITH_BMT_MODIFIER, BWC_SYMBOL ), "Insufficient Fee: ${f} required, ${p} provided.",
+              ("f", wso.median_props.account_creation_fee * asset( BMCHAIN_CREATE_ACCOUNT_WITH_BMT_MODIFIER, BWC_SYMBOL ) )
               ("p", o.fee) );
 
    for (auto &a : o.owner.account_auths) {
@@ -192,9 +192,9 @@ void account_create_with_delegation_evaluator::do_apply( const account_create_wi
                ( "creator.vesting_shares", creator.vesting_shares )
                ( "creator.delegated_vesting_shares", creator.delegated_vesting_shares )( "required", o.delegation ) );
 
-   auto target_delegation = asset( wso.median_props.account_creation_fee.amount * BMCHAIN_CREATE_ACCOUNT_WITH_BMT_MODIFIER * BMCHAIN_CREATE_ACCOUNT_DELEGATION_RATIO, BMT_SYMBOL ) * props.get_vesting_share_price();
+   auto target_delegation = asset( wso.median_props.account_creation_fee.amount * BMCHAIN_CREATE_ACCOUNT_WITH_BMT_MODIFIER * BMCHAIN_CREATE_ACCOUNT_DELEGATION_RATIO, BWC_SYMBOL ) * props.get_vesting_share_price();
 
-   auto current_delegation = asset( o.fee.amount * BMCHAIN_CREATE_ACCOUNT_DELEGATION_RATIO, BMT_SYMBOL ) * props.get_vesting_share_price() + o.delegation;
+   auto current_delegation = asset( o.fee.amount * BMCHAIN_CREATE_ACCOUNT_DELEGATION_RATIO, BWC_SYMBOL ) * props.get_vesting_share_price() + o.delegation;
 
    FC_ASSERT( current_delegation >= target_delegation, "Inssufficient Delegation ${f} required, ${p} provided.",
                ("f", target_delegation )
@@ -839,7 +839,7 @@ void escrow_transfer_evaluator::do_apply( const escrow_transfer_operation& o )
       FC_ASSERT( o.escrow_expiration > _db.head_block_time(), "The escrow expiration must be after head block time." );
 
       asset bmt_spent = o.bmt_amount;
-      if( o.fee.symbol == BMT_SYMBOL )
+      if( o.fee.symbol == BWC_SYMBOL )
          bmt_spent += o.fee;
 
       FC_ASSERT( from_account.balance >= bmt_spent, "Account cannot cover BMT costs of escrow. Required: ${r} Available: ${a}", ("r",bmt_spent)("a",from_account.balance) );
@@ -1019,7 +1019,7 @@ void transfer_to_vesting_evaluator::do_apply( const transfer_to_vesting_operatio
 //   const auto& from_account = _db.get_account(o.from);
 //   const auto& to_account = o.to.size() ? _db.get_account(o.to) : from_account;
 //
-//   FC_ASSERT( _db.get_balance( from_account, BMT_SYMBOL) >= o.amount, "Account does not have sufficient BMT for transfer." );
+//   FC_ASSERT( _db.get_balance( from_account, BWC_SYMBOL) >= o.amount, "Account does not have sufficient BMT for transfer." );
 //   _db.adjust_balance( from_account, -o.amount );
 //   _db.create_vesting( to_account, o.amount );
 }
@@ -2058,12 +2058,12 @@ void claim_reward_balance_evaluator::do_apply( const claim_reward_balance_operat
    FC_ASSERT( op.reward_vests <= acnt.reward_vesting_balance, "Cannot claim that much VESTS. Claim: ${c} Actual: ${a}",
       ("c", op.reward_vests)("a", acnt.reward_vesting_balance) );
 
-   asset reward_vesting_bmt_to_move = asset( 0, BMT_SYMBOL );
+   asset reward_vesting_bmt_to_move = asset( 0, BWC_SYMBOL );
    if( op.reward_vests == acnt.reward_vesting_balance )
       reward_vesting_bmt_to_move = acnt.reward_vesting_bmt;
    else
       reward_vesting_bmt_to_move = asset( ( ( uint128_t( op.reward_vests.amount.value ) * uint128_t( acnt.reward_vesting_bmt.amount.value ) )
-         / uint128_t( acnt.reward_vesting_balance.amount.value ) ).to_uint64(), BMT_SYMBOL );
+         / uint128_t( acnt.reward_vesting_balance.amount.value ) ).to_uint64(), BWC_SYMBOL );
 
    _db.adjust_reward_balance( acnt, -op.reward_bmt );
    _db.adjust_balance( acnt, op.reward_bmt );
@@ -2097,7 +2097,7 @@ void delegate_vesting_shares_evaluator::do_apply( const delegate_vesting_shares_
 
    const auto& wso = _db.get_witness_schedule_object();
    const auto& gpo = _db.get_dynamic_global_properties();
-   auto min_delegation = asset( wso.median_props.account_creation_fee.amount * 10, BMT_SYMBOL ) * gpo.get_vesting_share_price();
+   auto min_delegation = asset( wso.median_props.account_creation_fee.amount * 10, BWC_SYMBOL ) * gpo.get_vesting_share_price();
    auto min_update = wso.median_props.account_creation_fee * gpo.get_vesting_share_price();
 
    // If delegation doesn't exist, create it

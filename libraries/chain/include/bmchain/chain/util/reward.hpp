@@ -41,7 +41,7 @@ uint128_t evaluate_reward_curve( const uint128_t& rshares, const curve_id& curve
 
 inline bool is_comment_payout_dust( const price& p, uint64_t bmt_payout )
 {
-   return asset( bmt_payout, BMT_SYMBOL ) < BMCHAIN_MIN_PAYOUT;
+   return asset( bmt_payout, BWC_SYMBOL ) < BMCHAIN_MIN_PAYOUT;
 }
 
 } } } // bmchain::chain::util

@@ -226,7 +226,7 @@ const account_object& database_fixture::account_create(
       account_create_with_delegation_operation op;
       op.new_account_name = name;
       op.creator = creator;
-      op.fee = asset( fee, BMT_SYMBOL );
+      op.fee = asset( fee, BWC_SYMBOL );
       op.delegation = asset( 0, VESTS_SYMBOL );
       op.owner = authority( 1, key, 1 );
       op.active = authority( 1, key, 1 );
@@ -291,7 +291,7 @@ const witness_object& database_fixture::witness_create(
       op.owner = owner;
       op.url = url;
       op.block_signing_key = signing_key;
-      op.fee = asset( fee, BMT_SYMBOL );
+      op.fee = asset( fee, BWC_SYMBOL );
 
       trx.operations.push_back( op );
       trx.set_expiration( db.head_block_time() + BMCHAIN_MAX_TIME_UNTIL_EXPIRATION );
@@ -313,7 +313,7 @@ void database_fixture::fund(
 {
    try
    {
-      transfer( BMCHAIN_INIT_MINER_NAME, account_name, asset( amount, BMT_SYMBOL ) );
+      transfer( BMCHAIN_INIT_MINER_NAME, account_name, asset( amount, BWC_SYMBOL ) );
 
    } FC_CAPTURE_AND_RETHROW( (account_name)(amount) )
 }
@@ -329,13 +329,13 @@ void database_fixture::fund(
       {
          db.modify( db.get_account( account_name ), [&]( account_object& a )
          {
-            if( amount.symbol == BMT_SYMBOL )
+            if( amount.symbol == BWC_SYMBOL )
                a.balance += amount;
          });
 
          db.modify( db.get_dynamic_global_properties(), [&]( dynamic_global_property_object& gpo )
          {
-            if( amount.symbol == BMT_SYMBOL )
+            if( amount.symbol == BWC_SYMBOL )
                gpo.current_supply += amount;
          });
 
@@ -379,7 +379,7 @@ void database_fixture::vest( const string& from, const share_type& amount )
       transfer_to_vesting_operation op;
       op.from = from;
       op.to = "";
-      op.amount = asset( amount, BMT_SYMBOL );
+      op.amount = asset( amount, BWC_SYMBOL );
 
       trx.operations.push_back( op );
       trx.set_expiration( db.head_block_time() + BMCHAIN_MAX_TIME_UNTIL_EXPIRATION );
@@ -391,7 +391,7 @@ void database_fixture::vest( const string& from, const share_type& amount )
 
 void database_fixture::vest( const string& account, const asset& amount )
 {
-   if( amount.symbol != BMT_SYMBOL )
+   if( amount.symbol != BWC_SYMBOL )
       return;
 
    db_plugin->debug_update( [=]( database& db )

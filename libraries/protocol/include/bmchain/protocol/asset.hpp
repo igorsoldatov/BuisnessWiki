@@ -9,7 +9,7 @@ namespace bmchain { namespace protocol {
 
    struct asset
    {
-      asset( share_type a = 0, asset_symbol_type id = BMT_SYMBOL )
+      asset( share_type a = 0, asset_symbol_type id = BWC_SYMBOL )
       :amount(a),symbol(id){}
 
       share_type        amount;

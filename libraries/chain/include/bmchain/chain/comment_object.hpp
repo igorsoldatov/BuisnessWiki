@@ -81,9 +81,9 @@ namespace bmchain { namespace chain {
          uint16_t          reward_weight = 0;
 
          /** tracks the total payout this comment has received over time, measured in SBD */
-         asset             total_payout_value = asset(0, BMT_SYMBOL );
-         asset             curator_payout_value = asset(0, BMT_SYMBOL );
-         asset             beneficiary_payout_value = asset( 0, BMT_SYMBOL );
+         asset             total_payout_value = asset(0, BWC_SYMBOL );
+         asset             curator_payout_value = asset(0, BWC_SYMBOL );
+         asset             beneficiary_payout_value = asset( 0, BWC_SYMBOL );
 
          share_type        author_rewards = 0;
 
@@ -91,7 +91,7 @@ namespace bmchain { namespace chain {
 
          id_type           root_comment;
 
-         asset             max_accepted_payout = asset( 1000000000, BMT_SYMBOL );       /// BMT value of the maximum payout this post will receive
+         asset             max_accepted_payout = asset( 1000000000, BWC_SYMBOL );       /// BMT value of the maximum payout this post will receive
          uint16_t          percent_bmt_dollars = BMCHAIN_100_PERCENT; /// the percent of BMT to key, unkept amounts will be received as BMT
          bool              allow_replies = true;      /// allows a post to disable replies.
          bool              allow_votes   = true;      /// allows a post to receive votes;
@@ -109,7 +109,7 @@ namespace bmchain { namespace chain {
          uint32_t          message_size;
          uint32_t          checksum;
          uint64_t          nonce;
-         asset             price = asset(0, BMT_SYMBOL);
+         asset             price = asset(0, BWC_SYMBOL);
    };
 
    /**

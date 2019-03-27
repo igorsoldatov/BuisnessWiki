@@ -75,7 +75,7 @@ namespace bmchain { namespace app {
       vector<vote_state>          active_votes;
       vector<string>              replies; ///< author/slug mapping
       share_type                  author_reputation = 0;
-      asset                       promoted = asset(0, BMT_SYMBOL);
+      asset                       promoted = asset(0, BWC_SYMBOL);
       uint32_t                    body_length = 0;
       vector<account_name_type>   reblogged_by;
       optional<account_name_type> first_reblogged_by;

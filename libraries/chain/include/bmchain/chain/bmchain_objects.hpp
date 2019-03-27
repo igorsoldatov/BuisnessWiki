@@ -216,7 +216,7 @@ namespace bmchain { namespace chain {
 
          reward_fund_id_type     id;
          reward_fund_name_type   name;
-         asset                   reward_balance = asset( 0, BMT_SYMBOL );
+         asset                   reward_balance = asset( 0, BWC_SYMBOL );
          fc::uint128_t           recent_claims = 0;
          time_point_sec          last_update;
          uint128_t               content_constant = 0;
@@ -246,7 +246,7 @@ namespace bmchain { namespace chain {
          account_name_type author;
          shared_string     permlink;
          account_name_type owner;
-         asset             price = asset( 0, BMT_SYMBOL );
+         asset             price = asset( 0, BWC_SYMBOL );
          order_status      status = order_status::open;
          shared_string     json_metadata;
    };

@@ -74,7 +74,7 @@ BOOST_AUTO_TEST_CASE( serialization_raw_test )
       transfer_operation op;
       op.from = "alice";
       op.to = "bob";
-      op.amount = asset(100,BMT_SYMBOL);
+      op.amount = asset(100,BWC_SYMBOL);
 
       trx.operations.push_back( op );
       auto packed = fc::raw::pack( trx );
@@ -93,7 +93,7 @@ BOOST_AUTO_TEST_CASE( serialization_json_test )
       transfer_operation op;
       op.from = "alice";
       op.to = "bob";
-      op.amount = asset(100,BMT_SYMBOL);
+      op.amount = asset(100,BWC_SYMBOL);
 
       fc::variant test(op.amount);
       auto tmp = test.as<asset>();
@@ -130,9 +130,9 @@ BOOST_AUTO_TEST_CASE( asset_test )
 //      BOOST_CHECK_EQUAL( bmt.decimals(), 3 );
 //      BOOST_CHECK_EQUAL( bmt.symbol_name(), "TESTS" );
 //      BOOST_CHECK_EQUAL( bmt.to_string(), "123.456 TESTS" );
-//      BOOST_CHECK_EQUAL( bmt.symbol, BMT_SYMBOL);
-//      BOOST_CHECK_EQUAL( asset(50, BMT_SYMBOL).to_string(), "0.050 TESTS" );
-//      BOOST_CHECK_EQUAL( asset(50000, BMT_SYMBOL).to_string(), "50.000 TESTS" );
+//      BOOST_CHECK_EQUAL( bmt.symbol, BWC_SYMBOL);
+//      BOOST_CHECK_EQUAL( asset(50, BWC_SYMBOL).to_string(), "0.050 TESTS" );
+//      BOOST_CHECK_EQUAL( asset(50000, BWC_SYMBOL).to_string(), "50.000 TESTS" );
 //
 //      BOOST_CHECK_THROW( bmt.set_decimals(100), fc::exception );
 //      char* bmt_sy = (char*) &bmt.symbol;

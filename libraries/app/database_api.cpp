@@ -956,7 +956,7 @@ namespace bmchain {
             const auto &cidx = my->_db.get_index<tags::tag_index>().indices().get<tags::by_comment>();
             auto itr = cidx.lower_bound(d.id);
             if (itr != cidx.end() && itr->comment == d.id) {
-                d.promoted = asset(itr->promoted_balance, BMT_SYMBOL);
+                d.promoted = asset(itr->promoted_balance, BWC_SYMBOL);
             }
 
             const auto &hist = my->_db.get_feed_history();
@@ -1195,7 +1195,7 @@ namespace bmchain {
                     break;
                 try {
                     result.push_back(get_discussion(tidx_itr->comment, truncate_body));
-                    result.back().promoted = asset(tidx_itr->promoted_balance, BMT_SYMBOL);
+                    result.back().promoted = asset(tidx_itr->promoted_balance, BWC_SYMBOL);
 
                     if (filter(result.back())) {
                         result.pop_back();

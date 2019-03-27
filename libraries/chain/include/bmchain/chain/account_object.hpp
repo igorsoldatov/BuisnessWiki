@@ -54,8 +54,8 @@ namespace bmchain { namespace chain {
          bool              can_vote = true;
          uint16_t          voting_power = BMCHAIN_100_PERCENT;   ///< current voting power of this account, it falls after every vote
 
-         asset             balance = asset( 0, BMT_SYMBOL );  ///< total liquid shares held by this account
-         asset             savings_balance = asset( 0, BMT_SYMBOL );  ///< total liquid shares held by this account
+         asset             balance = asset( 0, BWC_SYMBOL );  ///< total liquid shares held by this account
+         asset             savings_balance = asset( 0, BWC_SYMBOL );  ///< total liquid shares held by this account
 
          asset             sbd_balance = asset( 0, SBD_SYMBOL ); /// total sbd balance
          uint128_t         sbd_seconds; ///< total sbd * how long it has been hel
@@ -72,9 +72,9 @@ namespace bmchain { namespace chain {
          ///@}
 
          asset             reward_sbd_balance = asset( 0, SBD_SYMBOL );
-         asset             reward_bmt_balance = asset( 0, BMT_SYMBOL );
+         asset             reward_bmt_balance = asset( 0, BWC_SYMBOL );
          asset             reward_vesting_balance = asset( 0, VESTS_SYMBOL );
-         asset             reward_vesting_bmt = asset( 0, BMT_SYMBOL );
+         asset             reward_vesting_bmt = asset( 0, BWC_SYMBOL );
 
          share_type        curation_rewards = 0;
          share_type        posting_rewards = 0;

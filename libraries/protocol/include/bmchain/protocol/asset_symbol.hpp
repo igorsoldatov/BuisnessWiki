@@ -46,7 +46,7 @@
 #define VESTS_SYMBOL_U64  (uint64_t('V') | (uint64_t('E') << 8) | (uint64_t('S') << 16) | (uint64_t('T') << 24) | (uint64_t('S') << 32))
 #define STEEM_SYMBOL_U64  (uint64_t('S') | (uint64_t('T') << 8) | (uint64_t('E') << 16) | (uint64_t('E') << 24) | (uint64_t('M') << 32))
 #define SBD_SYMBOL_U64    (uint64_t('S') | (uint64_t('B') << 8) | (uint64_t('D') << 16))
-#define BMT_SYMBOL_U64    (uint64_t('B') | (uint64_t('M') << 8) | (uint64_t('T') << 16))
+#define BWC_SYMBOL_U64    (uint64_t('B') | (uint64_t('M') << 8) | (uint64_t('T') << 16))
 #define REP_SYMBOL_U64    (uint64_t('R') | (uint64_t('E') << 8) | (uint64_t('P') << 16))
 
 #endif
@@ -54,7 +54,7 @@
 #define VESTS_SYMBOL_SER  (uint64_t(6) | (VESTS_SYMBOL_U64 << 8)) ///< VESTS|VESTS with 6 digits of precision
 #define STEEM_SYMBOL_SER  (uint64_t(3) | (STEEM_SYMBOL_U64 << 8)) ///< STEEM|TESTS with 3 digits of precision
 #define SBD_SYMBOL_SER    (uint64_t(3) |   (SBD_SYMBOL_U64 << 8)) ///< SBD|TBD with 3 digits of precision
-#define BMT_SYMBOL_SER    (uint64_t(3) |   (BMT_SYMBOL_U64 << 8))
+#define BWC_SYMBOL_SER    (uint64_t(3) |   (BWC_SYMBOL_U64 << 8))
 #define VESTS_SYMBOL_SER    (uint64_t(6) |   (VESTS_SYMBOL_U64 << 8))
 
 #define STEEM_ASSET_MAX_DECIMALS 12
@@ -171,7 +171,7 @@ namespace fc { namespace raw {
                           ser = VESTS_SYMBOL_SER;
                         break;
                       case STEEM_ASSET_NUM_BMT:
-                          ser = BMT_SYMBOL_SER;
+                          ser = BWC_SYMBOL_SER;
                         break;
                       case STEEM_ASSET_NUM_REP:
                           ser = VESTS_SYMBOL_SER;
@@ -213,9 +213,9 @@ namespace fc { namespace raw {
                 FC_ASSERT( ser == VESTS_SYMBOL_SER, "invalid asset bits" );
                 sym.asset_num = STEEM_ASSET_NUM_VESTS;
                 break;
-              case BMT_SYMBOL_SER & 0xFFFFFFFF:
+              case BWC_SYMBOL_SER & 0xFFFFFFFF:
                   s.read( ((char*) &ser)+4, 4 );
-                FC_ASSERT( ser == BMT_SYMBOL_SER, "invalid asset bits" );
+                FC_ASSERT( ser == BWC_SYMBOL_SER, "invalid asset bits" );
                 sym.asset_num = STEEM_ASSET_NUM_BMT;
                 break;
               case VESTS_SYMBOL_SER & 0xFFFFFFFF:

@@ -153,7 +153,7 @@ namespace bmchain { namespace protocol {
       account_name_type author;
       string            permlink;
 
-      asset             max_accepted_payout    = asset( 1000000000, BMT_SYMBOL );       /// SBD value of the maximum payout this post will receive
+      asset             max_accepted_payout    = asset( 1000000000, BWC_SYMBOL );       /// SBD value of the maximum payout this post will receive
       uint16_t          percent_bmt_dollars  = BMCHAIN_100_PERCENT; /// the percent of Steem Dollars to key, unkept amounts will be received as BMT
       bool              allow_votes            = true;      /// allows a post to receive votes;
       bool              allow_curation_rewards = true; /// allows voters to recieve curation rewards. Rewards return to reward fund.
@@ -251,7 +251,7 @@ namespace bmchain { namespace protocol {
       account_name_type agent;
       uint32_t          escrow_id = 30;
 
-      asset             bmt_amount = asset( 0, BMT_SYMBOL );
+      asset             bmt_amount = asset( 0, BWC_SYMBOL );
       asset             fee;
 
       time_point_sec    ratification_deadline;
@@ -322,7 +322,7 @@ namespace bmchain { namespace protocol {
       account_name_type receiver; ///< the account that should receive funds (might be from, might be to)
 
       uint32_t          escrow_id = 30;
-      asset             bmt_amount = asset( 0, BMT_SYMBOL ); ///< the amount of steem to release
+      asset             bmt_amount = asset( 0, BWC_SYMBOL ); ///< the amount of steem to release
 
       void validate()const;
       void get_required_active_authorities( flat_set<account_name_type>& a )const{ a.insert(who); }
@@ -399,7 +399,7 @@ namespace bmchain { namespace protocol {
        *  ability to vote and make transactions.
        */
       asset             account_creation_fee =
-         asset( BMCHAIN_MIN_ACCOUNT_CREATION_FEE, BMT_SYMBOL );
+         asset( BMCHAIN_MIN_ACCOUNT_CREATION_FEE, BWC_SYMBOL );
 
       /**
        *  This witnesses vote for the maximum_block_size which is used by the network

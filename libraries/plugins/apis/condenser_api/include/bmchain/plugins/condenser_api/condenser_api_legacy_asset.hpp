@@ -30,7 +30,7 @@ namespace bmchain { namespace plugins { namespace condenser_api {
         static legacy_asset from_string(const std::string &from);
 
         share_type amount;
-        asset_symbol_type symbol = BMT_SYMBOL;
+        asset_symbol_type symbol = BWC_SYMBOL;
     };
 
 } } } // bmchain::plugins::condenser_api

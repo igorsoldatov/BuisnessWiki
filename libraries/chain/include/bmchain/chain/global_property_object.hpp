@@ -49,22 +49,22 @@ namespace bmchain { namespace chain {
           */
          uint32_t num_pow_witnesses = 0;
 
-         asset       virtual_supply              = asset( 0, BMT_SYMBOL );
-         asset       current_supply              = asset( 0, BMT_SYMBOL );
-         asset       confidential_supply         = asset( 0, BMT_SYMBOL ); ///< total asset held in confidential balances
+         asset       virtual_supply              = asset( 0, BWC_SYMBOL );
+         asset       current_supply              = asset( 0, BWC_SYMBOL );
+         asset       confidential_supply         = asset( 0, BWC_SYMBOL ); ///< total asset held in confidential balances
          asset       current_sbd_supply          = asset( 0, SBD_SYMBOL );
          asset       confidential_sbd_supply     = asset( 0, SBD_SYMBOL ); ///< total asset held in confidential balances
-         asset       total_vesting_fund_bmt      = asset( 0, BMT_SYMBOL );
+         asset       total_vesting_fund_bmt      = asset( 0, BWC_SYMBOL );
          asset       total_vesting_shares        = asset( 0, VESTS_SYMBOL );
-         asset       total_reward_fund_bmt       = asset( 0, BMT_SYMBOL );
+         asset       total_reward_fund_bmt       = asset( 0, BWC_SYMBOL );
          fc::uint128 total_reward_shares2        = 0; ///< the running total of REWARD^2
          asset       pending_rewarded_vesting_shares = asset( 0, VESTS_SYMBOL );
-         asset       pending_rewarded_vesting_bmt    = asset( 0, BMT_SYMBOL );
+         asset       pending_rewarded_vesting_bmt    = asset( 0, BWC_SYMBOL );
 
          price       get_vesting_share_price() const
          {
             if ( total_vesting_fund_bmt.amount == 0 || total_vesting_shares.amount == 0 )
-               return price ( asset( 1000, BMT_SYMBOL ), asset( 1000000, VESTS_SYMBOL ) );
+               return price ( asset( 1000, BWC_SYMBOL ), asset( 1000000, VESTS_SYMBOL ) );
 
             return price( total_vesting_shares, total_vesting_fund_bmt );
          }
@@ -110,7 +110,7 @@ namespace bmchain { namespace chain {
           * their votes reduced.
           */
          uint32_t vote_power_reserve_rate = 10;
-         asset    custom_token_creation_fee = asset( CUSTOM_TOKEN_CREATION_FEE, BMT_SYMBOL );
+         asset    custom_token_creation_fee = asset( CUSTOM_TOKEN_CREATION_FEE, BWC_SYMBOL );
          uint16_t sbd_stop_percent = 0;
          uint16_t sbd_start_percent = 0;
          asset    daily_emission; /// daily issue

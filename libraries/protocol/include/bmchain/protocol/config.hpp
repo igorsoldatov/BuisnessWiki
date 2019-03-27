@@ -11,7 +11,7 @@
 #define BMCHAIN_CHAIN_ID                        (fc::sha256::hash("testnet"))
 
 #define VESTS_SYMBOL  (uint64_t(6) | (uint64_t('V') << 8) | (uint64_t('E') << 16) | (uint64_t('S') << 24) | (uint64_t('T') << 32) | (uint64_t('S') << 40)) ///< VESTS with 6 digits of precision
-#define BMT_SYMBOL  (uint64_t(3) | (uint64_t('T') << 8) | (uint64_t('E') << 16) | (uint64_t('S') << 24) | (uint64_t('T') << 32) | (uint64_t('S') << 40)) ///< BMT with 3 digits of precision
+#define BWC_SYMBOL  (uint64_t(3) | (uint64_t('T') << 8) | (uint64_t('E') << 16) | (uint64_t('S') << 24) | (uint64_t('T') << 32) | (uint64_t('S') << 40)) ///< BMT with 3 digits of precision
 #define SBD_SYMBOL  (uint64_t(3) | (uint64_t('S') << 8) | (uint64_t('B') << 16) | (uint64_t('D') << 24))
 
 #define BMCHAIN_SYMBOL                          "TEST"
@@ -33,7 +33,7 @@
 #define BMCHAIN_INIT_PUBLIC_KEY_STR             "BWC4zFwuxKVohPwkFEEBwJhBMXGXW3REo1Gvutk9cjuhgVNJLtnyv"
 #define BMCHAIN_CHAIN_ID                        (fc::sha256::hash("BuisnessWiki"))
 #define VESTS_SYMBOL  (uint64_t(6) | (uint64_t('V') << 8) | (uint64_t('E') << 16) | (uint64_t('S') << 24) | (uint64_t('T') << 32) | (uint64_t('S') << 40)) ///< RPT with 6 digits of precision
-#define BMT_SYMBOL  (uint64_t(3) | (uint64_t('B') << 8) | (uint64_t('W') << 16) | (uint64_t('C') << 24))  ///< BWC with 3 digits of precisionDollars with 3 digits of precision
+#define BWC_SYMBOL  (uint64_t(3) | (uint64_t('B') << 8) | (uint64_t('W') << 16) | (uint64_t('C') << 24))  ///< BWC with 3 digits of precisionDollars with 3 digits of precision
 #define SBD_SYMBOL  (uint64_t(3) | (uint64_t('S') << 8) | (uint64_t('B') << 16) | (uint64_t('D') << 24))
 #define BMCHAIN_SYMBOL                          "BWC"
 #define BMCHAIN_ADDRESS_PREFIX                  "BWC"
@@ -41,7 +41,7 @@
 //#define VESTS_SYMBOL  (bmchain::protocol::asset_symbol_type::from_asset_num( STEEM_ASSET_NUM_VESTS ) )
 //#define STEEM_SYMBOL  (bmchain::protocol::asset_symbol_type::from_asset_num( STEEM_ASSET_NUM_STEEM ) )
 //#define SBD_SYMBOL    (bmchain::protocol::asset_symbol_type::from_asset_num( STEEM_ASSET_NUM_SBD ) )
-//#define BMT_SYMBOL    (bmchain::protocol::asset_symbol_type::from_asset_num( STEEM_ASSET_NUM_BMT ) )
+//#define BWC_SYMBOL    (bmchain::protocol::asset_symbol_type::from_asset_num( STEEM_ASSET_NUM_BMT ) )
 //#define VESTS_SYMBOL    (bmchain::protocol::asset_symbol_type::from_asset_num( STEEM_ASSET_NUM_REP ) )
 
 #define BMCHAIN_GENESIS_TIME                    (fc::time_point_sec(1510655500)) /// 11/14/2017
@@ -116,20 +116,20 @@
 #define BMCHAIN_CREATE_ACCOUNT_DELEGATION_RATIO  5
 #define BMCHAIN_CREATE_ACCOUNT_DELEGATION_TIME   fc::days(30)
 
-#define BMCHAIN_MINING_REWARD                   asset( 1000, BMT_SYMBOL )
+#define BMCHAIN_MINING_REWARD                   asset( 1000, BWC_SYMBOL )
 #define BMCHAIN_EQUIHASH_N                      140
 #define BMCHAIN_EQUIHASH_K                      6
 
 #define BMCHAIN_LIQUIDITY_REWARD_PERIOD_SEC     (60*60)
 #define BMCHAIN_LIQUIDITY_REWARD_BLOCKS         (BMCHAIN_LIQUIDITY_REWARD_PERIOD_SEC/BMCHAIN_BLOCK_INTERVAL)
-#define BMCHAIN_MIN_LIQUIDITY_REWARD            (asset( 1000*BMCHAIN_LIQUIDITY_REWARD_BLOCKS, BMT_SYMBOL )) // Minumum reward to be paid out to liquidity providers
+#define BMCHAIN_MIN_LIQUIDITY_REWARD            (asset( 1000*BMCHAIN_LIQUIDITY_REWARD_BLOCKS, BWC_SYMBOL )) // Minumum reward to be paid out to liquidity providers
 #define BMCHAIN_MIN_CONTENT_REWARD              BMCHAIN_MINING_REWARD
 #define BMCHAIN_MIN_CURATE_REWARD               BMCHAIN_MINING_REWARD
 #define BMCHAIN_MIN_PRODUCER_REWARD             BMCHAIN_MINING_REWARD
 #define BMCHAIN_MIN_POW_REWARD                  BMCHAIN_MINING_REWARD
 
-#define BMCHAIN_ACTIVE_CHALLENGE_FEE            asset( 2000, BMT_SYMBOL )
-#define BMCHAIN_OWNER_CHALLENGE_FEE             asset( 30000, BMT_SYMBOL )
+#define BMCHAIN_ACTIVE_CHALLENGE_FEE            asset( 2000, BWC_SYMBOL )
+#define BMCHAIN_OWNER_CHALLENGE_FEE             asset( 30000, BWC_SYMBOL )
 #define BMCHAIN_ACTIVE_CHALLENGE_COOLDOWN       fc::days(1)
 #define BMCHAIN_OWNER_CHALLENGE_COOLDOWN        fc::days(1)
 
@@ -174,7 +174,7 @@
 #define BMCHAIN_PRODUCER_APR_PERCENT             750
 #define BMCHAIN_POW_APR_PERCENT                  750
 
-#define BMCHAIN_MIN_PAYOUT                      (asset(20, BMT_SYMBOL))
+#define BMCHAIN_MIN_PAYOUT                      (asset(20, BWC_SYMBOL))
 
 #define BMCHAIN_MIN_ACCOUNT_NAME_LENGTH          3
 #define BMCHAIN_MAX_ACCOUNT_NAME_LENGTH         16

@@ -13,7 +13,7 @@ namespace bmchain { namespace protocol {
    void account_create_operation::validate() const
    {
       validate_account_name( new_account_name );
-      FC_ASSERT( is_asset_type( fee, BMT_SYMBOL ), "Account creation fee must be BMT" );
+      FC_ASSERT( is_asset_type( fee, BWC_SYMBOL ), "Account creation fee must be BMT" );
       owner.validate();
       active.validate();
 
@@ -22,14 +22,14 @@ namespace bmchain { namespace protocol {
          FC_ASSERT( fc::is_utf8(json_metadata), "JSON Metadata not formatted in UTF8" );
          FC_ASSERT( fc::json::is_valid(json_metadata), "JSON Metadata not valid JSON" );
       }
-      FC_ASSERT( fee >= asset( 0, BMT_SYMBOL ), "Account creation fee cannot be negative" );
+      FC_ASSERT( fee >= asset( 0, BWC_SYMBOL ), "Account creation fee cannot be negative" );
    }
 
    void account_create_with_delegation_operation::validate() const
    {
       validate_account_name( new_account_name );
       validate_account_name( creator );
-      FC_ASSERT( is_asset_type( fee, BMT_SYMBOL ), "Account creation fee must be BMT" );
+      FC_ASSERT( is_asset_type( fee, BWC_SYMBOL ), "Account creation fee must be BMT" );
       FC_ASSERT( is_asset_type( delegation, VESTS_SYMBOL ), "Delegation must be VESTS" );
 
       owner.validate();
@@ -42,7 +42,7 @@ namespace bmchain { namespace protocol {
          FC_ASSERT( fc::json::is_valid(json_metadata), "JSON Metadata not valid JSON" );
       }
 
-      FC_ASSERT( fee >= asset( 0, BMT_SYMBOL ), "Account creation fee cannot be negative" );
+      FC_ASSERT( fee >= asset( 0, BWC_SYMBOL ), "Account creation fee cannot be negative" );
       FC_ASSERT( delegation >= asset( 0, VESTS_SYMBOL ), "Delegation cannot be negative" );
    }
 
@@ -121,7 +121,7 @@ namespace bmchain { namespace protocol {
    {
       validate_account_name( author );
       FC_ASSERT( percent_bmt_dollars <= BMCHAIN_100_PERCENT, "Percent cannot exceed 100%" );
-      FC_ASSERT( max_accepted_payout.symbol == BMT_SYMBOL, "Max accepted payout must be in SBD" );
+      FC_ASSERT( max_accepted_payout.symbol == BWC_SYMBOL, "Max accepted payout must be in SBD" );
       FC_ASSERT( max_accepted_payout.amount.value >= 0, "Cannot accept less than 0 payout" );
       validate_permlink( permlink );
       for( auto& e : extensions )
@@ -163,9 +163,9 @@ namespace bmchain { namespace protocol {
    void transfer_to_vesting_operation::validate() const
    {
       validate_account_name( from );
-      FC_ASSERT( is_asset_type( amount, BMT_SYMBOL ), "Amount must be BMT" );
+      FC_ASSERT( is_asset_type( amount, BWC_SYMBOL ), "Amount must be BMT" );
       if ( to != account_name_type() ) validate_account_name( to );
-      FC_ASSERT( amount > asset( 0, BMT_SYMBOL ), "Must transfer a nonzero amount" );
+      FC_ASSERT( amount > asset( 0, BWC_SYMBOL ), "Must transfer a nonzero amount" );
    }
 
    void withdraw_vesting_operation::validate() const
@@ -186,7 +186,7 @@ namespace bmchain { namespace protocol {
       validate_account_name( owner );
       FC_ASSERT( url.size() > 0, "URL size must be greater than 0" );
       FC_ASSERT( fc::is_utf8( url ), "URL is not valid UTF8" );
-      FC_ASSERT( fee >= asset( 0, BMT_SYMBOL ), "Fee cannot be negative" );
+      FC_ASSERT( fee >= asset( 0, BWC_SYMBOL ), "Fee cannot be negative" );
       props.validate();
    }
 
@@ -382,8 +382,8 @@ namespace bmchain { namespace protocol {
       FC_ASSERT( fee.amount >= 0, "fee cannot be negative" );
       FC_ASSERT( bmt_amount.amount >= 0, "steem amount cannot be negative" );
       FC_ASSERT( from != agent && to != agent, "agent must be a third party" );
-      FC_ASSERT( (fee.symbol == BMT_SYMBOL) || (fee.symbol == BMT_SYMBOL), "fee must be BMT" );
-      FC_ASSERT( bmt_amount.symbol == BMT_SYMBOL, "steem amount must contain BMT" );
+      FC_ASSERT( (fee.symbol == BWC_SYMBOL) || (fee.symbol == BWC_SYMBOL), "fee must be BMT" );
+      FC_ASSERT( bmt_amount.symbol == BWC_SYMBOL, "steem amount must contain BMT" );
       FC_ASSERT( ratification_deadline < escrow_expiration, "ratification deadline must be before escrow expiration" );
       if ( json_meta.size() > 0 )
       {
@@ -420,7 +420,7 @@ namespace bmchain { namespace protocol {
       FC_ASSERT( who == from || who == to || who == agent, "who must be from or to or agent" );
       FC_ASSERT( receiver == from || receiver == to, "receiver must be from or to" );
       FC_ASSERT( bmt_amount.amount >= 0, "steem amount cannot be negative" );
-      FC_ASSERT( bmt_amount.symbol == BMT_SYMBOL, "steem amount must contain BMT" );
+      FC_ASSERT( bmt_amount.symbol == BWC_SYMBOL, "steem amount must contain BMT" );
    }
 
    void request_account_recovery_operation::validate()const
@@ -451,7 +451,7 @@ namespace bmchain { namespace protocol {
       validate_account_name( from );
       validate_account_name( to );
       FC_ASSERT( amount.amount > 0 );
-      FC_ASSERT( amount.symbol == BMT_SYMBOL || amount.symbol == BMT_SYMBOL );
+      FC_ASSERT( amount.symbol == BWC_SYMBOL || amount.symbol == BWC_SYMBOL );
       FC_ASSERT( memo.size() < BMCHAIN_MAX_MEMO_SIZE, "Memo is too large" );
       FC_ASSERT( fc::is_utf8( memo ), "Memo is not UTF8" );
    }
@@ -459,7 +459,7 @@ namespace bmchain { namespace protocol {
       validate_account_name( from );
       validate_account_name( to );
       FC_ASSERT( amount.amount > 0 );
-      FC_ASSERT( amount.symbol == BMT_SYMBOL || amount.symbol == BMT_SYMBOL );
+      FC_ASSERT( amount.symbol == BWC_SYMBOL || amount.symbol == BWC_SYMBOL );
       FC_ASSERT( memo.size() < BMCHAIN_MAX_MEMO_SIZE, "Memo is too large" );
       FC_ASSERT( fc::is_utf8( memo ), "Memo is not UTF8" );
    }
@@ -493,7 +493,7 @@ namespace bmchain { namespace protocol {
    void claim_reward_balance_operation::validate()const
    {
       validate_account_name( account );
-      FC_ASSERT( is_asset_type( reward_bmt, BMT_SYMBOL ), "Reward Steem must be BMT" );
+      FC_ASSERT( is_asset_type( reward_bmt, BWC_SYMBOL ), "Reward Steem must be BMT" );
       FC_ASSERT( is_asset_type( reward_vests, VESTS_SYMBOL ), "Reward Steem must be REP" );
       FC_ASSERT( reward_bmt.amount >= 0, "Cannot claim a negative amount" );
       FC_ASSERT( reward_vests.amount >= 0, "Cannot claim a negative amount" );
@@ -514,7 +514,7 @@ namespace bmchain { namespace protocol {
       validate_account_name(author);
       validate_account_name(owner);
       FC_ASSERT(author != owner, "You cannot sell content to yourself");
-      FC_ASSERT(is_asset_type( price, BMT_SYMBOL ), "Price must be BMT" );
+      FC_ASSERT(is_asset_type( price, BWC_SYMBOL ), "Price must be BMT" );
    }
 
    void content_order_cancel_operation::validate()const

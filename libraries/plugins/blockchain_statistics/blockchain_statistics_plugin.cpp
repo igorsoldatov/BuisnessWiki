@@ -53,7 +53,7 @@ struct operation_process
       {
          b.transfers++;
 
-         if( op.amount.symbol == BMT_SYMBOL )
+         if( op.amount.symbol == BWC_SYMBOL )
             b.bmt_transferred += op.amount.amount;
       });
    }
@@ -184,7 +184,7 @@ struct operation_process
       _db.modify( _bucket, [&]( bucket_object& b )
       {
          b.rep_withdrawals_processed++;
-         if( op.deposited.symbol == BMT_SYMBOL )
+         if( op.deposited.symbol == BWC_SYMBOL )
             b.vests_withdrawn += op.withdrawn.amount;
          else
             b.vests_transferred += op.withdrawn.amount;
