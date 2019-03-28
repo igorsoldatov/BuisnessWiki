@@ -11,7 +11,7 @@ namespace bmchain { namespace protocol {
 
       asset( share_type a, asset_symbol_type id ) : amount(a),symbol(id){}
 
-      asset() : amount(0),symbol(BWC_SYMBOL){}
+      asset() : amount(0),symbol(BMT_SYMBOL){}
 
       share_type        amount;
       asset_symbol_type symbol;
