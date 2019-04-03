@@ -15,6 +15,7 @@ add_library( steemit_protocol
              version.cpp
              get_config.cpp
              custom_token_operations.cpp
+             new_asset.cpp
 
              ${HEADERS} )
 

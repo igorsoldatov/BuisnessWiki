@@ -63,7 +63,7 @@
 #define SMT_ASSET_NUM_CONTROL_MASK     0x10
 #define SMT_ASSET_NUM_VESTING_MASK     0x20
 
-namespace bmchain { namespace protocol {
+namespace bmchain { namespace new_protocol {
 
       class asset_symbol_type
       {
@@ -137,7 +137,7 @@ namespace bmchain { namespace protocol {
 
    } } // bmchain::protocol
 
-FC_REFLECT(bmchain::protocol::asset_symbol_type, (asset_num))
+FC_REFLECT(bmchain::new_protocol::asset_symbol_type, (asset_num))
 
 namespace fc { namespace raw {
 
@@ -152,11 +152,11 @@ namespace fc { namespace raw {
 // NAI internal storage of legacy assets
 
       template< typename Stream >
-      inline void pack( Stream& s, const bmchain::protocol::asset_symbol_type& sym )
+      inline void pack( Stream& s, const bmchain::new_protocol::asset_symbol_type& sym )
       {
           switch( sym.space() )
           {
-              case bmchain::protocol::asset_symbol_type::legacy_space:
+              case bmchain::new_protocol::asset_symbol_type::legacy_space:
               {
                   uint64_t ser = 0;
                   switch( sym.asset_num )
@@ -182,7 +182,7 @@ namespace fc { namespace raw {
                   pack( s, ser );
                   break;
               }
-              case bmchain::protocol::asset_symbol_type::smt_nai_space:
+              case bmchain::new_protocol::asset_symbol_type::smt_nai_space:
                   pack( s, sym.asset_num );
                 break;
               default:
@@ -191,7 +191,7 @@ namespace fc { namespace raw {
       }
 
       template< typename Stream >
-      inline void unpack( Stream& s, bmchain::protocol::asset_symbol_type& sym )
+      inline void unpack( Stream& s, bmchain::new_protocol::asset_symbol_type& sym )
       {
           uint64_t ser = 0;
           s.read( (char*) &ser, 4 );
@@ -231,7 +231,7 @@ namespace fc { namespace raw {
 
    } // fc::raw
 
-   inline void to_variant( const bmchain::protocol::asset_symbol_type& sym, fc::variant& var )
+   inline void to_variant( const bmchain::new_protocol::asset_symbol_type& sym, fc::variant& var )
    {
        try
        {
@@ -241,14 +241,14 @@ namespace fc { namespace raw {
        } FC_CAPTURE_AND_RETHROW()
    }
 
-   inline void from_variant( const fc::variant& var, bmchain::protocol::asset_symbol_type& sym )
+   inline void from_variant( const fc::variant& var, bmchain::new_protocol::asset_symbol_type& sym )
    {
        try
        {
            auto v = var.as< std::vector< variant > >();
            FC_ASSERT( v.size() == 2, "Expected tuple of length 2." );
 
-           sym = bmchain::protocol::asset_symbol_type::from_nai_string( v[1].as< std::string >().c_str(), v[0].as< uint8_t >() );
+           sym = bmchain::new_protocol::asset_symbol_type::from_nai_string( v[1].as< std::string >().c_str(), v[0].as< uint8_t >() );
        } FC_CAPTURE_AND_RETHROW()
    }
 

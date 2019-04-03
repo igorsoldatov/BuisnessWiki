@@ -41,7 +41,7 @@
 //#define VESTS_SYMBOL  (bmchain::protocol::asset_symbol_type::from_asset_num( STEEM_ASSET_NUM_VESTS ) )
 //#define STEEM_SYMBOL  (bmchain::protocol::asset_symbol_type::from_asset_num( STEEM_ASSET_NUM_STEEM ) )
 //#define SBD_SYMBOL    (bmchain::protocol::asset_symbol_type::from_asset_num( STEEM_ASSET_NUM_SBD ) )
-#define BMT_SYMBOL    (bmchain::protocol::asset_symbol_type::from_asset_num( STEEM_ASSET_NUM_BMT ) )
+#define BMT_SYMBOL    (bmchain::new_protocol::asset_symbol_type::from_asset_num( STEEM_ASSET_NUM_BMT ) )
 //#define VESTS_SYMBOL    (bmchain::protocol::asset_symbol_type::from_asset_num( STEEM_ASSET_NUM_REP ) )
 
 #define BMCHAIN_GENESIS_TIME                    (fc::time_point_sec(1510655500)) /// 11/14/2017

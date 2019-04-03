@@ -3,7 +3,9 @@
 #include <bmchain/protocol/config.hpp>
 #include <bmchain/protocol/asset_symbol.hpp>
 
-namespace bmchain { namespace protocol {
+namespace bmchain { namespace new_protocol {
+
+   using protocol::share_type;
 
    struct asset
    {
@@ -148,9 +150,9 @@ namespace bmchain { namespace protocol {
 } } // steem::protocol
 
 namespace fc {
-    void to_variant( const bmchain::protocol::asset& var,  fc::variant& vo );
-    void from_variant( const fc::variant& var,  bmchain::protocol::asset& vo );
+    void to_variant( const bmchain::new_protocol::asset& var,  fc::variant& vo );
+    void from_variant( const fc::variant& var,  bmchain::new_protocol::asset& vo );
 }
 
-FC_REFLECT( bmchain::protocol::asset, (amount)(symbol) )
-FC_REFLECT( bmchain::protocol::price, (base)(quote) )
+FC_REFLECT( bmchain::new_protocol::asset, (amount)(symbol) )
+FC_REFLECT( bmchain::new_protocol::price, (base)(quote) )

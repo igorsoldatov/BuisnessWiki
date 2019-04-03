@@ -15,7 +15,7 @@ index : field
    7  : \0
 */
 
-namespace bmchain { namespace protocol {
+namespace bmchain { namespace new_protocol {
 
 std::string asset_symbol_type::to_string()const
 {
@@ -317,7 +317,7 @@ void asset::validate()const
 {
    symbol.validate();
    FC_ASSERT( amount.value >= 0 );
-   FC_ASSERT( amount.value <= STEEM_MAX_SATOSHIS );
+   FC_ASSERT( amount.value <= BMCHAIN_MAX_SATOSHIS );
 }
 
 #define BQ(a) \
@@ -342,8 +342,8 @@ DEFINE_PRICE_COMPARISON_OPERATOR( <= )
 DEFINE_PRICE_COMPARISON_OPERATOR( >  )
 DEFINE_PRICE_COMPARISON_OPERATOR( >= )
 
-      asset operator * ( const asset& a, const price& b )
-      {
+asset operator * ( const asset& a, const price& b )
+{
          if( a.symbol == b.base.symbol )
          {
             FC_ASSERT( b.base.amount.value > 0 );
@@ -359,25 +359,25 @@ DEFINE_PRICE_COMPARISON_OPERATOR( >= )
             return asset( result.to_uint64(), b.base.symbol );
          }
          FC_THROW_EXCEPTION( fc::assert_exception, "invalid asset * price", ("asset",a)("price",b) );
-      }
+}
 
-      price operator / ( const asset& base, const asset& quote )
-      { try {
+price operator / ( const asset& base, const asset& quote )
+{ try {
          FC_ASSERT( base.symbol != quote.symbol );
          return price{ base, quote };
-      } FC_CAPTURE_AND_RETHROW( (base)(quote) ) }
+} FC_CAPTURE_AND_RETHROW( (base)(quote) ) }
 
-      price price::max( asset_symbol_type base, asset_symbol_type quote ) { return asset( share_type(STEEM_MAX_SATOSHIS), base ) / asset( share_type(1), quote); }
-      price price::min( asset_symbol_type base, asset_symbol_type quote ) { return asset( 1, base ) / asset( STEEM_MAX_SATOSHIS, quote); }
+price price::max( asset_symbol_type base, asset_symbol_type quote ) { return asset( share_type(BMCHAIN_MAX_SATOSHIS), base ) / asset( share_type(1), quote); }
+price price::min( asset_symbol_type base, asset_symbol_type quote ) { return asset( 1, base ) / asset( BMCHAIN_MAX_SATOSHIS, quote); }
 
-      bool price::is_null() const { return *this == price(); }
+bool price::is_null() const { return *this == price(); }
 
-      void price::validate() const
-      { try {
+void price::validate() const
+{ try {
          FC_ASSERT( base.amount > share_type(0) );
          FC_ASSERT( quote.amount > share_type(0) );
          FC_ASSERT( base.symbol != quote.symbol );
-      } FC_CAPTURE_AND_RETHROW( (base)(quote) ) }
+} FC_CAPTURE_AND_RETHROW( (base)(quote) ) }
 
 } } // bmchain::protocol
 
