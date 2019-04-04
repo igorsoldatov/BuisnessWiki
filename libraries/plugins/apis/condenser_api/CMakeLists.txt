@@ -5,7 +5,8 @@
 #        condenser_api_legacy_asset.cpp
 #        condenser_api_legacy_operations.cpp
 #        condenser_api_legacy_objects.cpp
-#        ${HEADERS} )
+#        ${HEADERS}
+#        )
 #
 #target_link_libraries( condenser_api_plugin
 ##        account_by_key_api_plugin
