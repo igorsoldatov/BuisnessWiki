@@ -113,6 +113,7 @@ namespace bmchain { namespace chain {
 
          hardfork_version  hardfork_version_vote;
          time_point_sec    hardfork_time_vote = BMCHAIN_GENESIS_TIME;
+         uint32_t          emission_rate = 1;
    };
 
 
@@ -242,7 +243,7 @@ FC_REFLECT( bmchain::chain::witness_object,
              (props)
              (last_work)
              (running_version)
-             (hardfork_version_vote)(hardfork_time_vote)
+             (hardfork_version_vote)(hardfork_time_vote)(emission_rate)
           )
 CHAINBASE_SET_INDEX_TYPE( bmchain::chain::witness_object, bmchain::chain::witness_index )
 

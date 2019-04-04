@@ -428,7 +428,8 @@ struct witness_api_obj
       last_work( w.last_work ),
       running_version( w.running_version ),
       hardfork_version_vote( w.hardfork_version_vote ),
-      hardfork_time_vote( w.hardfork_time_vote )
+      hardfork_time_vote( w.hardfork_time_vote ),
+      emission_rate( w.emission_rate )
    {}
 
    witness_api_obj() {}
@@ -451,6 +452,7 @@ struct witness_api_obj
    version           running_version;
    hardfork_version  hardfork_version_vote;
    time_point_sec    hardfork_time_vote;
+   uint32_t          emission_rate;
 };
 
 struct signed_block_api_obj : public signed_block
@@ -645,7 +647,7 @@ FC_REFLECT( bmchain::app::witness_api_obj,
              (props)
              (last_work)
              (running_version)
-             (hardfork_version_vote)(hardfork_time_vote)
+             (hardfork_version_vote)(hardfork_time_vote)(emission_rate)
           )
 
 FC_REFLECT_DERIVED( bmchain::app::signed_block_api_obj, (bmchain::protocol::signed_block),
