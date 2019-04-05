@@ -240,7 +240,8 @@ var account_update = new Serializer("account_update", {
 var chain_properties = new Serializer("chain_properties", {
     account_creation_fee: asset,
     maximum_block_size: uint32,
-    sbd_interest_rate: uint16
+    sbd_interest_rate: uint16,
+    emission_rate: uint16
 });
 
 var witness_update = new Serializer("witness_update", {

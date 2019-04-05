@@ -113,7 +113,7 @@ namespace bmchain { namespace chain {
 
          hardfork_version  hardfork_version_vote;
          time_point_sec    hardfork_time_vote = BMCHAIN_GENESIS_TIME;
-         uint32_t          emission_rate = 1;
+         uint16_t          emission_rate = 1;
    };
 
 

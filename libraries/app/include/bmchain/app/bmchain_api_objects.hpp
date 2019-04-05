@@ -452,7 +452,7 @@ struct witness_api_obj
    version           running_version;
    hardfork_version  hardfork_version_vote;
    time_point_sec    hardfork_time_vote;
-   uint32_t          emission_rate;
+   uint16_t          emission_rate;
 };
 
 struct signed_block_api_obj : public signed_block
