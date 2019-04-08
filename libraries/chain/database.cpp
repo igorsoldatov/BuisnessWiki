@@ -1744,6 +1744,37 @@ void database::custom_tokens_emissions() {
    }
 }
 
+void database::process_savings_reward() {
+   auto& cprops = get_dynamic_global_properties();
+
+   if ( cprops.head_block_number % BMCHAIN_SAVINGS_REWARD_INTERVAL_BLOCKS != 0 )
+      return;
+
+   auto delta = cprops.current_supply - cprops.last_current_supply;
+   if ( delta.amount.value == 0 ) {
+      return;
+   }
+
+   auto total_saving_balance = asset(0, BWC_SYMBOL);
+   const auto& account_idx = get_index<account_index>().indices().get<by_name>();
+   for( auto itr = account_idx.cbegin(); itr != account_idx.cend(); ++itr ) {
+      total_saving_balance += itr->savings_balance;
+   }
+
+   auto total_saving_rewards = asset(0, BWC_SYMBOL);
+   for( auto itr = account_idx.begin(); itr != account_idx.end(); ++itr ) {
+      const auto& saving_reward = asset(itr->savings_balance.amount.value / total_saving_balance.amount.value * delta.amount.value, BWC_SYMBOL);
+      adjust_balance(*itr, saving_reward);
+      total_saving_rewards += saving_reward;
+   }
+
+   modify( cprops, [&]( dynamic_global_property_object& props ) {
+      props.last_current_supply = props.current_supply;
+      props.current_supply += total_saving_rewards;
+      props.virtual_supply += total_saving_rewards;
+   } );
+}
+
 void database::process_savings_withdraws()
 {
   const auto& idx = get_index< savings_withdraw_index >().indices().get< by_complete_from_rid >();
@@ -2515,6 +2546,7 @@ void database::_apply_block( const signed_block& next_block )
    // process_funds();
    process_comment_cashout();
    custom_tokens_emissions();
+   process_savings_reward();
    process_savings_withdraws();
    update_virtual_supply();
 

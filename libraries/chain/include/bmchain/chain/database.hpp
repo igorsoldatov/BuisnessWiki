@@ -325,6 +325,7 @@ namespace bmchain { namespace chain {
          void expire_escrow_ratification();
          void process_decline_voting_rights();
          void custom_tokens_emissions();
+         void process_savings_reward();
 
          asset get_liquidity_reward()const;
          asset get_content_reward()const;
