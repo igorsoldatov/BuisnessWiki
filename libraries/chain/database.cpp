@@ -1750,8 +1750,8 @@ void database::process_savings_reward() {
    if ( cprops.head_block_number % BMCHAIN_SAVINGS_REWARD_INTERVAL_BLOCKS != 0 )
       return;
 
-   auto delta = cprops.current_supply - cprops.last_current_supply;
-   if ( delta.amount.value == 0 ) {
+   auto delta = (cprops.current_supply.amount.value - cprops.last_current_supply.amount.value) * 0.2;
+   if ( delta == 0 ) {
       return;
    }
 
@@ -1761,17 +1761,25 @@ void database::process_savings_reward() {
       total_saving_balance += itr->savings_balance;
    }
 
+   if ( total_saving_balance.amount.value <= 0 ) {
+      return;
+   }
+
    auto total_saving_rewards = asset(0, BWC_SYMBOL);
    for( auto itr = account_idx.begin(); itr != account_idx.end(); ++itr ) {
-      const auto& saving_reward = asset(itr->savings_balance.amount.value / total_saving_balance.amount.value * delta.amount.value, BWC_SYMBOL);
-      adjust_balance(*itr, saving_reward);
-      total_saving_rewards += saving_reward;
+      if ( itr->savings_balance.amount.value > 0 ) {
+         const auto &saving_reward = asset(
+               delta * itr->savings_balance.amount.value / total_saving_balance.amount.value, BWC_SYMBOL);
+
+         adjust_savings_balance( *itr, -saving_reward );
+         total_saving_rewards += saving_reward;
+      }
    }
 
    modify( cprops, [&]( dynamic_global_property_object& props ) {
-      props.last_current_supply = props.current_supply;
       props.current_supply += total_saving_rewards;
       props.virtual_supply += total_saving_rewards;
+      props.last_current_supply = props.current_supply;
    } );
 }
 
@@ -2283,6 +2291,7 @@ void database::init_genesis( uint64_t init_supply )
          p.participation_count = 128;
          p.current_supply = asset( init_supply + init_rep / 1000, BWC_SYMBOL );
          p.virtual_supply = p.current_supply;
+         p.last_current_supply = p.current_supply;
          p.total_vesting_shares = asset( init_rep, VESTS_SYMBOL);
          p.total_vesting_fund_bmt = asset( init_rep / 1000, BWC_SYMBOL);
          p.maximum_block_size = BMCHAIN_MAX_BLOCK_SIZE;
