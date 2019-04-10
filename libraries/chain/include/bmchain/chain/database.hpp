@@ -285,16 +285,16 @@ namespace bmchain { namespace chain {
          void adjust_total_payout(const comment_object &a, const asset &bmt, const asset &curator_bmt_value,
                                   const asset &beneficiary_value);
 
-         void        adjust_balance( const account_object& a, const asset& delta );
-         void        adjust_savings_balance( const account_object& a, const asset& delta );
-         void        adjust_reward_balance( const account_object& a, const asset& delta );
-         void        adjust_supply( const asset& delta, bool adjust_rep = false );
-         void        adjust_rshares2( const comment_object& comment, fc::uint128_t old_rshares2, fc::uint128_t new_rshares2 );
-         void        update_owner_authority( const account_object& account, const authority& owner_authority );
+         void adjust_balance( const account_object& a, const asset& delta );
+         void adjust_savings_balance( const account_object& a, const asset& delta );
+         void adjust_reward_balance( const account_object& a, const asset& delta );
+         void adjust_supply( const asset& delta, bool adjust_rep = false );
+         void adjust_rshares2( const comment_object& comment, fc::uint128_t old_rshares2, fc::uint128_t new_rshares2 );
+         void update_owner_authority( const account_object& account, const authority& owner_authority );
 
-         asset       get_balance( const account_object& a, asset_symbol_type symbol )const;
-         asset       get_savings_balance( const account_object& a, asset_symbol_type symbol )const;
-         asset       get_balance( const string& aname, asset_symbol_type symbol )const { return get_balance( get_account(aname), symbol ); }
+         asset get_balance( const account_object& a, asset_symbol_type symbol )const;
+         asset get_savings_balance( const account_object& a, asset_symbol_type symbol )const;
+         asset get_balance( const string& aname, asset_symbol_type symbol )const { return get_balance( get_account(aname), symbol ); }
 
          /** this updates the votes for witnesses as a result of account voting proxy changing */
          void adjust_proxied_witness_votes( const account_object& a,
@@ -315,6 +315,7 @@ namespace bmchain { namespace chain {
           * adjust_proxied_witness_votes( a, -a.witness_vote_weight() )
           */
          void clear_witness_votes( const account_object& a );
+         void process_vesting_withdrawals();
          share_type pay_curators( const comment_object& c, share_type& max_rewards );
          share_type cashout_comment_helper( util::comment_reward_context& ctx, const comment_object& comment );
          void process_comment_cashout();
