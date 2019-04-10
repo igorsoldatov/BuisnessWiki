@@ -1835,23 +1835,23 @@ void database::process_savings_reward() {
 
 void database::process_savings_withdraws()
 {
-  const auto& idx = get_index< savings_withdraw_index >().indices().get< by_complete_from_rid >();
-  auto itr = idx.begin();
-  while( itr != idx.end() ) {
-     if( itr->complete > head_block_time() )
-        break;
-     adjust_balance( get_account( itr->to ), itr->amount );
-
-     modify( get_account( itr->from ), [&]( account_object& a )
-     {
-        a.savings_withdraw_requests--;
-     });
-
-     push_virtual_operation( fill_transfer_from_savings_operation( itr->from, itr->to, itr->amount, itr->request_id, to_string( itr->memo) ) );
-
-     remove( *itr );
-     itr = idx.begin();
-  }
+//  const auto& idx = get_index< savings_withdraw_index >().indices().get< by_complete_from_rid >();
+//  auto itr = idx.begin();
+//  while( itr != idx.end() ) {
+//     if( itr->complete > head_block_time() )
+//        break;
+//     adjust_balance( get_account( itr->to ), itr->amount );
+//
+//     modify( get_account( itr->from ), [&]( account_object& a )
+//     {
+//        a.savings_withdraw_requests--;
+//     });
+//
+//     push_virtual_operation( fill_transfer_from_savings_operation( itr->from, itr->to, itr->amount, itr->request_id, to_string( itr->memo) ) );
+//
+//     remove( *itr );
+//     itr = idx.begin();
+//  }
 }
 
 asset database::get_liquidity_reward()const
