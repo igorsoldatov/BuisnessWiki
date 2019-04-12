@@ -1005,6 +1005,15 @@ namespace bmchain { namespace protocol {
       void get_required_posting_authorities( flat_set<account_name_type>& a )const{ a.insert(from); }
    };
 
+   struct emission_rate_publish_operation : public base_operation
+   {
+      account_name_type publisher;
+      uint16_t          emission_rate;
+
+      void  validate()const;
+      void  get_required_active_authorities( flat_set<account_name_type>& a )const{ a.insert(publisher); }
+   };
+
 } } // bmchain::protocol
 
 
@@ -1104,3 +1113,4 @@ FC_REFLECT_DERIVED( bmchain::protocol::encrypted_content_operation, (bmchain::pr
                    (encrypted_message)(sent_time)(nonce)(message_size)(checksum)(price)(owner)(order_id)(apply_order));
 
 FC_REFLECT( bmchain::protocol::private_message_operation, (from)(to)(from_memo_key)(to_memo_key)(sent_time)(nonce)(checksum)(message_size)(encrypted_message) )
+FC_REFLECT( bmchain::protocol::emission_rate_publish_operation, (publisher)(emission_rate) )
