@@ -38,6 +38,10 @@ module.exports = [{
   "params": ["publisher", "exchange_rate"]
 }, {
   "roles": ["active"],
+  "operation": "emission_rate_publish",
+  "params": ["publisher", "exchange_rate"]
+}, {
+  "roles": ["active"],
   "operation": "convert",
   "params": ["owner", "requestid", "amount"]
 }, {

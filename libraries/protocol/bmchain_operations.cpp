@@ -349,6 +349,10 @@ namespace bmchain { namespace protocol {
    {
    }
 
+   void emission_rate_publish_operation::validate()const
+   {
+   }
+
    void limit_order_create_operation::validate()const
    {
    }

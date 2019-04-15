@@ -147,6 +147,11 @@ struct get_impacted_account_visitor
       _impacted.insert( op.publisher );
    }
 
+   void operator()( const emission_rate_publish_operation& op )
+   {
+      _impacted.insert( op.publisher );
+   }
+
    void operator()( const pow_operation& op )
    {
       _impacted.insert( op.worker_account );

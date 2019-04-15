@@ -1718,6 +1718,10 @@ void feed_publish_evaluator::do_apply( const feed_publish_operation& o )
 {
 }
 
+void emission_rate_publish_evaluator::do_apply( const emission_rate_publish_operation& o )
+{
+}
+
 void convert_evaluator::do_apply( const convert_operation& o )
 {
 }

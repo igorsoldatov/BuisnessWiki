@@ -205,6 +205,11 @@ var feed_publish = new Serializer("feed_publish", {
     exchange_rate: price
 });
 
+var emission_rate_publish = new Serializer("emission_rate_publish", {
+    publisher: string,
+    emission_rate: uint16
+});
+
 var convert = new Serializer("convert", {
     owner: string,
     requestid: uint32,
@@ -720,6 +725,7 @@ operation.st_operations = [
   custom_token_transfer,
   custom_token_setup_emissions,
   custom_token_set_setup_parameters,
+  emission_rate_publish,
 ];
 
 var transaction = new Serializer("transaction", {

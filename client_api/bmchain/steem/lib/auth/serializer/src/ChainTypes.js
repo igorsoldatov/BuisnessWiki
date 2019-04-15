@@ -75,7 +75,8 @@ ChainTypes.operations = { vote: 0,
   custom_token_create: 62,
   custom_token_transfer: 63,
   custom_token_setup_emissions: 64,
-  custom_token_set_setup_parameters: 65
+  custom_token_set_setup_parameters: 65,
+  emission_rate_publish: 66
 };
 
 //types.hpp
