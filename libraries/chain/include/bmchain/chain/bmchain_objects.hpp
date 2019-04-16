@@ -113,6 +113,23 @@ namespace bmchain { namespace chain {
          bip::deque< price, allocator< price > >   price_history; ///< tracks this last week of median_feed one per hour
    };
 
+   class emission_rate_history_object  : public object< emission_rate_history_object_type, emission_rate_history_object >
+   {
+      emission_rate_history_object() = delete;
+
+      public:
+         template< typename Constructor, typename Allocator >
+         emission_rate_history_object( Constructor&& c, allocator< Allocator > a )
+            :emission_rate_history( a.get_segment_manager() )
+         {
+            c( *this );
+         }
+
+         id_type                                       id;
+
+         uint16_t                                      current_median_history; ///< the current median of the price history, used as the base for convert operations
+         bip::deque< uint16_t, allocator< uint16_t > > emission_rate_history;  ///< tracks this last week of median_feed one per hour
+   };
 
    /**
     *  @brief an offer to sell a amount of a asset at a specified exchange rate by a certain time
@@ -330,6 +347,14 @@ namespace bmchain { namespace chain {
       allocator< feed_history_object >
    > feed_history_index;
 
+   typedef multi_index_container<
+      emission_rate_history_object,
+      indexed_by<
+         ordered_unique< tag< by_id >, member< emission_rate_history_object, emission_rate_history_id_type, &emission_rate_history_object::id > >
+      >,
+      allocator< emission_rate_history_object >
+   > emission_rate_history_index;
+
    struct by_withdraw_route;
    struct by_destination;
    typedef multi_index_container<
@@ -502,6 +527,10 @@ CHAINBASE_SET_INDEX_TYPE( bmchain::chain::limit_order_object, bmchain::chain::li
 FC_REFLECT( bmchain::chain::feed_history_object,
              (id)(current_median_history)(price_history) )
 CHAINBASE_SET_INDEX_TYPE( bmchain::chain::feed_history_object, bmchain::chain::feed_history_index )
+
+FC_REFLECT( bmchain::chain::emission_rate_history_object,
+            (id)(current_median_history)(emission_rate_history) )
+CHAINBASE_SET_INDEX_TYPE( bmchain::chain::emission_rate_history_object, bmchain::chain::emission_rate_history_index )
 
 FC_REFLECT( bmchain::chain::convert_request_object,
              (id)(owner)(requestid)(amount)(conversion_date) )

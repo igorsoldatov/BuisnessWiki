@@ -140,6 +140,7 @@ namespace bmchain { namespace chain {
          const dynamic_global_property_object&  get_dynamic_global_properties()const;
          const node_property_object&            get_node_properties()const;
          const feed_history_object&             get_feed_history()const;
+         const emission_rate_history_object&    get_emission_rate_history()const;
          const witness_schedule_object&         get_witness_schedule_object()const;
          const hardfork_property_object&        get_hardfork_property_object()const;
 
@@ -325,6 +326,8 @@ namespace bmchain { namespace chain {
          void account_recovery_processing();
          void expire_escrow_ratification();
          void process_decline_voting_rights();
+         void update_median_feed();
+         void update_median_emission_rate();
          void custom_tokens_emissions();
          void process_savings_reward();
 
