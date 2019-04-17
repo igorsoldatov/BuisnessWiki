@@ -1720,6 +1720,11 @@ void feed_publish_evaluator::do_apply( const feed_publish_operation& o )
 
 void emission_rate_publish_evaluator::do_apply( const emission_rate_publish_operation& o )
 {
+   const auto& witness = _db.get_witness( o.publisher );
+   _db.modify( witness, [&]( witness_object& w ){
+      w.emission_rate = o.emission_rate;
+      w.last_emission_rate_update = _db.head_block_time();
+   });
 }
 
 void convert_evaluator::do_apply( const convert_operation& o )

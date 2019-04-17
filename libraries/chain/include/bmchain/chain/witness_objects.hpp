@@ -67,6 +67,10 @@ namespace bmchain { namespace chain {
          public_key_type   signing_key;
 
          chain_properties  props;
+         price             sbd_exchange_rate;
+         time_point_sec    last_sbd_exchange_update;
+         uint16_t          emission_rate = 1;
+         time_point_sec    last_emission_rate_update;
 
          /**
           *  The total votes for this witness. This determines how the witness is ranked for
@@ -113,7 +117,6 @@ namespace bmchain { namespace chain {
 
          hardfork_version  hardfork_version_vote;
          time_point_sec    hardfork_time_vote = BMCHAIN_GENESIS_TIME;
-         uint16_t          emission_rate = 1;
    };
 
 
@@ -241,9 +244,10 @@ FC_REFLECT( bmchain::chain::witness_object,
              (url)(votes)(schedule)(virtual_last_update)(virtual_position)(virtual_scheduled_time)(total_missed)
              (last_aslot)(last_confirmed_block_num)(pow_worker)(signing_key)
              (props)
+             (sbd_exchange_rate)(last_sbd_exchange_update)(emission_rate)(last_emission_rate_update)
              (last_work)
              (running_version)
-             (hardfork_version_vote)(hardfork_time_vote)(emission_rate)
+             (hardfork_version_vote)(hardfork_time_vote)
           )
 CHAINBASE_SET_INDEX_TYPE( bmchain::chain::witness_object, bmchain::chain::witness_index )
 

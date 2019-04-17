@@ -440,6 +440,11 @@ const feed_history_object& database::get_feed_history()const
    return get< feed_history_object >();
 } FC_CAPTURE_AND_RETHROW() }
 
+const emission_rate_history_object& database::get_emission_rate_history()const
+{ try {
+   return get< emission_rate_history_object >();
+} FC_CAPTURE_AND_RETHROW() }
+
 const witness_schedule_object& database::get_witness_schedule_object()const
 { try {
    return get< witness_schedule_object >();
@@ -2142,6 +2147,7 @@ void database::initialize_indexes()
    add_core_index< witness_vote_index                      >(*this);
    add_core_index< limit_order_index                       >(*this);
    add_core_index< feed_history_index                      >(*this);
+   add_core_index< emission_rate_history_index             >(*this);
    add_core_index< convert_request_index                   >(*this);
    add_core_index< operation_index                         >(*this);
    add_core_index< account_history_index                   >(*this);
@@ -2600,6 +2606,8 @@ void database::_apply_block( const signed_block& next_block )
    clear_expired_delegations();
    update_witness_schedule(*this);
 
+   update_median_feed();
+   update_median_emission_rate();
    update_virtual_supply();
 
    clear_null_account_balance();
@@ -2673,6 +2681,142 @@ void database::process_header_extensions( const signed_block& next_block )
       ++itr;
    }
 }
+
+void database::update_median_feed() {
+try {
+   if( (head_block_num() % BMCHAIN_FEED_INTERVAL_BLOCKS) != 0 )
+      return;
+
+   auto now = head_block_time();
+   const witness_schedule_object& wso = get_witness_schedule_object();
+   vector<price> feeds; feeds.reserve( wso.num_scheduled_witnesses );
+   for( int i = 0; i < wso.num_scheduled_witnesses; i++ )
+   {
+      const auto& wit = get_witness( wso.current_shuffled_witnesses[i] );
+      if( true )
+      {
+         if( now < wit.last_sbd_exchange_update + BMCHAIN_MAX_FEED_AGE_SECONDS
+            && !wit.sbd_exchange_rate.is_null() )
+         {
+            feeds.push_back( wit.sbd_exchange_rate );
+         }
+      }
+      else if( wit.last_sbd_exchange_update < now + BMCHAIN_MAX_FEED_AGE_SECONDS &&
+          !wit.sbd_exchange_rate.is_null() )
+      {
+         feeds.push_back( wit.sbd_exchange_rate );
+      }
+   }
+
+   if( feeds.size() >= BMCHAIN_MIN_FEEDS )
+   {
+      std::sort( feeds.begin(), feeds.end() );
+      auto median_feed = feeds[feeds.size()/2];
+
+      modify( get_feed_history(), [&]( feed_history_object& fho )
+      {
+         fho.price_history.push_back( median_feed );
+         size_t steemit_feed_history_window = BMCHAIN_FEED_HISTORY_WINDOW;
+         if( true )
+            steemit_feed_history_window = BMCHAIN_FEED_HISTORY_WINDOW;
+
+         if( fho.price_history.size() > steemit_feed_history_window )
+            fho.price_history.pop_front();
+
+         if( fho.price_history.size() )
+         {
+            std::deque< price > copy;
+            for( auto i : fho.price_history )
+            {
+               copy.push_back( i );
+            }
+
+            std::sort( copy.begin(), copy.end() ); /// TODO: use nth_item
+            fho.current_median_history = copy[copy.size()/2];
+
+#ifdef IS_TEST_NET
+            if( skip_price_feed_limit_check )
+               return;
+#endif
+            if( true )
+            {
+               const auto& gpo = get_dynamic_global_properties();
+               price min_price( asset( 9 * gpo.current_sbd_supply.amount, SBD_SYMBOL ), gpo.current_supply ); // This price limits SBD to 10% market cap
+
+               if( min_price > fho.current_median_history )
+                  fho.current_median_history = min_price;
+            }
+         }
+      });
+   }
+} FC_CAPTURE_AND_RETHROW() }
+
+void database::update_median_emission_rate() {
+try {
+   if( (head_block_num() % BMCHAIN_FEED_INTERVAL_BLOCKS) != 0 )
+      return;
+
+   auto now = head_block_time();
+   const witness_schedule_object& wso = get_witness_schedule_object();
+   vector<uint16_t> feeds; feeds.reserve( wso.num_scheduled_witnesses );
+   for( int i = 0; i < wso.num_scheduled_witnesses; i++ )
+   {
+      const auto& wit = get_witness( wso.current_shuffled_witnesses[i] );
+      if( true )
+      {
+         if( now < wit.last_emission_rate_update + BMCHAIN_MAX_FEED_AGE_SECONDS && !wit.emission_rate )
+         {
+            feeds.push_back( wit.emission_rate );
+         }
+      }
+      else if( wit.last_emission_rate_update < now + BMCHAIN_MAX_FEED_AGE_SECONDS && !wit.emission_rate )
+      {
+         feeds.push_back( wit.emission_rate );
+      }
+   }
+
+   if( feeds.size() >= BMCHAIN_MIN_FEEDS )
+   {
+      std::sort( feeds.begin(), feeds.end() );
+      auto median_feed = feeds[feeds.size()/2];
+
+      modify( get_emission_rate_history(), [&]( emission_rate_history_object& fho )
+      {
+         fho.emission_rate_history.push_back( median_feed );
+         size_t steemit_feed_history_window = BMCHAIN_FEED_HISTORY_WINDOW;
+         if( true )
+            steemit_feed_history_window = BMCHAIN_FEED_HISTORY_WINDOW;
+
+         if( fho.emission_rate_history.size() > steemit_feed_history_window )
+            fho.emission_rate_history.pop_front();
+
+         if( fho.emission_rate_history.size() )
+         {
+            std::deque< uint16_t > copy;
+            for( auto i : fho.emission_rate_history )
+            {
+               copy.push_back( i );
+            }
+
+            std::sort( copy.begin(), copy.end() ); /// TODO: use nth_item
+            fho.current_median_history = copy[copy.size()/2];
+
+#ifdef IS_TEST_NET
+            if( skip_price_feed_limit_check )
+               return;
+#endif
+//            if( true )
+//            {
+//               const auto& gpo = get_dynamic_global_properties();
+//               price min_price( asset( 9 * gpo.current_sbd_supply.amount, SBD_SYMBOL ), gpo.current_supply ); // This price limits SBD to 10% market cap
+//
+//               if( min_price > fho.current_median_history )
+//                  fho.current_median_history = min_price;
+//            }
+         }
+      });
+   }
+} FC_CAPTURE_AND_RETHROW() }
 
 void database::apply_transaction(const signed_transaction& trx, uint32_t skip)
 {
