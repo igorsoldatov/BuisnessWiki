@@ -1374,7 +1374,7 @@ void database::process_vesting_withdrawals() {
    const auto &didx = get_index<withdraw_savings_route_index>().indices().get<by_withdraw_route>();
    auto current = widx.begin();
 
-   const auto &cprops = get_dynamic_global_properties();
+   //const auto &cprops = get_dynamic_global_properties();
 
    while (current != widx.end() && current->next_savings_withdrawal <= head_block_time()) {
       const auto &from_account = *current;
@@ -2359,6 +2359,10 @@ void database::init_genesis( uint64_t init_supply )
       for( int i = 0; i < 0x10000; i++ )
          create< block_summary_object >( [&]( block_summary_object& ) {});
 
+      create< emission_rate_history_object >( [&]( emission_rate_history_object& o ) {});
+      for( int i = 0; i < 0x10000; i++ )
+         create< block_summary_object >( [&]( block_summary_object& ) {});
+
       create< hardfork_property_object >( [&](hardfork_property_object& hpo )
       {
          hpo.processed_hardforks.push_back( BMCHAIN_GENESIS_TIME );
@@ -2762,14 +2766,7 @@ try {
    for( int i = 0; i < wso.num_scheduled_witnesses; i++ )
    {
       const auto& wit = get_witness( wso.current_shuffled_witnesses[i] );
-      if( true )
-      {
-         if( now < wit.last_emission_rate_update + BMCHAIN_MAX_FEED_AGE_SECONDS && !wit.emission_rate )
-         {
-            feeds.push_back( wit.emission_rate );
-         }
-      }
-      else if( wit.last_emission_rate_update < now + BMCHAIN_MAX_FEED_AGE_SECONDS && !wit.emission_rate )
+      if( now < wit.last_emission_rate_update + BMCHAIN_MAX_FEED_AGE_SECONDS && wit.emission_rate )
       {
          feeds.push_back( wit.emission_rate );
       }
@@ -2780,12 +2777,12 @@ try {
       std::sort( feeds.begin(), feeds.end() );
       auto median_feed = feeds[feeds.size()/2];
 
+      auto erho = get_emission_rate_history();
+
       modify( get_emission_rate_history(), [&]( emission_rate_history_object& fho )
       {
          fho.emission_rate_history.push_back( median_feed );
          size_t steemit_feed_history_window = BMCHAIN_FEED_HISTORY_WINDOW;
-         if( true )
-            steemit_feed_history_window = BMCHAIN_FEED_HISTORY_WINDOW;
 
          if( fho.emission_rate_history.size() > steemit_feed_history_window )
             fho.emission_rate_history.pop_front();
@@ -3710,6 +3707,12 @@ void database::process_funds_bmchain(int64_t new_bmt)
         && props.head_block_number % (20 * 60 * 24) != 0 ) {
         return;
     }
+
+    auto current_emission_rate = get_emission_rate_history().current_median_history;
+    if ( !current_emission_rate ){
+       current_emission_rate = (BMCHAIN_DEFAULT_EMISSION_RATE);
+    }
+    new_bmt = new_bmt * current_emission_rate;
 
     /// 90% in reward funds
     share_type content_reward = ( new_bmt * (BMCHAIN_CONTENT_REWARD_PERCENT_NEW) ) / BMCHAIN_100_PERCENT;

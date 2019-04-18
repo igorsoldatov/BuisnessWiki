@@ -407,7 +407,6 @@ namespace bmchain { namespace protocol {
        */
       uint32_t          maximum_block_size = BMCHAIN_MIN_BLOCK_SIZE_LIMIT * 2;
       uint16_t          sbd_interest_rate  = 0;
-      uint16_t          emission_rate = 1;
 
       void validate()const
       {
@@ -1032,7 +1031,7 @@ FC_REFLECT( bmchain::protocol::pow, (worker)(input)(signature)(work) )
 FC_REFLECT( bmchain::protocol::pow2, (input)(pow_summary) )
 FC_REFLECT( bmchain::protocol::pow2_input, (worker_account)(prev_block)(nonce) )
 FC_REFLECT( bmchain::protocol::equihash_pow, (input)(proof)(prev_block)(pow_summary) )
-FC_REFLECT( bmchain::protocol::chain_properties, (account_creation_fee)(maximum_block_size)(sbd_interest_rate)(emission_rate) );
+FC_REFLECT( bmchain::protocol::chain_properties, (account_creation_fee)(maximum_block_size)(sbd_interest_rate) );
 
 FC_REFLECT_TYPENAME( bmchain::protocol::pow2_work )
 FC_REFLECT( bmchain::protocol::pow_operation, (worker_account)(block_id)(nonce)(work)(props) )
