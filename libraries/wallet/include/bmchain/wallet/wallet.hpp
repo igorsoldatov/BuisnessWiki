@@ -746,6 +746,8 @@ class wallet_api
        */
       annotated_signed_transaction publish_feed(string witness, price exchange_rate, bool broadcast );
 
+      annotated_signed_transaction publish_emission_rate(string witness, uint16_t emission_rate, bool broadcast );
+
       /** Signs a transaction.
        *
        * Given a fully-formed transaction that is only lacking signatures, this signs
@@ -1060,6 +1062,7 @@ FC_API( bmchain::wallet::wallet_api,
         (set_withdraw_savings_route)
 //      (convert_sbd)
         (publish_feed)
+        (publish_emission_rate)
 //      (get_order_book)
 //      (get_open_orders)
 //      (create_order)

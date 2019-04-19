@@ -296,7 +296,6 @@ public:
                                                                           " old");
       result["participation"] = (100*dynamic_props.recent_slots_filled.popcount()) / 128.0;
       result["account_creation_fee"] = _remote_db->get_chain_properties().account_creation_fee;
-      result["emission_rate"] = _remote_db->get_chain_properties().emission_rate;
       result["post_reward_fund"] = fc::variant(_remote_db->get_reward_fund( BMCHAIN_POST_REWARD_FUND_NAME )).get_object();
       return result;
    }
@@ -1983,6 +1982,20 @@ annotated_signed_transaction wallet_api::publish_feed(string witness, price exch
     tx.validate();
 
    return my->sign_transaction( tx, broadcast );
+}
+
+annotated_signed_transaction wallet_api::publish_emission_rate(string witness, uint16_t emission_rate, bool broadcast )
+{
+   FC_ASSERT(!is_locked());
+   emission_rate_publish_operation op;
+   op.publisher = witness;
+   op.emission_rate = emission_rate;
+
+   signed_transaction tx;
+   tx.operations.push_back(op);
+   tx.validate();
+
+   return my->sign_transaction(tx, broadcast);
 }
 
 vector< convert_request_api_obj > wallet_api::get_conversion_requests( string owner_account )
