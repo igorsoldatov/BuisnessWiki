@@ -125,7 +125,9 @@ class wallet_api
        *
        * @returns Price feed history data on the blockchain
        */
-      feed_history_api_obj                 get_feed_history()const;
+      feed_history_api_obj                get_feed_history()const;
+
+      emission_rate_history_api_obj       get_emission_rate_history()const;
 
       /**
        * Returns the list of witnesses producing blocks in the current round (21 Blocks)
@@ -1023,6 +1025,7 @@ FC_API( bmchain::wallet::wallet_api,
         (get_block)
         (get_ops_in_block)
         (get_feed_history)
+        (get_emission_rate_history)
         (get_conversion_requests)
         (get_account_history)
         (get_state)

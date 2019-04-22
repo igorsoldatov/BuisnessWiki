@@ -1177,6 +1177,8 @@ pair<public_key_type,string> wallet_api::get_private_key_from_password( string a
 
 feed_history_api_obj wallet_api::get_feed_history()const { return my->_remote_db->get_feed_history(); }
 
+emission_rate_history_api_obj wallet_api::get_emission_rate_history()const { return my->_remote_db->get_emission_rate_history(); }
+
 /**
  * This method is used by faucets to create new accounts for other users which must
  * provide their desired keys. The resulting account may not be controllable by this

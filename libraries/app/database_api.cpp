@@ -263,6 +263,12 @@ namespace bmchain {
             });
         }
 
+       emission_rate_history_api_obj database_api::get_emission_rate_history() const {
+            return my->_db.with_read_lock([&]() {
+                return emission_rate_history_api_obj(my->_db.get_emission_rate_history());
+            });
+        }
+
         price database_api::get_current_median_history_price() const {
             return my->_db.with_read_lock([&]() {
                 return my->_db.get_feed_history().current_median_history;

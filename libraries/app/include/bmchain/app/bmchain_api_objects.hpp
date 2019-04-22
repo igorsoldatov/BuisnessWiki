@@ -408,6 +408,21 @@ struct feed_history_api_obj
    deque< price >       price_history;
 };
 
+struct emission_rate_history_api_obj
+{
+   emission_rate_history_api_obj( const chain::emission_rate_history_object& f ) :
+      id( f.id ),
+      current_median_history( f.current_median_history ),
+      emission_rate_history( f.emission_rate_history.begin(), f.emission_rate_history.end() )
+   {}
+
+   emission_rate_history_api_obj() {}
+
+   emission_rate_history_id_type id;
+   uint16_t                current_median_history;
+   deque< uint16_t >       emission_rate_history;
+};
+
 struct witness_api_obj
 {
    witness_api_obj( const chain::witness_object& w ) :
@@ -627,6 +642,12 @@ FC_REFLECT( bmchain::app::feed_history_api_obj,
              (id)
              (current_median_history)
              (price_history)
+          )
+
+FC_REFLECT( bmchain::app::emission_rate_history_api_obj,
+             (id)
+             (current_median_history)
+             (emission_rate_history)
           )
 
 FC_REFLECT( bmchain::app::tag_api_obj,

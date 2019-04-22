@@ -216,6 +216,7 @@ class database_api
       chain_properties                 get_chain_properties() const;
       price                            get_current_median_history_price() const;
       feed_history_api_obj             get_feed_history() const;
+      emission_rate_history_api_obj    get_emission_rate_history() const;
       witness_schedule_api_obj         get_witness_schedule() const;
       hardfork_version                 get_hardfork_version() const;
       scheduled_hardfork               get_next_scheduled_hardfork() const;
@@ -535,6 +536,7 @@ FC_API(bmchain::app::database_api,
    (get_dynamic_global_properties)
    (get_chain_properties)
    (get_feed_history)
+   (get_emission_rate_history)
    (get_current_median_history_price)
    (get_witness_schedule)
    (get_hardfork_version)
