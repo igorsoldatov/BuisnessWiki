@@ -134,6 +134,17 @@ namespace bmchain { namespace protocol {
       void validate()const;
    };
 
+   struct comment_curation_rewards_percent {
+      comment_curation_rewards_percent() {}
+
+      comment_curation_rewards_percent(uint16_t perc)
+            : percent(perc) {}
+
+      uint16_t percent = BMCHAIN_MIN_CURATION_PERCENT;
+
+      void validate() const;
+   };
+
    typedef static_variant<
             comment_payout_beneficiaries
            > comment_options_extension;
@@ -1084,10 +1095,11 @@ FC_REFLECT( bmchain::protocol::limit_order_create_operation, (owner)(orderid)(am
 FC_REFLECT( bmchain::protocol::limit_order_create2_operation, (owner)(orderid)(amount_to_sell)(exchange_rate)(fill_or_kill)(expiration) )
 FC_REFLECT( bmchain::protocol::limit_order_cancel_operation, (owner)(orderid) )
 
-FC_REFLECT( bmchain::protocol::delete_comment_operation, (author)(permlink) );
+FC_REFLECT( bmchain::protocol::delete_comment_operation, (author)(permlink) )
 
 FC_REFLECT( bmchain::protocol::beneficiary_route_type, (account)(weight) )
 FC_REFLECT( bmchain::protocol::comment_payout_beneficiaries, (beneficiaries) )
+FC_REFLECT( bmchain::protocol::comment_curation_rewards_percent, (percent) )
 FC_REFLECT_TYPENAME( bmchain::protocol::comment_options_extension )
 FC_REFLECT( bmchain::protocol::comment_options_operation, (author)(permlink)(max_accepted_payout)(percent_bmt_dollars)(allow_votes)(allow_curation_rewards)(extensions) )
 
