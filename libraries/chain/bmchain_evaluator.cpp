@@ -417,6 +417,19 @@ struct comment_options_extension_visitor
          }
       });
    }
+
+   void operator()( const comment_curation_rewards_percent& ccrp ) const {
+      // const auto& mprops = _db.get_witness_schedule_object().median_props;
+      // auto percent = ccrp.percent;
+
+      FC_ASSERT( BMCHAIN_MIN_CURATION_PERCENT <= ccrp.percent && ccrp.percent <= BMCHAIN_MAX_CURATION_PERCENT,
+                 "Curation rewards percent must be between ${min} and ${max}.",
+                 ("min", BMCHAIN_MIN_CURATION_PERCENT)("max", BMCHAIN_MAX_CURATION_PERCENT) );
+
+      _db.modify(_c, [&](comment_object& c) {
+         c.curation_rewards_percent = ccrp.percent;
+      });
+   }
 };
 
 void comment_options_evaluator::do_apply( const comment_options_operation& o )
@@ -433,9 +446,9 @@ void comment_options_evaluator::do_apply( const comment_options_operation& o )
    FC_ASSERT( comment.max_accepted_payout >= o.max_accepted_payout, "A comment cannot accept a greater payout." );
 
    _db.modify( comment, [&]( comment_object& c ) {
-       c.max_accepted_payout   = o.max_accepted_payout;
-       c.percent_bmt_dollars = o.percent_bmt_dollars;
-       c.allow_votes           = o.allow_votes;
+       c.max_accepted_payout    = o.max_accepted_payout;
+       c.percent_bmt_dollars    = o.percent_bmt_dollars;
+       c.allow_votes            = o.allow_votes;
        c.allow_curation_rewards = o.allow_curation_rewards;
    });
 

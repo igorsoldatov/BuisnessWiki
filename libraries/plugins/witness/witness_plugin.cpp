@@ -117,6 +117,9 @@ namespace detail
             chain::plugin_exception,
             "Cannot specify more than 8 beneficiaries." );
       }
+
+      void operator()( const comment_curation_rewards_percent& ccrp ) const {
+      }
    };
 
    void check_memo( const string& memo, const account_object& account, const account_authority_object& auth )

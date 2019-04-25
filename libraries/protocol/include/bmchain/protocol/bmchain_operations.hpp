@@ -146,7 +146,8 @@ namespace bmchain { namespace protocol {
    };
 
    typedef static_variant<
-            comment_payout_beneficiaries
+            comment_payout_beneficiaries,
+            comment_curation_rewards_percent
            > comment_options_extension;
 
    typedef flat_set< comment_options_extension > comment_options_extensions_type;
