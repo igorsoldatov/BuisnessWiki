@@ -1926,7 +1926,8 @@ asset database::get_pow_reward()const
 }
 uint16_t database::get_curation_rewards_percent( const comment_object& c ) const
 {
-   return get_reward_fund( c ).percent_curation_rewards;
+   // return get_reward_fund( c ).percent_curation_rewards;
+   return c.curation_rewards_percent;
 }
 
 share_type database::pay_reward_funds( share_type reward )
