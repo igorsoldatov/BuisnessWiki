@@ -1838,6 +1838,29 @@ namespace detail
       return _follow_api->get_blog_authors( { args[0].as< account_name_type >() } ).blog_authors;
    }
 
+   DEFINE_API_IMPL( condenser_api_impl, get_ticker )
+   {
+      CHECK_ARG_SIZE( 0 )
+      FC_ASSERT( _market_history_api, "market_history_api_plugin not enabled." );
+
+      return get_ticker_return( _market_history_api->get_ticker( {} ) );
+   }
+
+   DEFINE_API_IMPL( condenser_api_impl, get_volume )
+   {
+      CHECK_ARG_SIZE( 0 )
+      FC_ASSERT( _market_history_api, "market_history_api_plugin not enabled." );
+
+      return get_volume_return( _market_history_api->get_volume( {} ) );
+   }
+
+   DEFINE_API_IMPL( condenser_api_impl, get_order_book )
+   {
+      FC_ASSERT( args.size() == 0 || args.size() == 1, "Expected 0-1 arguments, was ${n}", ("n", args.size()) );
+      FC_ASSERT( _market_history_api, "market_history_api_plugin not enabled." );
+
+      return get_order_book_return( _market_history_api->get_order_book( { args.size() == 1 ? args[0].as< uint32_t >() : 500 } ) );
+   }
 
    DEFINE_API_IMPL( condenser_api_impl, get_trade_history )
    {
