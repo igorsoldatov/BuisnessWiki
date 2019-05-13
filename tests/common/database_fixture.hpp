@@ -9,9 +9,6 @@
 
 #include <graphene/utilities/key_conversion.hpp>
 
-//#include <bmchain/plugins/condenser_api/condenser_api_legacy_asset.hpp>
-#include "/media/igor/wd/PROJECTS/BMCHAIN/bmchain-core/libraries/plugins/apis/condenser_api/include/bmchain/plugins/condenser_api/condenser_api_legacy_asset.hpp"
-
 #include <iostream>
 
 #define INITIAL_TEST_SUPPLY (10000000000ll)
@@ -41,24 +38,6 @@ extern uint32_t ( BMCHAIN_TESTING_GENESIS_TIMESTAMP );
    op.field = temp; \
    db.push_transaction( trx, ~0 ); \
 }
-
-/*#define BMCHAIN_REQUIRE_THROW( expr, exc_type )          \
-{                                                         \
-   std::string req_throw_info = fc::json::to_string(      \
-      fc::mutable_variant_object()                        \
-      ("source_file", __FILE__)                           \
-      ("source_lineno", __LINE__)                         \
-      ("expr", #expr)                                     \
-      ("exc_type", #exc_type)                             \
-      );                                                  \
-   if( fc::enable_record_assert_trip )                    \
-      std::cout << "BMCHAIN_REQUIRE_THROW begin "        \
-         << req_throw_info << std::endl;                  \
-   BOOST_REQUIRE_THROW( expr, exc_type );                 \
-   if( fc::enable_record_assert_trip )                    \
-      std::cout << "BMCHAIN_REQUIRE_THROW end "          \
-         << req_throw_info << std::endl;                  \
-}*/
 
 #define BMCHAIN_REQUIRE_THROW( expr, exc_type )          \
    BOOST_REQUIRE_THROW( expr, exc_type );
