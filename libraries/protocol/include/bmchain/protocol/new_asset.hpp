@@ -5,6 +5,7 @@
 
 namespace bmchain { namespace new_protocol {
 
+   #define BMT_SYMBOL    (bmchain::new_protocol::asset_symbol_type::from_asset_num( STEEM_ASSET_NUM_BMT ) )
    using protocol::share_type;
 
    struct asset

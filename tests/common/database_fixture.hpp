@@ -109,10 +109,10 @@ extern uint32_t ( BMCHAIN_TESTING_GENESIS_TIMESTAMP );
 #define ACTORS(names) BOOST_PP_SEQ_FOR_EACH(ACTORS_IMPL, ~, names) \
    validate_database();
 
-//#define ASSET( s ) \
-//   asset::from_string( s )
 #define ASSET( s ) \
-   bmchain::plugins::condenser_api::legacy_asset::from_string( s ).to_asset()
+   asset::from_string( s )
+//#define ASSET( s ) \
+//   bmchain::plugins::condenser_api::legacy_asset::from_string( s ).to_asset()
 
 namespace bmchain { namespace chain {
 

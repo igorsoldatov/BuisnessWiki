@@ -40,6 +40,8 @@
 #define VESTS_SYMBOL_U64  (uint64_t('V') | (uint64_t('E') << 8) | (uint64_t('S') << 16) | (uint64_t('T') << 24) | (uint64_t('S') << 32))
 #define STEEM_SYMBOL_U64  (uint64_t('T') | (uint64_t('E') << 8) | (uint64_t('S') << 16) | (uint64_t('T') << 24) | (uint64_t('S') << 32))
 #define SBD_SYMBOL_U64    (uint64_t('T') | (uint64_t('B') << 8) | (uint64_t('D') << 16))
+#define BWC_SYMBOL_U64    (uint64_t('B') | (uint64_t('M') << 8) | (uint64_t('T') << 16))
+#define REP_SYMBOL_U64    (uint64_t('R') | (uint64_t('E') << 8) | (uint64_t('P') << 16))
 
 #else
 
