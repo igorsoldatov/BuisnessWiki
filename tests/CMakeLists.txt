@@ -16,7 +16,6 @@ target_link_libraries( chain_test
         steemit_account_history
         steemit_witness
         steemit_debug_node
-        condenser_api_plugin
         fc
         ${PLATFORM_SPECIFIC_LIBS} )
 
@@ -29,7 +28,6 @@ target_link_libraries( plugin_test
         steemit_account_history
         steemit_witness
         steemit_debug_node
-        condenser_api_plugin
         fc
         ${PLATFORM_SPECIFIC_LIBS} )
 

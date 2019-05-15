@@ -1602,7 +1602,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 
                BOOST_REQUIRE( alice.vesting_shares.amount.value == old_vesting_shares.amount.value );
                BOOST_REQUIRE( alice.savings_withdraw_rate.amount.value == ( old_vesting_shares.amount / ( BMCHAIN_VESTING_WITHDRAW_INTERVALS * 2 ) ).value );
-               BOOST_REQUIRE( alice.to_withdraw.value == op.vesting_shares.amount.value );
+               BOOST_REQUIRE( alice.to_withdraw.value == op.savings.amount.value );
                BOOST_REQUIRE( alice.next_savings_withdrawal == db.head_block_time() + BMCHAIN_VESTING_WITHDRAW_INTERVAL_SECONDS );
                validate_database();
 
@@ -1610,7 +1610,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
                tx.operations.clear();
                tx.signatures.clear();
 
-               op.vesting_shares = asset( alice.vesting_shares.amount / 3, VESTS_SYMBOL );
+               op.savings = asset( alice.vesting_shares.amount / 3, VESTS_SYMBOL );
                tx.operations.push_back( op );
                tx.set_expiration( db.head_block_time() + BMCHAIN_MAX_TIME_UNTIL_EXPIRATION );
                tx.sign( alice_private_key, db.get_chain_id() );
@@ -1618,7 +1618,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 
                BOOST_REQUIRE( alice.vesting_shares.amount.value == old_vesting_shares.amount.value );
                BOOST_REQUIRE( alice.savings_withdraw_rate.amount.value == ( old_vesting_shares.amount / ( BMCHAIN_VESTING_WITHDRAW_INTERVALS * 3 ) ).value );
-               BOOST_REQUIRE( alice.to_withdraw.value == op.vesting_shares.amount.value );
+               BOOST_REQUIRE( alice.to_withdraw.value == op.savings.amount.value );
                BOOST_REQUIRE( alice.next_savings_withdrawal == db.head_block_time() + BMCHAIN_VESTING_WITHDRAW_INTERVAL_SECONDS );
                validate_database();
 
@@ -1627,7 +1627,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
                tx.operations.clear();
                tx.signatures.clear();
 
-               op.vesting_shares = asset( alice.vesting_shares.amount * 2, VESTS_SYMBOL );
+               op.savings = asset( alice.vesting_shares.amount * 2, VESTS_SYMBOL );
                tx.operations.push_back( op );
                tx.set_expiration( db.head_block_time() + BMCHAIN_MAX_TIME_UNTIL_EXPIRATION );
                tx.sign( alice_private_key, db.get_chain_id() );
@@ -1642,7 +1642,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
                tx.operations.clear();
                tx.signatures.clear();
 
-               op.vesting_shares = asset( 0, VESTS_SYMBOL );
+               op.savings = asset( 0, VESTS_SYMBOL );
                tx.operations.push_back( op );
                tx.set_expiration( db.head_block_time() + BMCHAIN_MAX_TIME_UNTIL_EXPIRATION );
                tx.sign( alice_private_key, db.get_chain_id() );
@@ -1655,7 +1655,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 
 
                BOOST_TEST_MESSAGE( "--- Test cancelling a withdraw when below the account creation fee" );
-               op.vesting_shares = alice.vesting_shares;
+               op.savings = alice.vesting_shares;
                tx.clear();
                tx.operations.push_back( op );
                tx.sign( alice_private_key, db.get_chain_id() );
@@ -1778,7 +1778,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
            op.url = "foo.bar";
            op.fee = ASSET( "1.000 TESTS" );
            op.block_signing_key = signing_key.get_public_key();
-           op.props.account_creation_fee = legacy_steem_asset::from_asset( asset(BMCHAIN_MIN_ACCOUNT_CREATION_FEE + 10, BWC_SYMBOL) );
+           op.props.account_creation_fee = asset(BMCHAIN_MIN_ACCOUNT_CREATION_FEE + 10, BWC_SYMBOL);
            op.props.maximum_block_size = BMCHAIN_MIN_BLOCK_SIZE_LIMIT + 100;
 
            signed_transaction tx;
@@ -1794,7 +1794,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
            BOOST_REQUIRE( alice_witness.created == db.head_block_time() );
            BOOST_REQUIRE( to_string( alice_witness.url ) == op.url );
            BOOST_REQUIRE( alice_witness.signing_key == op.block_signing_key );
-           BOOST_REQUIRE( alice_witness.props.account_creation_fee == op.props.account_creation_fee.to_asset<true>() );
+           BOOST_REQUIRE( alice_witness.props.account_creation_fee == op.props.account_creation_fee );
            BOOST_REQUIRE( alice_witness.props.maximum_block_size == op.props.maximum_block_size );
            BOOST_REQUIRE( alice_witness.total_missed == 0 );
            BOOST_REQUIRE( alice_witness.last_aslot == 0 );
@@ -1821,7 +1821,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
            BOOST_REQUIRE( alice_witness.created == db.head_block_time() );
            BOOST_REQUIRE( to_string( alice_witness.url ) == "bar.foo" );
            BOOST_REQUIRE( alice_witness.signing_key == op.block_signing_key );
-           BOOST_REQUIRE( alice_witness.props.account_creation_fee == op.props.account_creation_fee.to_asset<true>() );
+           BOOST_REQUIRE( alice_witness.props.account_creation_fee == op.props.account_creation_fee );
            BOOST_REQUIRE( alice_witness.props.maximum_block_size == op.props.maximum_block_size );
            BOOST_REQUIRE( alice_witness.total_missed == 0 );
            BOOST_REQUIRE( alice_witness.last_aslot == 0 );
