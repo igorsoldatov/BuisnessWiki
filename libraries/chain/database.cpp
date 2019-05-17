@@ -2361,8 +2361,8 @@ void database::init_genesis( uint64_t init_supply )
          create< block_summary_object >( [&]( block_summary_object& ) {});
 
       create< emission_rate_history_object >( [&]( emission_rate_history_object& o ) {});
-      for( int i = 0; i < 0x10000; i++ )
-         create< block_summary_object >( [&]( block_summary_object& ) {});
+      //for( int i = 0; i < 0x10000; i++ )
+      //   create< block_summary_object >( [&]( block_summary_object& ) {});
 
       create< hardfork_property_object >( [&](hardfork_property_object& hpo )
       {
@@ -2522,14 +2522,17 @@ void database::show_free_memory( bool force )
       ilog( "Free memory is now ${n}G", ("n", free_gb) );
       _last_free_gb_printed = free_gb;
    }
-
+#ifdef IS_TEST_NET
+#else
    if( free_gb == 0 )
    {
       uint32_t free_mb = uint32_t( get_free_memory() / (1024*1024) );
 
-      if( free_mb <= 100 && head_block_num() % 10 == 0 )
-         elog( "Free memory is now ${n}M. Increase shared file size immediately!" , ("n", free_mb) );
+      if( free_mb <= 100 && head_block_num() % 10 == 0 ) {
+         elog("Free memory is now ${n}M. Increase shared file size immediately!", ("n", free_mb));
+      }
    }
+#endif
 }
 
 void database::_apply_block( const signed_block& next_block )
