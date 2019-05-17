@@ -32,7 +32,6 @@ BOOST_AUTO_TEST_CASE( new_emission_bmchain )
 try
   {
       BOOST_TEST_MESSAGE("Testing: new emission bmchain");
-      std::cout << "Testing: new emission bmchain" << std::endl;
 
       ACTORS((alice)(bob)(sam))
       generate_blocks(60 / BMCHAIN_BLOCK_INTERVAL);
@@ -86,7 +85,8 @@ try
       tx.operations.clear();
       tx.operations.push_back(op);
       tx.sign(bob_private_key, db.get_chain_id());
-      BMCHAIN_REQUIRE_THROW(db.push_transaction(tx, 0), fc::exception);
+      db.push_transaction(tx, 0);
+      // BMCHAIN_REQUIRE_THROW(db.push_transaction(tx, 0), fc::exception);
 
       gbo2 = db.get_dynamic_global_properties();
       BOOST_REQUIRE(gbo2.current_supply.amount.value == gbo1.current_supply.amount.value + BMCHAIN_COMMENT_EMISSION_RATE);
@@ -96,9 +96,9 @@ try
       gbo1 = db.get_dynamic_global_properties();
 
       op.author = "sam";
-      op.permlink = "emmisiton-comment-01";
+      op.permlink = "emission-comment-01";
       op.parent_author = "bob";
-      op.parent_permlink = "emission-post";
+      op.parent_permlink = "emission-comment-00";
 
       tx.signatures.clear();
       tx.operations.clear();
@@ -106,7 +106,7 @@ try
       tx.sign(sam_private_key, db.get_chain_id());
       db.push_transaction(tx, 0);
 
-      const comment_object &sam_comment = db.get_comment("sam", string("emmisiton-comment-01"));
+      const comment_object &sam_comment = db.get_comment("sam", string("emission-comment-01"));
 
       BOOST_REQUIRE(sam_comment.author == op.author);
       BOOST_REQUIRE(to_string(sam_comment.permlink) == op.permlink);
@@ -127,9 +127,9 @@ try
       generate_blocks(60 * 5 / BMCHAIN_BLOCK_INTERVAL + 1);
 
       BOOST_TEST_MESSAGE("--- Test modifying a comment");
-      const auto &mod_sam_comment = db.get_comment("sam", string("emmisiton-comment-01"));
-      const auto &mod_bob_comment = db.get_comment("bob", string("emmisiton-comment-02"));
-      const auto &mod_alice_comment = db.get_comment("alice", string("emmisiton-post"));
+      const auto &mod_sam_comment = db.get_comment("sam", string("emission-comment-01"));
+      const auto &mod_bob_comment = db.get_comment("bob", string("emission-comment-00"));
+      const auto &mod_alice_comment = db.get_comment("alice", string("emission-post"));
       fc::time_point_sec created = mod_sam_comment.created;
 
       db.modify(mod_sam_comment, [&](comment_object &com) {
@@ -251,14 +251,10 @@ BOOST_AUTO_TEST_CASE( account_create_apply )
        //BOOST_REQUIRE( acct.sbd_balance.amount.value == ASSET( "0.000 TBD" ).amount.value );
        BOOST_REQUIRE(acct.id._id == acct_auth.id._id);
 
-       auto new_bmt = asset(BMCHAIN_USER_EMISSION_RATE, BWC_SYMBOL);
-
-       /// because init_witness has created vesting shares and blocks have been produced, 100 STEEM is worth less than 100 vesting shares due to rounding
-       BOOST_REQUIRE(acct.vesting_shares.amount.value ==
-                     static_cast<int64_t>((op.fee + new_bmt).amount.value * BMCHAIN_BLOCKCHAIN_PRECISION));
+       BOOST_REQUIRE(acct.vesting_shares.amount.value == 0);
        BOOST_REQUIRE(acct.savings_withdraw_rate.amount.value == ASSET("0.000000 VESTS").amount.value);
        BOOST_REQUIRE(acct.proxied_vsf_votes_total().value == 0);
-       BOOST_REQUIRE((init_starting_balance - ASSET("0.100 TESTS")).amount.value == init.balance.amount.value);
+       BOOST_REQUIRE((init_starting_balance + ASSET("0.900 TESTS")).amount.value == init.balance.amount.value);
        validate_database();
 
        BOOST_TEST_MESSAGE("--- Test failure of duplicate account creation");
@@ -272,11 +268,10 @@ BOOST_AUTO_TEST_CASE( account_create_apply )
        BOOST_REQUIRE(acct.created == db.head_block_time());
        BOOST_REQUIRE(acct.balance.amount.value == ASSET("0.000 STEEM ").amount.value);
        //BOOST_REQUIRE( acct.sbd_balance.amount.value == ASSET( "0.000 TBD" ).amount.value );
-       BOOST_REQUIRE(acct.vesting_shares.amount.value ==
-                     static_cast<int64_t>((op.fee + new_bmt).amount.value * BMCHAIN_BLOCKCHAIN_PRECISION));
+       BOOST_REQUIRE(acct.vesting_shares.amount.value == 0);
        BOOST_REQUIRE(acct.savings_withdraw_rate.amount.value == ASSET("0.000000 VESTS").amount.value);
        BOOST_REQUIRE(acct.proxied_vsf_votes_total().value == 0);
-       BOOST_REQUIRE((init_starting_balance - ASSET("0.100 TESTS")).amount.value == init.balance.amount.value);
+       BOOST_REQUIRE((init_starting_balance + ASSET("0.900 TESTS")).amount.value == init.balance.amount.value);
        validate_database();
 
        BOOST_TEST_MESSAGE("--- Test failure when creator cannot cover fee");
