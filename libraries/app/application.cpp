@@ -938,6 +938,7 @@ namespace detail {
       bool                                             _running;
 
       uint32_t allow_future_time = 5;
+      boost::program_options::options_description     _app_options;
    };
 
 }
