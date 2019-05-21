@@ -20,7 +20,7 @@
 #define BMCHAIN_GENESIS_TIME                    (fc::time_point_sec(1451606400))
 #define BMCHAIN_CASHOUT_WINDOW_SECONDS          (60*10) /// 1 hr /// bmchain
 #define BMCHAIN_SECOND_CASHOUT_WINDOW           (60*60*24*3) /// 3 days
-#define BMCHAIN_UPVOTE_LOCKOUT                  (fc::minutes(0))
+#define BMCHAIN_UPVOTE_LOCKOUT                  (fc::minutes(5))
 
 #define BMCHAIN_MIN_ACCOUNT_CREATION_FEE        0
 
@@ -241,7 +241,11 @@
 
 #define BMCHAIN_STRESS_TESTING                  false
 #define BMCHAIN_USING_CLOSE_CONTENT             1
+#ifdef IS_TEST_NET
+#define BMCHAIN_FIRST_PAYOUT_BLOCK              0
+#else
 #define BMCHAIN_FIRST_PAYOUT_BLOCK              ((20*60*24*7)) /// 7 days
+#endif
 
 #define BMCHAIN_DEFAULT_EMISSION_RATE           1
 #define BMCHAIN_VOTE_EMISSION_RATE              500

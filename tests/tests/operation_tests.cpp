@@ -794,6 +794,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
            auto cashout_time1 = db.get_comment( "alice", string( "test1" ) ).cashout_time;
            generate_blocks( BMCHAIN_CASHOUT_WINDOW_SECONDS / BMCHAIN_BLOCK_INTERVAL );
            auto cashout_time2 = db.get_comment( "alice", string( "test1" ) ).cashout_time;
+           auto d = cashout_time2 - cashout_time1;
            BOOST_REQUIRE( (cashout_time2 - cashout_time1) == fc::milliseconds(259200000) );
            //BOOST_REQUIRE( db.get_comment( "alice", string( "test1" ) ).cashout_time == fc::time_point_sec::maximum() );
 
@@ -1161,6 +1162,8 @@ BOOST_AUTO_TEST_CASE( comment_apply )
                validate_database();
 
                BOOST_TEST_MESSAGE( "--- Test failure when increasing rshares within lockout period" );
+
+               auto t = fc::time_point_sec( ( new_bob_comment.cashout_time - BMCHAIN_UPVOTE_LOCKOUT ).sec_since_epoch() + BMCHAIN_BLOCK_INTERVAL );
 
                generate_blocks( fc::time_point_sec( ( new_bob_comment.cashout_time - BMCHAIN_UPVOTE_LOCKOUT ).sec_since_epoch() + BMCHAIN_BLOCK_INTERVAL ), true );
 
