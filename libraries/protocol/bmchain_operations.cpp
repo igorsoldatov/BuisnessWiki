@@ -157,6 +157,7 @@ namespace bmchain { namespace protocol {
       validate_permlink( permlink );
    }
 
+
    void transfer_operation::validate() const
    { try {
       validate_account_name( from );
@@ -167,6 +168,7 @@ namespace bmchain { namespace protocol {
       FC_ASSERT( memo.size() < BMCHAIN_MAX_MEMO_SIZE, "Memo is too large" );
       FC_ASSERT( fc::is_utf8( memo ), "Memo is not UTF8" );
    } FC_CAPTURE_AND_RETHROW( (*this) ) }
+
 
    void transfer_to_vesting_operation::validate() const
    {

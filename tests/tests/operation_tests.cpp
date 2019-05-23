@@ -1206,7 +1206,6 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        try
        {
            BOOST_TEST_MESSAGE( "Testing: transfer_validate" );
-
            validate_database();
        }
        FC_LOG_AND_RETHROW()
