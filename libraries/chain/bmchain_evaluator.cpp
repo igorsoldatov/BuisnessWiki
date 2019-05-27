@@ -1304,12 +1304,7 @@ try {
 
       if( rshares > 0 )
       {
-         auto left_val = comment.cashout_time - BMCHAIN_UPVOTE_LOCKOUT;
-         if (_db.head_block_time() >= left_val ) {
-            int a = 1;
-            a++;
-         }
-         FC_ASSERT( _db.head_block_time() < left_val, "Cannot increase payout within last twelve hours before payout." );
+         FC_ASSERT( _db.head_block_time() < comment.cashout_time - BMCHAIN_UPVOTE_LOCKOUT, "Cannot increase payout within last twelve hours before payout." );
       }
 
       _db.modify( voter, [&]( account_object& a ){

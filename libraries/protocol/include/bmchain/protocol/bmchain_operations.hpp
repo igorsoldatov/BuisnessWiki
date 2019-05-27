@@ -374,7 +374,7 @@ namespace bmchain { namespace protocol {
       asset             savings;
 
       void validate()const;
-      void get_required_active_authorities( flat_set<account_name_type>& a )const{ a.insert(account); }
+      void get_required_active_authorities( flat_set<account_name_type>& a ) const{ a.insert( account ); }
    };
 
 
@@ -393,7 +393,7 @@ namespace bmchain { namespace protocol {
       bool              auto_vest = false;
 
       void validate()const;
-      void get_required_active_authorities( flat_set<account_name_type>& a )const { a.insert( from_account ); }
+      void get_required_active_authorities( flat_set<account_name_type>& a ) const { a.insert( from_account ); }
    };
 
 

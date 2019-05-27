@@ -1535,7 +1535,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 
            withdraw_savings_operation op;
            op.account = "alice";
-           op.savings = ASSET( "0.001000 BWC" );
+           op.savings = ASSET( "0.001 TESTS" );
 
            auto acc = db.get_account("alice");
 
