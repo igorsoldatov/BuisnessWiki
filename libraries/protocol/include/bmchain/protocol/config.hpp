@@ -18,7 +18,7 @@
 #define BMCHAIN_ADDRESS_PREFIX                  "TST"
 
 #define BMCHAIN_GENESIS_TIME                    (fc::time_point_sec(1451606400))
-#define BMCHAIN_CASHOUT_WINDOW_SECONDS          (60*10) /// 1 hr /// bmchain
+#define BMCHAIN_CASHOUT_WINDOW_SECONDS          (60*60) /// 1 hr /// bmchain
 #define BMCHAIN_SECOND_CASHOUT_WINDOW           (60*60*24*3) /// 3 days
 #define BMCHAIN_UPVOTE_LOCKOUT                  (fc::minutes(5))
 
