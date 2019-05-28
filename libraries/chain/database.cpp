@@ -1118,8 +1118,9 @@ asset database::create_vesting( const account_object& to_account, asset bmt, boo
             to.reward_vesting_balance += new_vesting;
             to.reward_vesting_bmt += bmt;
          }
-         else
+         else {
             to.vesting_shares += new_vesting;
+         }
       } );
 
       modify( cprops, [&]( dynamic_global_property_object& props )
