@@ -723,8 +723,8 @@ BOOST_AUTO_TEST_CASE( comment_apply )
    FC_LOG_AND_RETHROW()
 }
 
-   BOOST_AUTO_TEST_CASE( comment_delete_apply )
-   {
+BOOST_AUTO_TEST_CASE( comment_delete_apply )
+{
        try
        {
            BOOST_TEST_MESSAGE( "Testing: comment_delete_apply" );
@@ -833,20 +833,19 @@ BOOST_AUTO_TEST_CASE( comment_apply )
            BMCHAIN_REQUIRE_THROW( db.push_transaction( tx, 0 ), fc::assert_exception );
        }
        FC_LOG_AND_RETHROW()
-   }
+}
 
-   BOOST_AUTO_TEST_CASE( vote_validate )
-   {
-       try
-       {
-           BOOST_TEST_MESSAGE( "Testing: vote_validate" );
+BOOST_AUTO_TEST_CASE(vote_validate)
+{
+      try {
+         BOOST_TEST_MESSAGE("Testing: vote_validate");
 
-           validate_database();
-       }
-       FC_LOG_AND_RETHROW()
-   }
+         validate_database();
+      }
+      FC_LOG_AND_RETHROW()
+}
 
-   BOOST_AUTO_TEST_CASE( vote_authorities )
+BOOST_AUTO_TEST_CASE( vote_authorities )
    {
        try
        {
@@ -857,7 +856,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( vote_apply )
+BOOST_AUTO_TEST_CASE( vote_apply )
    {
        try
        {
@@ -1201,7 +1200,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( transfer_validate )
+BOOST_AUTO_TEST_CASE( transfer_validate )
    {
        try
        {
@@ -1211,7 +1210,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( transfer_authorities )
+BOOST_AUTO_TEST_CASE( transfer_authorities )
    {
        try
        {
@@ -1258,7 +1257,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( signature_stripping )
+BOOST_AUTO_TEST_CASE( signature_stripping )
    {
        try
        {
@@ -1312,7 +1311,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( transfer_apply )
+BOOST_AUTO_TEST_CASE( transfer_apply )
    {
        try
        {
@@ -1379,7 +1378,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( transfer_to_vesting_validate )
+BOOST_AUTO_TEST_CASE( transfer_to_vesting_validate )
    {
        try
        {
@@ -1390,7 +1389,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( transfer_to_vesting_authorities )
+BOOST_AUTO_TEST_CASE( transfer_to_vesting_authorities )
    {
        try
        {
@@ -1437,7 +1436,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( transfer_to_vesting_apply )
+BOOST_AUTO_TEST_CASE( transfer_to_vesting_apply )
    {
        try
        {
@@ -1512,7 +1511,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( withdraw_savings_validate )
+BOOST_AUTO_TEST_CASE( withdraw_savings_validate )
    {
        try
        {
@@ -1523,7 +1522,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( withdraw_savings_authorities )
+BOOST_AUTO_TEST_CASE( withdraw_savings_authorities )
    {
        try
        {
@@ -1570,7 +1569,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( withdraw_savings_apply )
+BOOST_AUTO_TEST_CASE( withdraw_savings_apply )
    {
        try
        {
@@ -1579,7 +1578,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( witness_update_validate )
+BOOST_AUTO_TEST_CASE( witness_update_validate )
    {
        try
        {
@@ -1590,7 +1589,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( witness_update_authorities )
+BOOST_AUTO_TEST_CASE( witness_update_authorities )
    {
        try
        {
@@ -1643,7 +1642,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( witness_update_apply )
+BOOST_AUTO_TEST_CASE( witness_update_apply )
    {
        try
        {
@@ -1730,7 +1729,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( account_witness_vote_validate )
+BOOST_AUTO_TEST_CASE( account_witness_vote_validate )
    {
        try
        {
@@ -1741,7 +1740,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( account_witness_vote_authorities )
+BOOST_AUTO_TEST_CASE( account_witness_vote_authorities )
    {
        try
        {
@@ -1796,7 +1795,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( account_witness_vote_apply )
+BOOST_AUTO_TEST_CASE( account_witness_vote_apply )
    {
        try
        {
@@ -1912,7 +1911,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( account_witness_proxy_validate )
+BOOST_AUTO_TEST_CASE( account_witness_proxy_validate )
    {
        try
        {
@@ -1923,7 +1922,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( account_witness_proxy_authorities )
+BOOST_AUTO_TEST_CASE( account_witness_proxy_authorities )
    {
        try
        {
@@ -1973,7 +1972,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( account_witness_proxy_apply )
+BOOST_AUTO_TEST_CASE( account_witness_proxy_apply )
    {
        try
        {
@@ -2140,7 +2139,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( custom_authorities )
+BOOST_AUTO_TEST_CASE( custom_authorities )
    {
        custom_operation op;
        op.required_auths.insert( "alice" );
@@ -2161,7 +2160,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        BOOST_REQUIRE( auths == expected );
    }
 
-   BOOST_AUTO_TEST_CASE( custom_json_authorities )
+BOOST_AUTO_TEST_CASE( custom_json_authorities )
    {
        custom_json_operation op;
        op.required_auths.insert( "alice" );
@@ -2184,7 +2183,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        BOOST_REQUIRE( auths == expected );
    }
 
-   BOOST_AUTO_TEST_CASE( custom_binary_authorities )
+BOOST_AUTO_TEST_CASE( custom_binary_authorities )
    {
        ACTORS( (alice) )
 
@@ -2220,7 +2219,8 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        BOOST_REQUIRE( auths == expected );
    }
 
-   BOOST_AUTO_TEST_CASE( feed_publish_validate )
+
+BOOST_AUTO_TEST_CASE( feed_publish_validate )
    {
        try
        {
@@ -2229,7 +2229,7 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-   BOOST_AUTO_TEST_CASE( feed_publish_authorities )
+BOOST_AUTO_TEST_CASE( feed_publish_authorities )
    {
        try
        {
@@ -2276,10 +2276,10 @@ BOOST_AUTO_TEST_CASE( comment_apply )
        FC_LOG_AND_RETHROW()
    }
 
-//   BOOST_AUTO_TEST_CASE( feed_publish_apply )
-//   {
-//       try
-//       {
+BOOST_AUTO_TEST_CASE( feed_publish_apply )
+{
+   try
+   {
 //           BOOST_TEST_MESSAGE( "Testing: feed_publish_apply" );
 //
 //           ACTORS( (alice) )
@@ -2329,23 +2329,23 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BOOST_REQUIRE( std::abs( alice_witness.sbd_exchange_rate.to_real() - op.exchange_rate.to_real() ) < 0.0000005 );
 //           BOOST_REQUIRE( alice_witness.last_sbd_exchange_update == db.head_block_time() );
 //           validate_database();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
+   }
+   FC_LOG_AND_RETHROW()
+}
 
-//   BOOST_AUTO_TEST_CASE( convert_validate )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: convert_validate" );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( convert_authorities )
-//   {
-//       try
-//       {
+BOOST_AUTO_TEST_CASE( convert_validate )
+{
+   try
+   {
+       BOOST_TEST_MESSAGE( "Testing: convert_validate" );
+   }
+   FC_LOG_AND_RETHROW()
+}
+
+BOOST_AUTO_TEST_CASE( convert_authorities )
+{
+   try
+   {
 //           BOOST_TEST_MESSAGE( "Testing: convert_authorities" );
 //
 //           ACTORS( (alice)(bob) )
@@ -2390,14 +2390,14 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           db.push_transaction( tx, 0 );
 //
 //           validate_database();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( convert_apply )
-//   {
-//       try
-//       {
+   }
+   FC_LOG_AND_RETHROW()
+}
+
+BOOST_AUTO_TEST_CASE( convert_apply )
+{
+   try
+   {
 //           BOOST_TEST_MESSAGE( "Testing: convert_apply" );
 //           ACTORS( (alice)(bob) );
 //           fund( "alice", 10000 );
@@ -2489,23 +2489,23 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           //BOOST_REQUIRE( convert_request->premium == 100000 );
 //           BOOST_REQUIRE( convert_request->conversion_date == db.head_block_time() + BMCHAIN_CONVERSION_DELAY );
 //           validate_database();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( limit_order_create_validate )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: limit_order_create_validate" );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( limit_order_create_authorities )
-//   {
-//       try
-//       {
+   }
+   FC_LOG_AND_RETHROW()
+}
+
+BOOST_AUTO_TEST_CASE( limit_order_create_validate )
+{
+   try
+   {
+       BOOST_TEST_MESSAGE( "Testing: limit_order_create_validate" );
+   }
+   FC_LOG_AND_RETHROW()
+}
+
+BOOST_AUTO_TEST_CASE( limit_order_create_authorities )
+{
+   try
+   {
 //           BOOST_TEST_MESSAGE( "Testing: limit_order_create_authorities" );
 //
 //           ACTORS( (alice)(bob) )
@@ -2543,14 +2543,14 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BMCHAIN_REQUIRE_THROW( db.push_transaction( tx, database::skip_transaction_dupe_check ), tx_missing_active_auth );
 //
 //           validate_database();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( limit_order_create_apply )
-//   {
-//       try
-//       {
+   }
+   FC_LOG_AND_RETHROW()
+}
+
+   BOOST_AUTO_TEST_CASE( limit_order_create_apply )
+   {
+       try
+       {
 //           BOOST_TEST_MESSAGE( "Testing: limit_order_create_apply" );
 //
 //           set_price_feed( price( ASSET( "1.000 TESTS" ), ASSET( "1.000 TBD" ) ) );
@@ -2832,14 +2832,14 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BOOST_REQUIRE( bob.balance.amount.value == ASSET( "35.909 TESTS" ).amount.value );
 //           ////BOOST_REQUIRE( bob.sbd_balance.amount.value == ASSET( "954.500 TBD" ).amount.value );
 //           validate_database();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( limit_order_create2_authorities )
-//   {
-//       try
-//       {
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( limit_order_create2_authorities )
+   {
+       try
+       {
 //           BOOST_TEST_MESSAGE( "Testing: limit_order_create2_authorities" );
 //
 //           ACTORS( (alice)(bob) )
@@ -2877,14 +2877,14 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BMCHAIN_REQUIRE_THROW( db.push_transaction( tx, database::skip_transaction_dupe_check ), tx_missing_active_auth );
 //
 //           validate_database();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( limit_order_create2_apply )
-//   {
-//       try
-//       {
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( limit_order_create2_apply )
+   {
+       try
+       {
 //           BOOST_TEST_MESSAGE( "Testing: limit_order_create2_apply" );
 //
 //           set_price_feed( price( ASSET( "1.000 TESTS" ), ASSET( "1.000 TBD" ) ) );
@@ -3166,23 +3166,23 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BOOST_REQUIRE( bob.balance.amount.value == ASSET( "35.909 TESTS" ).amount.value );
 //           //BOOST_REQUIRE( bob.sbd_balance.amount.value == ASSET( "954.500 TBD" ).amount.value );
 //           validate_database();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( limit_order_cancel_validate )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: limit_order_cancel_validate" );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( limit_order_cancel_authorities )
-//   {
-//       try
-//       {
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( limit_order_cancel_validate )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: limit_order_cancel_validate" );
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( limit_order_cancel_authorities )
+   {
+       try
+       {
 //           BOOST_TEST_MESSAGE( "Testing: limit_order_cancel_authorities" );
 //
 //           ACTORS( (alice)(bob) )
@@ -3231,14 +3231,14 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BMCHAIN_REQUIRE_THROW( db.push_transaction( tx, database::skip_transaction_dupe_check ), tx_missing_active_auth );
 //
 //           validate_database();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( limit_order_cancel_apply )
-//   {
-//       try
-//       {
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( limit_order_cancel_apply )
+   {
+       try
+       {
 //           BOOST_TEST_MESSAGE( "Testing: limit_order_cancel_apply" );
 //
 //           ACTORS( (alice) )
@@ -3282,41 +3282,41 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BOOST_REQUIRE( limit_order_idx.find( std::make_tuple( "alice", 5 ) ) == limit_order_idx.end() );
 //           BOOST_REQUIRE( alice.balance.amount.value == ASSET( "10.000 TESTS" ).amount.value );
 //           //BOOST_REQUIRE( alice.sbd_balance.amount.value == ASSET( "0.000 TBD" ).amount.value );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( pow_validate )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: pow_validate" );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( pow_authorities )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: pow_authorities" );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( pow_apply )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: pow_apply" );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( account_recovery )
-//   {
-//       try
-//       {
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( pow_validate )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: pow_validate" );
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( pow_authorities )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: pow_authorities" );
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( pow_apply )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: pow_apply" );
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( account_recovery )
+   {
+       try
+       {
 //           BOOST_TEST_MESSAGE( "Testing: account recovery" );
 //
 //           ACTORS( (alice) );
@@ -3558,16 +3558,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           db.push_transaction( tx, 0 );
 //           const auto& owner7 = db.get< account_authority_object, by_account >("bob").owner;
 //           BOOST_REQUIRE( owner7 == authority( 1, generate_private_key( "last key" ).get_public_key(), 1 ) );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( change_recovery_account )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing change_recovery_account_operation" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( change_recovery_account )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing change_recovery_account_operation" );
+
 //           ACTORS( (alice)(bob)(sam)(tyler) )
 //
 //           auto change_recovery_account = [&]( const std::string& account_to_recover, const std::string& new_recovery_account )
@@ -3655,16 +3655,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           // unless we change it!
 //           change_owner( "alice", alice_private_key, public_key_type( alice_priv2.get_public_key() ) );
 //           recover_account( "alice", alice_priv1, alice_private_key );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( escrow_transfer_validate )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: escrow_transfer_validate" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( escrow_transfer_validate )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: escrow_transfer_validate" );
+
 //           escrow_transfer_operation op;
 //           op.from = "alice";
 //           op.to = "bob";
@@ -3724,16 +3724,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BOOST_TEST_MESSAGE( "--- success" );
 //           op.ratification_deadline = op.escrow_expiration - 100;
 //           op.validate();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( escrow_transfer_authorities )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: escrow_transfer_authorities" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( escrow_transfer_authorities )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: escrow_transfer_authorities" );
+
 //           escrow_transfer_operation op;
 //           op.from = "alice";
 //           op.to = "bob";
@@ -3758,16 +3758,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           op.get_required_active_authorities( auths );
 //           expected.insert( "alice" );
 //           BOOST_REQUIRE( auths == expected );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( escrow_transfer_apply )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: escrow_transfer_apply" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( escrow_transfer_apply )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: escrow_transfer_apply" );
+
 //           ACTORS( (alice)(bob)(sam) )
 //
 //           fund( "alice", 10000 );
@@ -3856,16 +3856,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           //BOOST_REQUIRE( sam.sbd_balance == sam_sbd_balance );
 //
 //           validate_database();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( escrow_approve_validate )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: escrow_approve_validate" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( escrow_approve_validate )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: escrow_approve_validate" );
+
 //           escrow_approve_operation op;
 //
 //           op.from = "alice";
@@ -3886,16 +3886,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BOOST_TEST_MESSAGE( "--- success when who is agent" );
 //           op.who = op.agent;
 //           op.validate();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( escrow_approve_authorities )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: escrow_approve_authorities" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( escrow_approve_authorities )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: escrow_approve_authorities" );
+
 //           escrow_approve_operation op;
 //
 //           op.from = "alice";
@@ -3925,15 +3925,15 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           op.get_required_active_authorities( auths );
 //           expected.insert( "sam" );
 //           BOOST_REQUIRE( auths == expected );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( escrow_approve_apply )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: escrow_approve_apply" );
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( escrow_approve_apply )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: escrow_approve_apply" );
 //           ACTORS( (alice)(bob)(sam)(dave) )
 //           fund( "alice", 10000 );
 //
@@ -4185,15 +4185,15 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //
 //           BOOST_REQUIRE( db.get_account( "sam" ).balance == et_op.fee );
 //           validate_database();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( escrow_dispute_validate )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: escrow_dispute_validate" );
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( escrow_dispute_validate )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: escrow_dispute_validate" );
 //           escrow_dispute_operation op;
 //           op.from = "alice";
 //           op.to = "bob";
@@ -4210,15 +4210,15 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //
 //           op.who = "bob";
 //           op.validate();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( escrow_dispute_authorities )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: escrow_dispute_authorities" );
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( escrow_dispute_authorities )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: escrow_dispute_authorities" );
 //           escrow_dispute_operation op;
 //           op.from = "alice";
 //           op.to = "bob";
@@ -4243,16 +4243,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           op.get_required_active_authorities( auths );
 //           expected.insert( "bob" );
 //           BOOST_REQUIRE( auths == expected );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( escrow_dispute_apply )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: escrow_dispute_apply" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( escrow_dispute_apply )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: escrow_dispute_apply" );
+
 //           ACTORS( (alice)(bob)(sam)(dave) )
 //           fund( "alice", 10000 );
 //
@@ -4449,15 +4449,15 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //               BOOST_REQUIRE( escrow.agent_approved );
 //               BOOST_REQUIRE( escrow.disputed );
 //           }
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( escrow_release_validate )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: escrow release validate" );
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( escrow_release_validate )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: escrow release validate" );
 //           escrow_release_operation op;
 //           op.from = "alice";
 //           op.to = "bob";
@@ -4496,15 +4496,15 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BOOST_TEST_MESSAGE( "--- success" );
 //           op.steem_amount.symbol = BWC_SYMBOL;
 //           op.validate();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( escrow_release_authorities )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: escrow_release_authorities" );
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( escrow_release_authorities )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: escrow_release_authorities" );
 //           escrow_release_operation op;
 //           op.from = "alice";
 //           op.to = "bob";
@@ -4536,16 +4536,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           expected.insert( "sam" );
 //           op.get_required_active_authorities( auths );
 //           BOOST_REQUIRE( auths == expected );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( escrow_release_apply )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: escrow_release_apply" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( escrow_release_apply )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: escrow_release_apply" );
+
 //           ACTORS( (alice)(bob)(sam)(dave) )
 //           fund( "alice", 10000 );
 //
@@ -4997,16 +4997,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //
 //           BOOST_REQUIRE( db.get_account( "alice" ).balance == ASSET( "9.400 TESTS" ) );
 //           BMCHAIN_REQUIRE_THROW( db.get_escrow( et_op.from, et_op.escrow_id ), fc::exception );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( transfer_to_savings_validate )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: transfer_to_savings_validate" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( transfer_to_savings_validate )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: transfer_to_savings_validate" );
+
 //           transfer_to_savings_operation op;
 //           op.from = "alice";
 //           op.to = "alice";
@@ -5043,16 +5043,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BOOST_TEST_MESSAGE( "success when amount is STEEM" );
 //           op.amount = ASSET( "1.000 TESTS" );
 //           op.validate();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( transfer_to_savings_authorities )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: transfer_to_savings_authorities" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( transfer_to_savings_authorities )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: transfer_to_savings_authorities" );
+
 //           transfer_to_savings_operation op;
 //           op.from = "alice";
 //           op.to = "alice";
@@ -5077,16 +5077,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           op.get_required_active_authorities( auths );
 //           expected.insert( "bob" );
 //           BOOST_REQUIRE( auths == expected );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( transfer_to_savings_apply )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: transfer_to_savings_apply" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( transfer_to_savings_apply )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: transfer_to_savings_apply" );
+
 //           ACTORS( (alice)(bob) );
 //           generate_block();
 //
@@ -5173,16 +5173,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BOOST_REQUIRE( db.get_account( "alice" ).sbd_balance == ASSET( "8.000 TBD" ) );
 //           BOOST_REQUIRE( db.get_account( "bob" ).savings_sbd_balance == ASSET( "1.000 TBD" ) );
 //           validate_database();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( transfer_from_savings_validate )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: transfer_from_savings_validate" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( transfer_from_savings_validate )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: transfer_from_savings_validate" );
+
 //           transfer_from_savings_operation op;
 //           op.from = "alice";
 //           op.request_id = 0;
@@ -5220,21 +5220,21 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BOOST_TEST_MESSAGE( "success when amount is STEEM" );
 //           op.amount = ASSET( "1.000 TESTS" );
 //           op.validate();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( transfer_from_savings_authorities )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: transfer_from_savings_authorities" );
-//
-//           transfer_from_savings_operation op;
-//           op.from = "alice";
-//           op.to = "alice";
-//           op.amount = ASSET( "1.000 TESTS" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( transfer_from_savings_authorities )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: transfer_from_savings_authorities" );
+
+           transfer_from_savings_operation op;
+           op.from = "alice";
+           op.to = "alice";
+           op.amount = ASSET( "1.000 TESTS" );
+
 //           flat_set< account_name_type > auths;
 //           flat_set< account_name_type > expected;
 //
@@ -5254,16 +5254,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           op.get_required_active_authorities( auths );
 //           expected.insert( "bob" );
 //           BOOST_REQUIRE( auths == expected );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( transfer_from_savings_apply )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: transfer_from_savings_apply" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( transfer_from_savings_apply )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: transfer_from_savings_apply" );
+
 //           ACTORS( (alice)(bob) );
 //           generate_block();
 //
@@ -5446,16 +5446,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BMCHAIN_REQUIRE_THROW( db.push_transaction( tx, 0 ), fc::exception );
 //           BOOST_REQUIRE( db.get_account( "alice" ).savings_withdraw_requests == BMCHAIN_SAVINGS_WITHDRAW_REQUEST_LIMIT );
 //           validate_database();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( cancel_transfer_from_savings_validate )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: cancel_transfer_from_savings_validate" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( cancel_transfer_from_savings_validate )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: cancel_transfer_from_savings_validate" );
+
 //           cancel_transfer_from_savings_operation op;
 //           op.from = "alice";
 //           op.request_id = 0;
@@ -5469,16 +5469,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BOOST_TEST_MESSAGE( "--- sucess when 'from' is not empty" );
 //           op.from = "alice";
 //           op.validate();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( cancel_transfer_from_savings_authorities )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: cancel_transfer_from_savings_authorities" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( cancel_transfer_from_savings_authorities )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: cancel_transfer_from_savings_authorities" );
+
 //           cancel_transfer_from_savings_operation op;
 //           op.from = "alice";
 //
@@ -5501,16 +5501,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           op.get_required_active_authorities( auths );
 //           expected.insert( "bob" );
 //           BOOST_REQUIRE( auths == expected );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( cancel_transfer_from_savings_apply )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: cancel_transfer_from_savings_apply" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( cancel_transfer_from_savings_apply )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: cancel_transfer_from_savings_apply" );
+
 //           ACTORS( (alice)(bob) )
 //           generate_block();
 //
@@ -5569,16 +5569,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BOOST_REQUIRE( db.get_account( "bob" ).savings_balance == ASSET( "0.000 TESTS" ) );
 //           BOOST_REQUIRE( db.get_account( "bob" ).savings_withdraw_requests == 0 );
 //           validate_database();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( decline_voting_rights_authorities )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: decline_voting_rights_authorities" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( decline_voting_rights_authorities )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: decline_voting_rights_authorities" );
+
 //           decline_voting_rights_operation op;
 //           op.account = "alice";
 //
@@ -5594,16 +5594,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           expected.insert( "alice" );
 //           op.get_required_owner_authorities( auths );
 //           BOOST_REQUIRE( auths == expected );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( decline_voting_rights_apply )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: decline_voting_rights_apply" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( decline_voting_rights_apply )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: decline_voting_rights_apply" );
+
 //           ACTORS( (alice)(bob) );
 //           generate_block();
 //           vest( "alice", ASSET( "10.000 TESTS" ) );
@@ -5743,15 +5743,15 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           tx.operations.push_back( proxy );
 //           tx.sign( alice_private_key, db.get_chain_id() );
 //           BMCHAIN_REQUIRE_THROW( db.push_transaction( tx, 0 ), fc::exception );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( account_bandwidth )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: account_bandwidth" );
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( account_bandwidth )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: account_bandwidth" );
 //           ACTORS( (alice)(bob) )
 //           generate_block();
 //           vest( "alice", ASSET( "10.000 TESTS" ) );
@@ -5796,14 +5796,14 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           average_bandwidth = db.get< witness::account_bandwidth_object, witness::by_account_bandwidth_type >( boost::make_tuple( "alice", witness::bandwidth_type::market ) ).average_bandwidth;
 //           BOOST_REQUIRE( last_bandwidth_update == db.head_block_time() );
 //           BOOST_REQUIRE( average_bandwidth == total_bandwidth + fc::raw::pack_size( tx ) * 10 * BMCHAIN_BANDWIDTH_PRECISION );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( claim_reward_balance_validate )
-//   {
-//       try
-//       {
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( claim_reward_balance_validate )
+   {
+       try
+       {
 //           claim_reward_balance_operation op;
 //           op.account = "alice";
 //           op.reward_steem = ASSET( "0.000 TESTS" );
@@ -5851,16 +5851,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           op.reward_steem.amount = 1000;
 //           op.reward_sbd.amount = -1000;
 //           BMCHAIN_REQUIRE_THROW( op.validate(), fc::assert_exception );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( claim_reward_balance_authorities )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: decline_voting_rights_authorities" );
-//
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( claim_reward_balance_authorities )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: decline_voting_rights_authorities" );
+
 //           claim_reward_balance_operation op;
 //           op.account = "alice";
 //
@@ -5876,15 +5876,15 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           expected.insert( "alice" );
 //           op.get_required_posting_authorities( auths );
 //           BOOST_REQUIRE( auths == expected );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( account_create_with_delegation_authorities )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: account_create_with_delegation_authorities" );
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( account_create_with_delegation_authorities )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: account_create_with_delegation_authorities" );
 //
 //           signed_transaction tx;
 //           ACTORS( (alice) );
@@ -5935,16 +5935,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BMCHAIN_REQUIRE_THROW( db.push_transaction( tx, 0 ), tx_missing_active_auth );
 //
 //           validate_database();
-//       }
-//       FC_LOG_AND_RETHROW()
-//
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( account_create_with_delegation_apply )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: account_create_with_delegation_apply" );
+       }
+       FC_LOG_AND_RETHROW()
+
+   }
+
+   BOOST_AUTO_TEST_CASE( account_create_with_delegation_apply )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: account_create_with_delegation_apply" );
 //           signed_transaction tx;
 //           ACTORS( (alice) );
 //           // 150 * fee = ( 5 * STEEM ) + SP
@@ -6059,15 +6059,15 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BOOST_REQUIRE( itr->vesting_shares == del_amt );
 //           BOOST_REQUIRE( itr->expiration == exp_time );
 //           validate_database();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( claim_reward_balance_apply )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: claim_reward_balance_apply" );
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( claim_reward_balance_apply )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: claim_reward_balance_apply" );
 //           BOOST_TEST_MESSAGE( "--- Setting up test state" );
 //
 //           ACTORS( (alice) )
@@ -6157,271 +6157,16 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BOOST_REQUIRE( db.get_account( "alice" ).reward_vesting_balance == ASSET( "0.000000 VESTS" ) );
 //           BOOST_REQUIRE( db.get_account( "alice" ).reward_vesting_steem == ASSET( "0.000 TESTS" ) );
 //           validate_database();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( delegate_vesting_shares_validate )
-//   {
-//       try
-//       {
-//           delegate_vesting_shares_operation op;
-//
-//           op.delegator = "alice";
-//           op.delegatee = "bob";
-//           op.vesting_shares = asset( -1, VESTS_SYMBOL );
-//           BMCHAIN_REQUIRE_THROW( op.validate(), fc::assert_exception );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( delegate_vesting_shares_authorities )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: delegate_vesting_shares_authorities" );
-//           signed_transaction tx;
-//           ACTORS( (alice)(bob) )
-//           vest( "alice", ASSET( "10000.000000 VESTS" ) );
-//
-//           delegate_vesting_shares_operation op;
-//           op.vesting_shares = ASSET( "300.000000 VESTS");
-//           op.delegator = "alice";
-//           op.delegatee = "bob";
-//
-//           tx.set_expiration( db.head_block_time() + BMCHAIN_MAX_TIME_UNTIL_EXPIRATION );
-//           tx.operations.push_back( op );
-//
-//           BOOST_TEST_MESSAGE( "--- Test failure when no signatures" );
-//           BMCHAIN_REQUIRE_THROW( db.push_transaction( tx, 0 ), tx_missing_active_auth );
-//
-//           BOOST_TEST_MESSAGE( "--- Test success with witness signature" );
-//           tx.sign( alice_private_key, db.get_chain_id() );
-//           db.push_transaction( tx, 0 );
-//
-//           BOOST_TEST_MESSAGE( "--- Test failure when duplicate signatures" );
-//           tx.operations.clear();
-//           tx.signatures.clear();
-//           op.delegatee = "sam";
-//           tx.operations.push_back( op );
-//           tx.sign( alice_private_key, db.get_chain_id() );
-//           tx.sign( alice_private_key, db.get_chain_id() );
-//           BMCHAIN_REQUIRE_THROW( db.push_transaction( tx, 0 ), tx_duplicate_sig );
-//
-//           BOOST_TEST_MESSAGE( "--- Test failure when signed by an additional signature not in the creator's authority" );
-//           tx.signatures.clear();
-//           tx.sign( init_account_priv_key, db.get_chain_id() );
-//           tx.sign( alice_private_key, db.get_chain_id() );
-//           BMCHAIN_REQUIRE_THROW( db.push_transaction( tx, 0 ), tx_irrelevant_sig );
-//
-//           BOOST_TEST_MESSAGE( "--- Test failure when signed by a signature not in the creator's authority" );
-//           tx.signatures.clear();
-//           tx.sign( init_account_priv_key, db.get_chain_id() );
-//           BMCHAIN_REQUIRE_THROW( db.push_transaction( tx, 0 ), tx_missing_active_auth );
-//           validate_database();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( delegate_vesting_shares_apply )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Testing: delegate_vesting_shares_apply" );
-//           signed_transaction tx;
-//           ACTORS( (alice)(bob) )
-//           generate_block();
-//
-//           vest( "alice", ASSET( "1000.000 TESTS" ) );
-//
-//           generate_block();
-//
-//           db_plugin->debug_update( [=]( database& db )
-//                                    {
-//                                       db.modify( db.get_witness_schedule_object(), [&]( witness_schedule_object& w )
-//                                       {
-//                                          w.median_props.account_creation_fee = ASSET( "1.000 TESTS" );
-//                                       });
-//                                    });
-//
-//           generate_block();
-//
-//           delegate_vesting_shares_operation op;
-//           op.vesting_shares = ASSET( "10000000.000000 VESTS");
-//           op.delegator = "alice";
-//           op.delegatee = "bob";
-//
-//           tx.set_expiration( db.head_block_time() + BMCHAIN_MAX_TIME_UNTIL_EXPIRATION );
-//           tx.operations.push_back( op );
-//           tx.sign( alice_private_key, db.get_chain_id() );
-//           db.push_transaction( tx, 0 );
-//           generate_blocks( 1 );
-//           const account_object& alice_acc = db.get_account( "alice" );
-//           const account_object& bob_acc = db.get_account( "bob" );
-//
-//           BOOST_REQUIRE( alice_acc.delegated_vesting_shares == ASSET( "10000000.000000 VESTS"));
-//           BOOST_REQUIRE( bob_acc.received_vesting_shares == ASSET( "10000000.000000 VESTS"));
-//
-//           BOOST_TEST_MESSAGE( "--- Test that the delegation object is correct. " );
-//           auto delegation = db.find< vesting_delegation_object, by_delegation >( boost::make_tuple( op.delegator, op.delegatee ) );
-//
-//           BOOST_REQUIRE( delegation != nullptr );
-//           BOOST_REQUIRE( delegation->delegator == op.delegator);
-//           BOOST_REQUIRE( delegation->vesting_shares  == ASSET( "10000000.000000 VESTS"));
-//
-//           validate_database();
-//           tx.clear();
-//           op.vesting_shares = ASSET( "20000000.000000 VESTS");
-//           tx.set_expiration( db.head_block_time() + BMCHAIN_MAX_TIME_UNTIL_EXPIRATION );
-//           tx.operations.push_back( op );
-//           tx.sign( alice_private_key, db.get_chain_id() );
-//           db.push_transaction( tx, 0 );
-//           generate_blocks(1);
-//
-//           BOOST_REQUIRE( delegation != nullptr );
-//           BOOST_REQUIRE( delegation->delegator == op.delegator);
-//           BOOST_REQUIRE( delegation->vesting_shares == ASSET( "20000000.000000 VESTS"));
-//           BOOST_REQUIRE( alice_acc.delegated_vesting_shares == ASSET( "20000000.000000 VESTS"));
-//           BOOST_REQUIRE( bob_acc.received_vesting_shares == ASSET( "20000000.000000 VESTS"));
-//
-//           BOOST_TEST_MESSAGE( "--- Test that effective vesting shares is accurate and being applied." );
-//           tx.operations.clear();
-//           tx.signatures.clear();
-//
-//           comment_operation comment_op;
-//           comment_op.author = "alice";
-//           comment_op.permlink = "foo";
-//           comment_op.parent_permlink = "test";
-//           comment_op.title = "bar";
-//           comment_op.body = "foo bar";
-//           tx.operations.push_back( comment_op );
-//           tx.set_expiration( db.head_block_time() + BMCHAIN_MAX_TIME_UNTIL_EXPIRATION );
-//           tx.sign( alice_private_key, db.get_chain_id() );
-//           db.push_transaction( tx, 0 );
-//           tx.signatures.clear();
-//           tx.operations.clear();
-//           vote_operation vote_op;
-//           vote_op.voter = "bob";
-//           vote_op.author = "alice";
-//           vote_op.permlink = "foo";
-//           vote_op.weight = BMCHAIN_100_PERCENT;
-//           tx.set_expiration( db.head_block_time() + BMCHAIN_MAX_TIME_UNTIL_EXPIRATION );
-//           tx.operations.push_back( vote_op );
-//           tx.sign( bob_private_key, db.get_chain_id() );
-//           auto old_voting_power = bob_acc.voting_power;
-//
-//           db.push_transaction( tx, 0 );
-//           generate_blocks(1);
-//
-//           const auto& vote_idx = db.get_index< comment_vote_index >().indices().get< by_comment_voter >();
-//
-//           auto& alice_comment = db.get_comment( "alice", string( "foo" ) );
-//           auto itr = vote_idx.find( std::make_tuple( alice_comment.id, bob_acc.id ) );
-//           BOOST_REQUIRE( alice_comment.net_rshares.value == bob_acc.effective_vesting_shares().amount.value * ( old_voting_power - bob_acc.voting_power ) / BMCHAIN_100_PERCENT );
-//           BOOST_REQUIRE( itr->rshares == bob_acc.effective_vesting_shares().amount.value * ( old_voting_power - bob_acc.voting_power ) / BMCHAIN_100_PERCENT );
-//
-//
-//           generate_block();
-//           ACTORS( (sam)(dave) )
-//           generate_block();
-//
-//           vest( "sam", ASSET( "1000.000 TESTS" ) );
-//
-//           generate_block();
-//
-//           auto sam_vest = db.get_account( "sam" ).vesting_shares;
-//
-//           BOOST_TEST_MESSAGE( "--- Test failure when delegating 0 VESTS" );
-//           tx.clear();
-//           op.delegator = "sam";
-//           op.delegatee = "dave";
-//           tx.set_expiration( db.head_block_time() + BMCHAIN_MAX_TIME_UNTIL_EXPIRATION );
-//           tx.sign( sam_private_key, db.get_chain_id() );
-//           BMCHAIN_REQUIRE_THROW( db.push_transaction( tx ), fc::assert_exception );
-//
-//
-//           BOOST_TEST_MESSAGE( "--- Testing failure delegating more vesting shares than account has." );
-//           tx.clear();
-//           op.vesting_shares = asset( sam_vest.amount + 1, VESTS_SYMBOL );
-//           tx.operations.push_back( op );
-//           tx.sign( sam_private_key, db.get_chain_id() );
-//           BMCHAIN_REQUIRE_THROW( db.push_transaction( tx ), fc::assert_exception );
-//
-//
-//           BOOST_TEST_MESSAGE( "--- Test failure delegating vesting shares that are part of a power down" );
-//           tx.clear();
-//           sam_vest = asset( sam_vest.amount / 2, VESTS_SYMBOL );
-//           withdraw_savings_operation withdraw;
-//           withdraw.account = "sam";
-//           withdraw.savings = sam_vest;
-//           tx.operations.push_back( withdraw );
-//           tx.sign( sam_private_key, db.get_chain_id() );
-//           db.push_transaction( tx, 0 );
-//
-//           tx.clear();
-//           op.vesting_shares = asset( sam_vest.amount + 2, VESTS_SYMBOL );
-//           tx.operations.push_back( op );
-//           tx.sign( sam_private_key, db.get_chain_id() );
-//           BMCHAIN_REQUIRE_THROW( db.push_transaction( tx ), fc::assert_exception );
-//
-//           tx.clear();
-//           withdraw.vesting_shares = ASSET( "0.000000 VESTS" );
-//           tx.operations.push_back( withdraw );
-//           tx.sign( sam_private_key, db.get_chain_id() );
-//           db.push_transaction( tx, 0 );
-//
-//
-//           BOOST_TEST_MESSAGE( "--- Test failure powering down vesting shares that are delegated" );
-//           sam_vest.amount += 1000;
-//           op.vesting_shares = sam_vest;
-//           tx.clear();
-//           tx.operations.push_back( op );
-//           tx.sign( sam_private_key, db.get_chain_id() );
-//           db.push_transaction( tx, 0 );
-//
-//           tx.clear();
-//           withdraw.vesting_shares = asset( sam_vest.amount, VESTS_SYMBOL );
-//           tx.operations.push_back( withdraw );
-//           tx.sign( sam_private_key, db.get_chain_id() );
-//           BMCHAIN_REQUIRE_THROW( db.push_transaction( tx ), fc::assert_exception );
-//
-//
-//           BOOST_TEST_MESSAGE( "--- Remove a delegation and ensure it is returned after 1 week" );
-//           tx.clear();
-//           op.vesting_shares = ASSET( "0.000000 VESTS" );
-//           tx.operations.push_back( op );
-//           tx.sign( sam_private_key, db.get_chain_id() );
-//           db.push_transaction( tx, 0 );
-//
-//           auto exp_obj = db.get_index< vesting_delegation_expiration_index, by_id >().begin();
-//           auto end = db.get_index< vesting_delegation_expiration_index, by_id >().end();
-//
-//           BOOST_REQUIRE( exp_obj != end );
-//           BOOST_REQUIRE( exp_obj->delegator == "sam" );
-//           BOOST_REQUIRE( exp_obj->vesting_shares == sam_vest );
-//           BOOST_REQUIRE( exp_obj->expiration == db.head_block_time() + BMCHAIN_CASHOUT_WINDOW_SECONDS );
-//           BOOST_REQUIRE( db.get_account( "sam" ).delegated_vesting_shares == sam_vest );
-//           BOOST_REQUIRE( db.get_account( "dave" ).received_vesting_shares == ASSET( "0.000000 VESTS" ) );
-//           delegation = db.find< vesting_delegation_object, by_delegation >( boost::make_tuple( op.delegator, op.delegatee ) );
-//           BOOST_REQUIRE( delegation == nullptr );
-//
-//           generate_blocks( exp_obj->expiration + BMCHAIN_BLOCK_INTERVAL );
-//
-//           exp_obj = db.get_index< vesting_delegation_expiration_index, by_id >().begin();
-//           end = db.get_index< vesting_delegation_expiration_index, by_id >().end();
-//
-//           BOOST_REQUIRE( exp_obj == end );
-//           BOOST_REQUIRE( db.get_account( "sam" ).delegated_vesting_shares == ASSET( "0.000000 VESTS" ) );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( issue_971_vesting_removal )
-//   {
-//       // This is a regression test specifically for issue #971
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Test Issue 971 Vesting Removal" );
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( issue_971_vesting_removal )
+   {
+       // This is a regression test specifically for issue #971
+       try
+       {
+           BOOST_TEST_MESSAGE( "Test Issue 971 Vesting Removal" );
 //           ACTORS( (alice)(bob) )
 //           generate_block();
 //
@@ -6478,15 +6223,15 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //
 //           BOOST_REQUIRE( alice_acc.delegated_vesting_shares == ASSET( "10000000.000000 VESTS"));
 //           BOOST_REQUIRE( bob_acc.received_vesting_shares == ASSET( "0.000000 VESTS"));
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( comment_beneficiaries_validate )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Test Comment Beneficiaries Validate" );
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( comment_beneficiaries_validate )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Test Comment Beneficiaries Validate" );
 //           comment_options_operation op;
 //
 //           op.author = "alice";
@@ -6549,15 +6294,15 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           op.extensions.clear();
 //           op.extensions.insert( b );
 //           op.validate();
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
-//
-//   BOOST_AUTO_TEST_CASE( comment_beneficiaries_apply )
-//   {
-//       try
-//       {
-//           BOOST_TEST_MESSAGE( "Test Comment Beneficiaries" );
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
+   BOOST_AUTO_TEST_CASE( comment_beneficiaries_apply )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Test Comment Beneficiaries" );
 //           ACTORS( (alice)(bob)(sam)(dave) )
 //           generate_block();
 //
@@ -6670,9 +6415,9 @@ BOOST_AUTO_TEST_CASE( comment_apply )
 //           BOOST_REQUIRE( db.get_account( "bob" ).reward_vesting_steem.amount + db.get_account( "sam" ).reward_vesting_steem.amount == db.get_comment( "alice", string( "test" ) ).beneficiary_payout_value.amount );
 //           BOOST_REQUIRE( ( db.get_account( "alice" ).reward_sbd_balance.amount + db.get_account( "alice" ).reward_vesting_steem.amount ) == db.get_account( "bob" ).reward_vesting_steem.amount + 2 );
 //           BOOST_REQUIRE( ( db.get_account( "alice" ).reward_sbd_balance.amount + db.get_account( "alice" ).reward_vesting_steem.amount ) * 2 == db.get_account( "sam" ).reward_vesting_steem.amount + 3 );
-//       }
-//       FC_LOG_AND_RETHROW()
-//   }
+       }
+       FC_LOG_AND_RETHROW()
+   }
 
 BOOST_AUTO_TEST_SUITE_END()
 #endif
