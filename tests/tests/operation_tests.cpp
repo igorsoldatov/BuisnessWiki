@@ -6225,6 +6225,199 @@ BOOST_AUTO_TEST_CASE( limit_order_create_authorities )
        FC_LOG_AND_RETHROW()
    }
 
+   BOOST_AUTO_TEST_CASE( delegate_vesting_shares_apply )
+   {
+       try
+       {
+           BOOST_TEST_MESSAGE( "Testing: delegate_vesting_shares_apply" );
+           signed_transaction tx;
+           ACTORS( (alice)(bob) )
+           generate_block();
+
+           vest( "alice", ASSET( "20000000.000 TESTS" ) );
+
+           generate_block();
+
+           db_plugin->debug_update( [=]( database& db )
+                                    {
+                                       db.modify( db.get_witness_schedule_object(), [&]( witness_schedule_object& w )
+                                       {
+                                          w.median_props.account_creation_fee = ASSET( "1.000 TESTS" );
+                                       });
+                                    });
+
+           generate_block();
+
+           delegate_vesting_shares_operation op;
+           op.vesting_shares = ASSET( "10000000.000000 VESTS");
+           op.delegator = "alice";
+           op.delegatee = "bob";
+
+           tx.set_expiration( db.head_block_time() + BMCHAIN_MAX_TIME_UNTIL_EXPIRATION );
+           tx.operations.push_back( op );
+           tx.sign( alice_private_key, db.get_chain_id() );
+           db.push_transaction( tx, 0 );
+           generate_blocks( 1 );
+           const account_object& alice_acc = db.get_account( "alice" );
+           const account_object& bob_acc = db.get_account( "bob" );
+
+           BOOST_REQUIRE( alice_acc.delegated_vesting_shares == ASSET( "10000000.000000 VESTS"));
+           BOOST_REQUIRE( bob_acc.received_vesting_shares == ASSET( "10000000.000000 VESTS"));
+
+           BOOST_TEST_MESSAGE( "--- Test that the delegation object is correct. " );
+           auto delegation = db.find< vesting_delegation_object, by_delegation >( boost::make_tuple( op.delegator, op.delegatee ) );
+
+           BOOST_REQUIRE( delegation != nullptr );
+           BOOST_REQUIRE( delegation->delegator == op.delegator);
+           BOOST_REQUIRE( delegation->vesting_shares  == ASSET( "10000000.000000 VESTS"));
+
+           validate_database();
+           tx.clear();
+           op.vesting_shares = ASSET( "20000000.000000 VESTS");
+           tx.set_expiration( db.head_block_time() + BMCHAIN_MAX_TIME_UNTIL_EXPIRATION );
+           tx.operations.push_back( op );
+           tx.sign( alice_private_key, db.get_chain_id() );
+           db.push_transaction( tx, 0 );
+           generate_blocks(1);
+
+           BOOST_REQUIRE( delegation != nullptr );
+           BOOST_REQUIRE( delegation->delegator == op.delegator);
+           BOOST_REQUIRE( delegation->vesting_shares == ASSET( "20000000.000000 VESTS"));
+           BOOST_REQUIRE( alice_acc.delegated_vesting_shares == ASSET( "20000000.000000 VESTS"));
+           BOOST_REQUIRE( bob_acc.received_vesting_shares == ASSET( "20000000.000000 VESTS"));
+
+           BOOST_TEST_MESSAGE( "--- Test that effective vesting shares is accurate and being applied." );
+           tx.operations.clear();
+           tx.signatures.clear();
+
+           comment_operation comment_op;
+           comment_op.author = "alice";
+           comment_op.permlink = "foo";
+           comment_op.parent_permlink = "test";
+           comment_op.title = "bar";
+           comment_op.body = "foo bar";
+           tx.operations.push_back( comment_op );
+           tx.set_expiration( db.head_block_time() + BMCHAIN_MAX_TIME_UNTIL_EXPIRATION );
+           tx.sign( alice_private_key, db.get_chain_id() );
+           db.push_transaction( tx, 0 );
+           tx.signatures.clear();
+           tx.operations.clear();
+           vote_operation vote_op;
+           vote_op.voter = "bob";
+           vote_op.author = "alice";
+           vote_op.permlink = "foo";
+           vote_op.weight = BMCHAIN_100_PERCENT;
+           tx.set_expiration( db.head_block_time() + BMCHAIN_MAX_TIME_UNTIL_EXPIRATION );
+           tx.operations.push_back( vote_op );
+           tx.sign( bob_private_key, db.get_chain_id() );
+           auto old_voting_power = bob_acc.voting_power;
+
+           db.push_transaction( tx, 0 );
+           generate_blocks(1);
+
+           const auto& vote_idx = db.get_index< comment_vote_index >().indices().get< by_comment_voter >();
+
+           auto& alice_comment = db.get_comment( "alice", string( "foo" ) );
+           auto itr = vote_idx.find( std::make_tuple( alice_comment.id, bob_acc.id ) );
+           BOOST_REQUIRE( alice_comment.net_rshares.value == bob_acc.effective_vesting_shares().amount.value * ( old_voting_power - bob_acc.voting_power ) / BMCHAIN_100_PERCENT );
+           BOOST_REQUIRE( itr->rshares == bob_acc.effective_vesting_shares().amount.value * ( old_voting_power - bob_acc.voting_power ) / BMCHAIN_100_PERCENT );
+
+
+           generate_block();
+           ACTORS( (sam)(dave) )
+           generate_block();
+
+           vest( "sam", ASSET( "1000.000 TESTS" ) );
+
+           generate_block();
+
+           auto sam_vest = db.get_account( "sam" ).vesting_shares;
+
+           BOOST_TEST_MESSAGE( "--- Test failure when delegating 0 VESTS" );
+           tx.clear();
+           op.delegator = "sam";
+           op.delegatee = "dave";
+           tx.set_expiration( db.head_block_time() + BMCHAIN_MAX_TIME_UNTIL_EXPIRATION );
+           tx.sign( sam_private_key, db.get_chain_id() );
+           BMCHAIN_REQUIRE_THROW( db.push_transaction( tx ), fc::assert_exception );
+
+
+           BOOST_TEST_MESSAGE( "--- Testing failure delegating more vesting shares than account has." );
+           tx.clear();
+           op.vesting_shares = asset( sam_vest.amount + 1, VESTS_SYMBOL );
+           tx.operations.push_back( op );
+           tx.sign( sam_private_key, db.get_chain_id() );
+           BMCHAIN_REQUIRE_THROW( db.push_transaction( tx ), fc::assert_exception );
+
+
+//           BOOST_TEST_MESSAGE( "--- Test failure delegating vesting shares that are part of a power down" );
+//           tx.clear();
+//           sam_vest = asset( sam_vest.amount / 2, VESTS_SYMBOL );
+//           withdraw_savings_operation withdraw;
+//           withdraw.account = "sam";
+//           withdraw.savings = sam_vest;
+//           tx.operations.push_back( withdraw );
+//           tx.sign( sam_private_key, db.get_chain_id() );
+//           db.push_transaction( tx, 0 );
+//
+//           tx.clear();
+//           op.vesting_shares = asset( sam_vest.amount + 2, VESTS_SYMBOL );
+//           tx.operations.push_back( op );
+//           tx.sign( sam_private_key, db.get_chain_id() );
+//           BMCHAIN_REQUIRE_THROW( db.push_transaction( tx ), fc::assert_exception );
+
+//           tx.clear();
+//           withdraw.vesting_shares = ASSET( "0.000000 VESTS" );
+//           tx.operations.push_back( withdraw );
+//           tx.sign( sam_private_key, db.get_chain_id() );
+//           db.push_transaction( tx, 0 );
+
+
+//           BOOST_TEST_MESSAGE( "--- Test failure powering down vesting shares that are delegated" );
+//           sam_vest.amount += 1000;
+//           op.vesting_shares = sam_vest;
+//           tx.clear();
+//           tx.operations.push_back( op );
+//           tx.sign( sam_private_key, db.get_chain_id() );
+//           db.push_transaction( tx, 0 );
+//
+//           tx.clear();
+//           withdraw.vesting_shares = asset( sam_vest.amount, VESTS_SYMBOL );
+//           tx.operations.push_back( withdraw );
+//           tx.sign( sam_private_key, db.get_chain_id() );
+//           BMCHAIN_REQUIRE_THROW( db.push_transaction( tx ), fc::assert_exception );
+
+
+//           BOOST_TEST_MESSAGE( "--- Remove a delegation and ensure it is returned after 1 week" );
+//           tx.clear();
+//           op.vesting_shares = ASSET( "0.000000 VESTS" );
+//           tx.operations.push_back( op );
+//           tx.sign( sam_private_key, db.get_chain_id() );
+//           db.push_transaction( tx, 0 );
+//
+//           auto exp_obj = db.get_index< vesting_delegation_expiration_index, by_id >().begin();
+//           auto end = db.get_index< vesting_delegation_expiration_index, by_id >().end();
+
+//           BOOST_REQUIRE( exp_obj != end );
+//           BOOST_REQUIRE( exp_obj->delegator == "sam" );
+//           BOOST_REQUIRE( exp_obj->vesting_shares == sam_vest );
+//           BOOST_REQUIRE( exp_obj->expiration == db.head_block_time() + BMCHAIN_CASHOUT_WINDOW_SECONDS );
+//           BOOST_REQUIRE( db.get_account( "sam" ).delegated_vesting_shares == sam_vest );
+//           BOOST_REQUIRE( db.get_account( "dave" ).received_vesting_shares == ASSET( "0.000000 VESTS" ) );
+//           delegation = db.find< vesting_delegation_object, by_delegation >( boost::make_tuple( op.delegator, op.delegatee ) );
+//           BOOST_REQUIRE( delegation == nullptr );
+//
+//           generate_blocks( exp_obj->expiration + BMCHAIN_BLOCK_INTERVAL );
+//
+//           exp_obj = db.get_index< vesting_delegation_expiration_index, by_id >().begin();
+//           end = db.get_index< vesting_delegation_expiration_index, by_id >().end();
+//
+//           BOOST_REQUIRE( exp_obj == end );
+//           BOOST_REQUIRE( db.get_account( "sam" ).delegated_vesting_shares == ASSET( "0.000000 VESTS" ) );
+       }
+       FC_LOG_AND_RETHROW()
+   }
+
    BOOST_AUTO_TEST_CASE( issue_971_vesting_removal )
    {
        // This is a regression test specifically for issue #971
