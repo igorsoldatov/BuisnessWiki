@@ -58,6 +58,9 @@
 # include <sys/stat.h>
 #endif
 
+#define WALLET_CHECK_UNLOCKED() \
+    FC_ASSERT(!is_locked(), "The wallet must be unlocked before operation")
+
 #define BRAIN_KEY_WORD_COUNT 16
 
 namespace bmchain { namespace wallet {
@@ -2039,7 +2042,7 @@ string wallet_api::decrypt_memo( string encrypted_memo ) {
 
 annotated_signed_transaction wallet_api::decline_voting_rights( string account, bool decline, bool broadcast )
 {
-   FC_ASSERT( !is_locked() );
+   WALLET_CHECK_UNLOCKED();
    decline_voting_rights_operation op;
    op.account = account;
    op.decline = decline;
@@ -2054,7 +2057,7 @@ annotated_signed_transaction wallet_api::decline_voting_rights( string account, 
 annotated_signed_transaction
 wallet_api::claim_reward_balance(string account, asset reward_bmt, asset reward_vests, bool broadcast)
 {
-   FC_ASSERT( !is_locked() );
+   WALLET_CHECK_UNLOCKED();
    claim_reward_balance_operation op;
    op.account = account;
    op.reward_bmt = reward_bmt;
@@ -2069,20 +2072,17 @@ wallet_api::claim_reward_balance(string account, asset reward_bmt, asset reward_
 
 map<uint32_t,applied_operation> wallet_api::get_account_history( string account, uint32_t from, uint32_t limit ) {
    auto result = my->_remote_db->get_account_history(account,from,limit);
-   if( !is_locked() ) {
-      for( auto& item : result ) {
-         if( item.second.op.which() == operation::tag<transfer_operation>::value ) {
-            auto& top = item.second.op.get<transfer_operation>();
-            top.memo = decrypt_memo( top.memo );
-         }
-         else if( item.second.op.which() == operation::tag<transfer_from_savings_operation>::value ) {
-            auto& top = item.second.op.get<transfer_from_savings_operation>();
-            top.memo = decrypt_memo( top.memo );
-         }
-         else if( item.second.op.which() == operation::tag<transfer_to_savings_operation>::value ) {
-            auto& top = item.second.op.get<transfer_to_savings_operation>();
-            top.memo = decrypt_memo( top.memo );
-         }
+   WALLET_CHECK_UNLOCKED();
+   for (auto &item : result) {
+      if (item.second.op.which() == operation::tag<transfer_operation>::value) {
+         auto &top = item.second.op.get<transfer_operation>();
+         top.memo = decrypt_memo(top.memo);
+      } else if (item.second.op.which() == operation::tag<transfer_from_savings_operation>::value) {
+         auto &top = item.second.op.get<transfer_from_savings_operation>();
+         top.memo = decrypt_memo(top.memo);
+      } else if (item.second.op.which() == operation::tag<transfer_to_savings_operation>::value) {
+         auto &top = item.second.op.get<transfer_to_savings_operation>();
+         top.memo = decrypt_memo(top.memo);
       }
    }
    return result;
