@@ -1,11 +1,11 @@
 #pragma once
 
-#include <bmchain/protocol/new_asset.hpp>
+#include <bmchain/protocol/asset.hpp>
 
 namespace bmchain { namespace plugins { namespace condenser_api {
 
-    using bmchain::new_protocol::asset;
-    using bmchain::new_protocol::asset_symbol_type;
+    using bmchain::protocol::asset;
+    using bmchain::protocol::asset_smbl_type;
     using bmchain::protocol::share_type;
 
     struct legacy_asset {

@@ -9,8 +9,8 @@ namespace bmchain { namespace protocol {
       template< typename Storage = fc::uint128 >
       class fixed_string_impl;
 
-      class asset_symbol_type;
-      class legacy_steem_asset_symbol_type;
+      class asset_smbl_type;
+      class legacy_steem_asset_smbl_type;
       struct legacy_steem_asset;
    } } // steem::protocol
 
@@ -27,14 +27,14 @@ namespace fc { namespace raw {
       inline void unpack( Stream& s, bmchain::protocol::fixed_string_impl< Storage >& u );
 
       template< typename Stream >
-      inline void pack( Stream& s, const bmchain::protocol::asset_symbol_type& sym );
+      inline void pack( Stream& s, const bmchain::protocol::asset_smbl_type& sym );
       template< typename Stream >
-      inline void unpack( Stream& s, bmchain::protocol::asset_symbol_type& sym );
+      inline void unpack( Stream& s, bmchain::protocol::asset_smbl_type& sym );
 
       template< typename Stream >
-      inline void pack( Stream& s, const bmchain::protocol::legacy_steem_asset_symbol_type& sym );
+      inline void pack( Stream& s, const bmchain::protocol::legacy_steem_asset_smbl_type& sym );
       template< typename Stream >
-      inline void unpack( Stream& s, bmchain::protocol::legacy_steem_asset_symbol_type& sym );
+      inline void unpack( Stream& s, bmchain::protocol::legacy_steem_asset_smbl_type& sym );
 
    } // raw
 
@@ -43,7 +43,7 @@ namespace fc { namespace raw {
    template< typename Storage >
    inline void from_variant( const variant& v, bmchain::protocol::fixed_string_impl< Storage >& s );
 
-   inline void to_variant( const bmchain::protocol::asset_symbol_type& sym, fc::variant& v );
+   inline void to_variant( const bmchain::protocol::asset_smbl_type& sym, fc::variant& v );
 
    inline void from_variant( const fc::variant& v, bmchain::protocol::legacy_steem_asset& leg );
    inline void to_variant( const bmchain::protocol::legacy_steem_asset& leg, fc::variant& v );

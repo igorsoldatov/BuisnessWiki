@@ -15,9 +15,8 @@ add_library( steemit_protocol
              version.cpp
              get_config.cpp
              custom_token_operations.cpp
-             new_asset.cpp
 
-             ${HEADERS} )
+        ${HEADERS} )
 
 target_link_libraries( steemit_protocol fc graphene_utilities )
 target_include_directories( steemit_protocol

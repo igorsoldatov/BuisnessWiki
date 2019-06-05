@@ -57,7 +57,7 @@
 #define STEEM_SYMBOL_SER  (uint64_t(3) | (STEEM_SYMBOL_U64 << 8)) ///< STEEM|TESTS with 3 digits of precision
 #define SBD_SYMBOL_SER    (uint64_t(3) |   (SBD_SYMBOL_U64 << 8)) ///< SBD|TBD with 3 digits of precision
 #define BWC_SYMBOL_SER    (uint64_t(3) |   (BWC_SYMBOL_U64 << 8))
-#define VESTS_SYMBOL_SER    (uint64_t(6) |   (VESTS_SYMBOL_U64 << 8))
+#define REP_SYMBOL_SER    (uint64_t(6) |   (REP_SYMBOL_U64 << 8))
 
 #define STEEM_ASSET_MAX_DECIMALS 12
 
@@ -65,9 +65,9 @@
 #define SMT_ASSET_NUM_CONTROL_MASK     0x10
 #define SMT_ASSET_NUM_VESTING_MASK     0x20
 
-namespace bmchain { namespace new_protocol {
+namespace bmchain { namespace protocol {
 
-      class asset_symbol_type
+      class asset_smbl_type
       {
       public:
          enum asset_symbol_space
@@ -76,15 +76,15 @@ namespace bmchain { namespace new_protocol {
             smt_nai_space = 2
          };
 
-         asset_symbol_type() {}
+         asset_smbl_type() {}
 
          // buf must have space for STEEM_ASSET_SYMBOL_MAX_LENGTH+1
-         static asset_symbol_type from_string( const std::string& str );
-         static asset_symbol_type from_nai_string( const char* buf, uint8_t decimal_places );
-         static asset_symbol_type from_asset_num( uint32_t asset_num )
-         {   asset_symbol_type result;   result.asset_num = asset_num;   return result;   }
+         static asset_smbl_type from_string( const std::string& str );
+         static asset_smbl_type from_nai_string( const char* buf, uint8_t decimal_places );
+         static asset_smbl_type from_asset_num( uint32_t asset_num )
+         {   asset_smbl_type result;   result.asset_num = asset_num;   return result;   }
          static uint32_t asset_num_from_nai( uint32_t nai, uint8_t decimal_places );
-         static asset_symbol_type from_nai( uint32_t nai, uint8_t decimal_places )
+         static asset_smbl_type from_nai( uint32_t nai, uint8_t decimal_places )
          {   return from_asset_num( asset_num_from_nai( nai, decimal_places ) );          }
 
          std::string to_string()const;
@@ -107,7 +107,7 @@ namespace bmchain { namespace new_protocol {
           * and liquid symbol when called from vesting one.
           * Returns back the SBD symbol if represents SBD.
           */
-         asset_symbol_type get_paired_symbol() const;
+         asset_smbl_type get_paired_symbol() const;
          /**Returns asset_num stripped of precision holding bits.
           * \warning checking that it's SMT symbol is caller responsibility.
           */
@@ -121,17 +121,17 @@ namespace bmchain { namespace new_protocol {
          {  return uint8_t( asset_num & 0x0F );    }
          void validate()const;
 
-         friend bool operator == ( const asset_symbol_type& a, const asset_symbol_type& b )
+         friend bool operator == ( const asset_smbl_type& a, const asset_smbl_type& b )
          {  return (a.asset_num == b.asset_num);   }
-         friend bool operator != ( const asset_symbol_type& a, const asset_symbol_type& b )
+         friend bool operator != ( const asset_smbl_type& a, const asset_smbl_type& b )
          {  return (a.asset_num != b.asset_num);   }
-         friend bool operator <  ( const asset_symbol_type& a, const asset_symbol_type& b )
+         friend bool operator <  ( const asset_smbl_type& a, const asset_smbl_type& b )
          {  return (a.asset_num <  b.asset_num);   }
-         friend bool operator >  ( const asset_symbol_type& a, const asset_symbol_type& b )
+         friend bool operator >  ( const asset_smbl_type& a, const asset_smbl_type& b )
          {  return (a.asset_num >  b.asset_num);   }
-         friend bool operator <= ( const asset_symbol_type& a, const asset_symbol_type& b )
+         friend bool operator <= ( const asset_smbl_type& a, const asset_smbl_type& b )
          {  return (a.asset_num <= b.asset_num);   }
-         friend bool operator >= ( const asset_symbol_type& a, const asset_symbol_type& b )
+         friend bool operator >= ( const asset_smbl_type& a, const asset_smbl_type& b )
          {  return (a.asset_num >= b.asset_num);   }
 
          uint32_t asset_num = 0;
@@ -139,7 +139,7 @@ namespace bmchain { namespace new_protocol {
 
    } } // bmchain::protocol
 
-FC_REFLECT(bmchain::new_protocol::asset_symbol_type, (asset_num))
+FC_REFLECT(bmchain::protocol::asset_smbl_type, (asset_num))
 
 namespace fc { namespace raw {
 
@@ -154,11 +154,11 @@ namespace fc { namespace raw {
 // NAI internal storage of legacy assets
 
       template< typename Stream >
-      inline void pack( Stream& s, const bmchain::new_protocol::asset_symbol_type& sym )
+      inline void pack( Stream& s, const bmchain::protocol::asset_smbl_type& sym )
       {
           switch( sym.space() )
           {
-              case bmchain::new_protocol::asset_symbol_type::legacy_space:
+              case bmchain::protocol::asset_smbl_type::legacy_space:
               {
                   uint64_t ser = 0;
                   switch( sym.asset_num )
@@ -184,7 +184,7 @@ namespace fc { namespace raw {
                   pack( s, ser );
                   break;
               }
-              case bmchain::new_protocol::asset_symbol_type::smt_nai_space:
+              case bmchain::protocol::asset_smbl_type::smt_nai_space:
                   pack( s, sym.asset_num );
                 break;
               default:
@@ -193,7 +193,7 @@ namespace fc { namespace raw {
       }
 
       template< typename Stream >
-      inline void unpack( Stream& s, bmchain::new_protocol::asset_symbol_type& sym )
+      inline void unpack( Stream& s, bmchain::protocol::asset_smbl_type& sym )
       {
           uint64_t ser = 0;
           s.read( (char*) &ser, 4 );
@@ -220,9 +220,9 @@ namespace fc { namespace raw {
                 FC_ASSERT( ser == BWC_SYMBOL_SER, "invalid asset bits" );
                 sym.asset_num = STEEM_ASSET_NUM_BMT;
                 break;
-              case VESTS_SYMBOL_SER & 0xFFFFFFFF:
+              case REP_SYMBOL_SER & 0xFFFFFFFF:
                   s.read( ((char*) &ser)+4, 4 );
-                FC_ASSERT( ser == VESTS_SYMBOL_SER, "invalid asset bits" );
+                FC_ASSERT( ser == REP_SYMBOL_SER, "invalid asset bits" );
                 sym.asset_num = STEEM_ASSET_NUM_REP;
                 break;
               default:
@@ -233,7 +233,7 @@ namespace fc { namespace raw {
 
    } // fc::raw
 
-   inline void to_variant( const bmchain::new_protocol::asset_symbol_type& sym, fc::variant& var )
+   inline void to_variant( const bmchain::protocol::asset_smbl_type& sym, fc::variant& var )
    {
        try
        {
@@ -243,14 +243,14 @@ namespace fc { namespace raw {
        } FC_CAPTURE_AND_RETHROW()
    }
 
-   inline void from_variant( const fc::variant& var, bmchain::new_protocol::asset_symbol_type& sym )
+   inline void from_variant( const fc::variant& var, bmchain::protocol::asset_smbl_type& sym )
    {
        try
        {
            auto v = var.as< std::vector< variant > >();
            FC_ASSERT( v.size() == 2, "Expected tuple of length 2." );
 
-           sym = bmchain::new_protocol::asset_symbol_type::from_nai_string( v[1].as< std::string >().c_str(), v[0].as< uint8_t >() );
+           sym = bmchain::protocol::asset_smbl_type::from_nai_string( v[1].as< std::string >().c_str(), v[0].as< uint8_t >() );
        } FC_CAPTURE_AND_RETHROW()
    }
 

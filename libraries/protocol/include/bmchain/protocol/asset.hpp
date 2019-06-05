@@ -2,6 +2,7 @@
 
 #include <bmchain/protocol/types.hpp>
 #include <bmchain/protocol/config.hpp>
+#include <bmchain/protocol/asset_symbol.hpp>
 
 namespace bmchain { namespace protocol {
 
@@ -116,6 +117,7 @@ namespace bmchain { namespace protocol {
    asset operator *  ( const asset& a, const price& b );
 
 
+   
 } } // bmchain::protocol
 
 namespace fc {
