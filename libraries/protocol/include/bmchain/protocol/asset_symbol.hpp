@@ -13,12 +13,12 @@
 #define STEEM_PRECISION_SBD   (3)
 #define STEEM_PRECISION_STEEM (3)
 #define STEEM_PRECISION_VESTS (6)
-#define STEEM_PRECISION_BMT (3)
+#define STEEM_PRECISION_BWC (3)
 #define STEEM_PRECISION_REP (6)
 
 // One's place is used for check digit, which means NAI 0-9 all have NAI data of 0 which is invalid
 // This space is safe to use because it would alwasys result in failure to convert from NAI
-#define STEEM_NAI_BMT   (1)
+#define STEEM_NAI_BWC   (1)
 #define STEEM_NAI_REP   (2)
 #define STEEM_NAI_SBD   (3)
 #define STEEM_NAI_STEEM (4)
@@ -30,8 +30,8 @@
   (((SMT_MAX_NAI + STEEM_NAI_STEEM) << STEEM_ASSET_SYMBOL_PRECISION_BITS) | STEEM_PRECISION_STEEM)
 #define STEEM_ASSET_NUM_VESTS \
   (((SMT_MAX_NAI + STEEM_NAI_VESTS) << STEEM_ASSET_SYMBOL_PRECISION_BITS) | STEEM_PRECISION_VESTS)
-#define STEEM_ASSET_NUM_BMT \
-  (((SMT_MAX_NAI + STEEM_NAI_BMT) << STEEM_ASSET_SYMBOL_PRECISION_BITS) | STEEM_PRECISION_BMT)
+#define STEEM_ASSET_NUM_BWC \
+  (((SMT_MAX_NAI + STEEM_NAI_BWC) << STEEM_ASSET_SYMBOL_PRECISION_BITS) | STEEM_PRECISION_BWC)
 #define STEEM_ASSET_NUM_REP \
   (((SMT_MAX_NAI + STEEM_NAI_REP) << STEEM_ASSET_SYMBOL_PRECISION_BITS) | STEEM_PRECISION_REP)
 
@@ -172,7 +172,7 @@ namespace fc { namespace raw {
                       case STEEM_ASSET_NUM_VESTS:
                           ser = VESTS_SYMBOL_SER;
                         break;
-                      case STEEM_ASSET_NUM_BMT:
+                      case STEEM_ASSET_NUM_BWC:
                           ser = BWC_SYMBOL_SER;
                         break;
                       case STEEM_ASSET_NUM_REP:
@@ -218,7 +218,7 @@ namespace fc { namespace raw {
               case BWC_SYMBOL_SER & 0xFFFFFFFF:
                   s.read( ((char*) &ser)+4, 4 );
                 FC_ASSERT( ser == BWC_SYMBOL_SER, "invalid asset bits" );
-                sym.asset_num = STEEM_ASSET_NUM_BMT;
+                sym.asset_num = STEEM_ASSET_NUM_BWC;
                 break;
               case REP_SYMBOL_SER & 0xFFFFFFFF:
                   s.read( ((char*) &ser)+4, 4 );
